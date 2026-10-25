@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="web_standard" name="shell-type">
+  <title>La Taberna del Magallanes News | Periodismo &amp; Sabermetría LVBP</title>
+  
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-background": "#131c28",
+            "surface-container-highest": "#dae3f4",
+            "primary-fixed-dim": "#b3c7ee",
+            "on-primary-fixed-variant": "#334767",
+            "surface-dim": "#d1daeb",
+            "primary": "#000b1f",
+            "surface-container-low": "#eff4ff",
+            "surface-container-lowest": "#ffffff",
+            "on-error-container": "#93000a",
+            "primary-container": "#0b2240",
+            "inverse-on-surface": "#eaf1ff",
+            "on-primary-fixed": "#031b39",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#44474e",
+            "inverse-primary": "#b3c7ee",
+            "on-primary-container": "#768aad",
+            "background": "#f8f9ff",
+            "on-tertiary-container": "#fe403a",
+            "on-tertiary-fixed-variant": "#93000b",
+            "on-primary": "#ffffff",
+            "secondary": "#775a00",
+            "primary-fixed": "#d5e3ff",
+            "surface-container-high": "#e0e9f9",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#ffdad6",
+            "error": "#ba1a1a",
+            "surface": "#f8f9ff",
+            "tertiary-fixed-dim": "#ffb4ab",
+            "on-secondary-fixed-variant": "#5a4300",
+            "tertiary-container": "#4d0003",
+            "surface-container": "#e5eeff",
+            "surface-bright": "#f8f9ff",
+            "secondary-fixed-dim": "#eec14b",
+            "secondary-fixed": "#ffdf98",
+            "inverse-surface": "#28313d",
+            "outline": "#74777e",
+            "on-surface": "#131c28",
+            "outline-variant": "#c4c6ce",
+            "on-tertiary-fixed": "#410002",
+            "tertiary": "#220001",
+            "surface-variant": "#dae3f4",
+            "on-secondary-container": "#735700",
+            "surface-tint": "#4b5f80",
+            "secondary-container": "#fece57",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#251a00"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {
+            "margin-mobile": "1rem",
+            "gutter-mobile": "0.75rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "2.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem"
+          },
+          fontFamily: {
+            "headline-lg": ["EB Garamond"],
+            "stat-mono": ["JetBrains Mono"],
+            "body-lg": ["EB Garamond"],
+            "headline-xl": ["EB Garamond"],
+            "headline-xl-mobile": ["EB Garamond"],
+            "body-sm": ["Inter"],
+            "stat-display": ["JetBrains Mono"],
+            "label-sm": ["JetBrains Mono"],
+            "label-md": ["Inter"],
+            "headline-sm": ["EB Garamond"],
+            "headline-md": ["EB Garamond"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["EB Garamond"]
+          },
+          fontSize: {
+            "headline-lg": ["38px", { lineHeight: "44px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "stat-mono": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }],
+            "body-lg": ["19px", { lineHeight: "30px", fontWeight: "400" }],
+            "headline-xl": ["52px", { lineHeight: "58px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "headline-xl-mobile": ["34px", { lineHeight: "38px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }],
+            "stat-display": ["24px", { lineHeight: "28px", letterSpacing: "-0.03em", fontWeight: "700" }],
+            "label-sm": ["10px", { lineHeight: "12px", letterSpacing: "0.08em", fontWeight: "600" }],
+            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "headline-sm": ["22px", { lineHeight: "28px", fontWeight: "600" }],
+            "headline-md": ["28px", { lineHeight: "34px", fontWeight: "600" }],
+            "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }],
+            "headline-lg-mobile": ["26px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+  <header class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(11,34,64,0.06)] z-50">
+    <div class="w-full bg-primary text-on-primary border-b border-primary-container px-space-md py-space-xs">
+      <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-space-sm">
+        <div class="flex items-center gap-space-md overflow-x-auto w-full md:w-auto text-left">
+          <div class="flex items-center gap-space-xs shrink-0">
+            <span class="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-error-container font-bold">Statcast LVBP Live</span>
+          </div>
+          <div class="h-3 w-[1px] bg-outline-variant/30 hidden sm:block"></div>
+          <div class="flex items-center gap-space-lg text-stat-mono font-stat-mono whitespace-nowrap overflow-x-auto">
+            <span class="flex items-center gap-space-xs"><span class="text-primary-fixed font-bold">MAG</span><span class="text-secondary-fixed-dim">5</span><span class="text-outline-variant">-</span><span class="text-on-primary-container">3</span><span class="text-inverse-on-surface">CAR</span><span class="text-label-sm font-label-sm text-secondary-fixed ml-space-xs">BOT 8vo (2 Out)</span></span>
+            <span class="text-outline-variant/40">|</span>
+            <span class="flex items-center gap-space-xs"><span class="text-inverse-on-surface">TIG</span><span class="text-on-primary-container">2</span><span class="text-outline-variant">-</span><span class="text-secondary-fixed-dim">4</span><span class="text-inverse-on-surface">LAR</span><span class="text-label-sm font-label-sm text-outline-variant ml-space-xs">FINAL</span></span>
+            <span class="text-outline-variant/40">|</span>
+            <span class="flex items-center gap-space-xs"><span class="text-inverse-on-surface">TIB</span><span class="text-on-primary-container">1</span><span class="text-outline-variant">-</span><span class="text-secondary-fixed-dim">6</span><span class="text-inverse-on-surface">ZUL</span><span class="text-label-sm font-label-sm text-outline-variant ml-space-xs">TOP 6to</span></span>
+          </div>
+        </div>
+        <div class="hidden lg:flex items-center gap-space-md shrink-0 font-stat-mono text-stat-mono">
+          <span class="text-on-primary-container flex items-center gap-space-xs"><span class="material-symbols-outlined text-[14px] text-secondary-container">speed</span>Velo Prom: <strong class="text-on-primary">94.8 MPH</strong></span>
+          <span class="text-outline-variant/40">|</span>
+          <span class="text-on-primary-container flex items-center gap-space-xs"><span class="material-symbols-outlined text-[14px] text-secondary-container">radar</span>Spin: <strong class="text-on-primary">2,410 RPM</strong></span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="w-full border-b border-surface-container-high bg-surface-container-lowest">
+      <div class="max-w-[1320px] mx-auto px-space-md lg:px-space-xl py-space-md">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-space-md border-b border-surface-container-high pb-space-sm">
+          <div class="flex items-center gap-space-md font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+            <span class="font-stat-mono text-primary font-bold">Edición Nº 3.428</span><span>•</span><span>Valencia, Carabobo • Estadio José Bernardo Pérez</span>
+          </div>
+          <div class="italic font-headline-sm text-headline-sm text-secondary tracking-normal text-center hidden sm:block">«Navegar es vencer con temple, tinta y rigor analítico»</div>
+          <div class="flex items-center gap-space-md">
+            <a class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors flex items-center gap-space-xs" data-path="sala-de-redaccion-cms" href="#"><span class="material-symbols-outlined text-[16px]">edit_note</span>Sala de Redacción</a>
+            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+          </div>
+        </div>
+        <div class="pt-space-md pb-space-xs text-center">
+          <h1 class="font-headline-xl text-headline-xl lg:text-[58px] text-primary tracking-tight font-bold uppercase leading-none font-headline-lg">La Taberna del Magallanes News</h1>
+          <div class="mt-space-xs flex items-center justify-center gap-space-md">
+            <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
+            <p class="font-label-md text-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium">Tribuna de Sabermetría, Crónica Naval &amp; Archivo Histórico LVBP</p>
+            <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm">
+      <div class="max-w-[1320px] mx-auto px-space-md lg:px-space-xl">
+        <div class="flex items-center justify-between overflow-x-auto py-space-xs">
+          <div class="flex items-center gap-space-xs font-label-md text-label-md uppercase tracking-wider shrink-0">
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="portada" href="#">Portada</a>
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="cronicas" href="#">Crónicas</a>
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="cabina-vip-hub" href="#">Cabina VIP Hub</a>
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="scouting-roster" href="#">Scouting &amp; Roster</a>
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="infografias-memes" href="#">Infografías &amp; Memes</a>
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="transmision-playlist" href="#">Transmisión &amp; Playlist</a>
+            <a class="px-space-md py-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="circulo-vip" href="#">Círculo VIP</a>
+          </div>
+          <div class="hidden md:flex items-center gap-space-sm shrink-0 pl-space-md border-l border-surface-container-high">
+            <button aria-label="Buscar en archivo" class="p-space-xs text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></button>
+            <button aria-label="Alertas de juego" class="p-space-xs text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="w-full bg-background min-h-[614px]">
+    <div class="flex flex-col w-full">
+      <section class="w-full bg-surface-container-lowest shadow-sm">
+        <div class="max-w-[1320px] mx-auto px-space-md lg:px-space-xl py-space-sm">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-space-xs text-center sm:text-left">
+            <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-surface-variant font-bold flex items-center gap-space-xs">
+              <span class="material-symbols-outlined text-[15px] text-secondary">verified</span> Boletín de Emergencia y Respaldo Editorial
+            </span>
+            <div class="font-stat-mono text-stat-mono text-secondary font-bold tracking-wider uppercase">Incidencia Técnica • Regla 5.06 (Territorio de Foul)</div>
+          </div>
+        </div>
+      </section>
+
+      <main class="w-full max-w-[1320px] mx-auto px-space-md lg:px-space-xl py-space-lg">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+          <article class="lg:col-span-8 flex flex-col gap-space-md">
+            <div class="bg-surface-container-lowest p-space-lg lg:p-space-xl shadow-sm rounded-lg relative overflow-hidden">
+              <div class="absolute -right-12 -bottom-12 w-80 h-80 opacity-5 pointer-events-none select-none text-primary">
+                <svg class="w-full h-full fill-current" viewBox="0 0 100 100"><path d="M50 5 L95 50 L50 95 L5 50 Z"></path></svg>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-space-xs pb-space-xs">
+                <div class="font-label-md text-label-md uppercase tracking-[0.18em] text-secondary font-bold flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[16px]">sports_baseball</span> Veredicto de la Cuadrilla de Umpires
+                </div>
+                <div class="bg-surface-container px-space-sm py-space-xs rounded font-stat-mono text-stat-mono text-primary font-bold">ESTADO: ARCHIVO NO LOCALIZADO</div>
+              </div>
