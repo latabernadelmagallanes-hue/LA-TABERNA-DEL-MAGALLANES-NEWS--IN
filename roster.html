@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<title>Scouting & Roster Activo | La Taberna del Magallanes News</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main>:first-child { margin-top: 0 !important; }
+    main>:last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-background": "#131c28",
+          "surface-container-highest": "#dae3f4",
+          "primary-fixed-dim": "#b3c7ee",
+          "on-primary-fixed-variant": "#334767",
+          "surface-dim": "#d1daeb",
+          "primary": "#000b1f",
+          "surface-container-low": "#eff4ff",
+          "surface-container-lowest": "#ffffff",
+          "on-error-container": "#93000a",
+          "primary-container": "#0b2240",
+          "inverse-on-surface": "#eaf1ff",
+          "on-primary-fixed": "#031b39",
+          "on-tertiary": "#ffffff",
+          "on-surface-variant": "#44474e",
+          "inverse-primary": "#b3c7ee",
+          "on-primary-container": "#768aad",
+          "background": "#f8f9ff",
+          "on-tertiary-container": "#fe403a",
+          "on-tertiary-fixed-variant": "#93000b",
+          "on-primary": "#ffffff",
+          "secondary": "#775a00",
+          "primary-fixed": "#d5e3ff",
+          "surface-container-high": "#e0e9f9",
+          "error-container": "#ffdad6",
+          "on-error": "#ffffff",
+          "tertiary-fixed": "#ffdad6",
+          "error": "#ba1a1a",
+          "surface": "#f8f9ff",
+          "tertiary-fixed-dim": "#ffb4ab",
+          "on-secondary-fixed-variant": "#5a4300",
+          "tertiary-container": "#4d0003",
+          "surface-container": "#e5eeff",
+          "surface-bright": "#f8f9ff",
+          "secondary-fixed-dim": "#eec14b",
+          "secondary-fixed": "#ffdf98",
+          "inverse-surface": "#28313d",
+          "outline": "#74777e",
+          "on-surface": "#131c28",
+          "outline-variant": "#c4c6ce",
+          "on-tertiary-fixed": "#410002",
+          "tertiary": "#220001",
+          "surface-variant": "#dae3f4",
+          "on-secondary-container": "#735700",
+          "surface-tint": "#4b5f80",
+          "secondary-container": "#fece57",
+          "on-secondary": "#ffffff",
+          "on-secondary-fixed": "#251a00"
+        },
+        borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
+        fontFamily: {
+          headline-lg: ["EB Garamond"],
+          stat-mono: ["JetBrains Mono"],
+          body-lg: ["EB Garamond"],
+          headline-xl: ["EB Garamond"],
+          body-sm: ["Inter"],
+          stat-display: ["JetBrains Mono"],
+          label-sm: ["JetBrains Mono"],
+          label-md: ["Inter"],
+          headline-sm: ["EB Garamond"],
+          headline-md: ["EB Garamond"],
+          body-md: ["Inter"]
+        }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<header class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(11,34,64,0.06)] z-50">
+  <div class="w-full bg-primary text-on-primary border-b border-primary-container px-4 py-2">
+    <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-4 overflow-x-auto w-full md:w-auto text-left">
+        <div class="flex items-center gap-1 shrink-0">
+          <span class="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
+          <span class="font-label-sm uppercase tracking-wider text-error-container font-bold">Statcast LVBP Live</span>
+        </div>
+      </div>
+      <div class="hidden lg:flex items-center gap-4 shrink-0 font-stat-mono text-stat-mono">
+        <span class="text-on-primary-container flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-secondary-container">speed</span>Velo Prom: <strong class="text-on-primary">94.8 MPH</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full border-b border-surface-container-high bg-surface-container-lowest">
+    <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-surface-container-high pb-2">
+        <div class="flex items-center gap-4 font-label-sm uppercase tracking-widest text-on-surface-variant">
+          <span class="font-stat-mono text-primary font-bold">Roster Oficial</span>
+          <span>•</span>
+          <span>Valencia, Carabobo • Estadio José Bernardo Pérez</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a class="font-label-sm uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1" href="redaccion-cms.html">
+            <span class="material-symbols-outlined text-[16px]">edit_note</span>Sala de Redacción
+          </a>
+        </div>
+      </div>
+      <div class="pt-4 pb-2 text-center">
+        <h1 class="font-headline-xl lg:text-[58px] text-primary tracking-tight font-bold uppercase leading-none">La Taberna del Magallanes News</h1>
+        <div class="mt-2 flex items-center justify-center gap-4">
+          <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
+          <p class="font-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium">Scouting, Roster Activo & Cartografía Posicional</p>
+          <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high">
+    <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between overflow-x-auto py-2">
+        <div class="flex items-center gap-1 font-label-md uppercase tracking-wider shrink-0">
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="index.html">Portada</a>
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="cronica.html">Crónicas</a>
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="vip.html">Cabina VIP Hub</a>
+          <a class="px-4 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" href="roster.html">Scouting & Roster</a>
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="buscador.html">Hemeroteca & Buscador</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="w-full bg-background min-h-[60vh]">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 w-full space-y-8">
+    
+    <div class="bg-primary-container text-on-primary p-4 rounded-xl shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-secondary animate-pulse"></span>
+        <span class="font-stat-mono text-xs uppercase font-bold text-secondary-fixed">Nómina Oficial Certificada • Editor: Lic. Luis Aponte</span>
+      </div>
+      <button onclick="alert('Modo de edición rápida habilitado en la tabla de roster.')" class="bg-secondary text-primary px-4 py-1.5 rounded font-mono text-xs font-bold uppercase transition-all shadow">
+        Activar Edición Rápida
+      </button>
+    </div>
+
+    <section class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+      <h3 class="font-headline-md font-bold text-primary mb-4 uppercase">Staff de Lanzadores • Métricas Predictivas</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-stat-mono text-xs">
+          <thead>
+            <tr class="bg-surface-container-high text-on-surface-variant uppercase">
+              <th class="p-3">#</th>
+              <th class="p-3">Lanzador</th>
+              <th class="p-3">Rol</th>
+              <th class="p-3 text-right">IP</th>
+              <th class="p-3 text-right">ERA</th>
+              <th class="p-3 text-right">WHIP</th>
+              <th class="p-3 text-right text-secondary">FIP</th>
+              <th class="p-3 text-right text-primary font-bold">WAR</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-surface-container-high">
+            <tr class="hover:bg-surface-container-low">
+              <td class="p-3 font-bold text-primary">#17</td>
+              <td class="p-3 font-bold">Erick Leal</td>
+              <td class="p-3 text-on-surface-variant">Abridor (SP)</td>
+              <td class="p-3 text-right">34.2</td>
+              <td class="p-3 text-right font-bold text-primary">2.85</td>
+              <td class="p-3 text-right">1.08</td>
+              <td class="p-3 text-right font-bold text-secondary">2.71</td>
+              <td class="p-3 text-right font-bold text-primary">+1.42</td>
+            </tr>
+            <tr class="hover:bg-surface-container-low">
+              <td class="p-3 font-bold text-primary">#38</td>
+              <td class="p-3 font-bold">Anthony Vizcaya</td>
+              <td class="p-3 text-on-surface-variant">Cerrador (CL)</td>
+              <td class="p-3 text-right">14.1</td>
+              <td class="p-3 text-right font-bold text-primary">1.26</td>
+              <td class="p-3 text-right">0.91</td>
+              <td class="p-3 text-right font-bold text-secondary">1.88</td>
+              <td class="p-3 text-right font-bold text-primary">+1.18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+      <h3 class="font-headline-md font-bold text-primary mb-4 uppercase">Jugadores de Posición • Producción Ofensiva</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-stat-mono text-xs">
+          <thead>
+            <tr class="bg-surface-container-high text-on-surface-variant uppercase">
+              <th class="p-3">#</th>
+              <th class="p-3">Pelotero</th>
+              <th class="p-3">Pos</th>
+              <th class="p-3 text-right">AVG</th>
+              <th class="p-3 text-right">OBP</th>
+              <th class="p-3 text-right">SLG</th>
+              <th class="p-3 text-right text-secondary font-bold">OPS</th>
+              <th class="p-3 text-right text-primary font-bold">wRC+</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-surface-container-high">
+            <tr class="hover:bg-surface-container-low">
+              <td class="p-3 font-bold text-primary">#35</td>
+              <td class="p-3 font-bold">Renato Núñez</td>
+              <td class="p-3 text-on-surface-variant">1B</td>
+              <td class="p-3 text-right font-bold text-primary">.312</td>
+              <td class="p-3 text-right">.398</td>
+              <td class="p-3 text-right">.644</td>
+              <td class="p-3 text-right font-bold text-secondary">1.042</td>
+              <td class="p-3 text-right font-bold text-secondary">182</td>
+            </tr>
+            <tr class="hover:bg-surface-container-low">
+              <td class="p-3 font-bold text-primary">#1</td>
+              <td class="p-3 font-bold">Carlos Rodríguez</td>
+              <td class="p-3 text-on-surface-variant">CF</td>
+              <td class="p-3 text-right font-bold text-primary">.330</td>
+              <td class="p-3 text-right">.410</td>
+              <td class="p-3 text-right">.435</td>
+              <td class="p-3 text-right font-bold text-secondary">.845</td>
+              <td class="p-3 text-right font-bold text-secondary">138</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-10 text-center font-stat-mono text-label-sm text-on-surface-variant">
+    <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Creado por el Lic. Luis Aponte.</p>
+  </div>
+</footer>
+</body>
+</html>
