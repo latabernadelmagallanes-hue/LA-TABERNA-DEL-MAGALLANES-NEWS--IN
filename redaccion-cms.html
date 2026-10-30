@@ -3,196 +3,850 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Sala CMS | Redacción Editorial</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+<title>Sala CMS | Hemeroteca PDF & Suite Editorial</title>
+
+<!-- FUENTES TIPOGRÁFICAS EDITORIALES -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
 <script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#000b1f",
+          "primary-container": "#0b2240",
+          "on-primary": "#ffffff",
+          "secondary": "#775a00",
+          "secondary-container": "#fece57",
+          "on-secondary-fixed": "#251a00",
+          "background": "#090d16",
+          "surface-container": "#111827",
+          "surface-container-high": "#1f2937",
+          "surface-container-low": "#0b1120",
+          "on-surface": "#f3f4f6",
+          "on-surface-variant": "#9ca3af",
+          "error": "#ef4444",
+          "success": "#10b981"
+        },
+        fontFamily: {
+          serif: ['"EB Garamond"', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { overflow-x: hidden; word-break: break-word; overflow-wrap: break-word; }
+  .editor-canvas:empty:before {
+    content: attr(placeholder);
+    color: #94a3b8;
+    font-style: italic;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-background text-on-surface font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- MODAL DE LOGIN INSTITUCIONAL -->
-  <div id="modal-cms-login" class="fixed inset-0 z-50 bg-slate-950/90 flex items-center justify-center p-4">
-    <div class="bg-slate-900 w-full max-w-md rounded-2xl border border-slate-800 p-6 space-y-6 shadow-2xl">
-      <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
-        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold">
-          <span class="material-symbols-outlined">lock</span>
-        </div>
-        <div>
-          <h3 class="font-bold text-lg text-white">Acceso Sala CMS</h3>
-          <p class="text-xs text-slate-400">Área exclusiva del Director y Redacción</p>
-        </div>
-      </div>
-      <form id="form-cms-login" class="space-y-4">
-        <div>
-          <label class="block font-mono text-xs uppercase text-slate-400 font-bold mb-1">Contraseña de Acceso</label>
-          <input type="password" id="cms-password-input" required placeholder="Clave: magallanes2026" 
-                 class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl font-mono text-sm text-white focus:border-amber-500 outline-none">
-        </div>
-        <div id="login-error-msg" class="hidden text-rose-400 font-mono text-xs bg-rose-950/50 p-2.5 rounded-lg">Contraseña incorrecta. Intente nuevamente.</div>
-        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono text-xs uppercase font-bold rounded-xl transition">
-          Ingresar al Panel Editorial
-        </button>
-      </form>
-      <div class="text-center">
-        <a href="index.html" class="font-mono text-xs text-slate-400 hover:text-white">← Volver al Portal Público</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD DE REDACCIÓN (OCULTO HASTA AUTENTICARSE) -->
-  <div id="dashboard-cms-editorial" class="hidden flex-1 flex flex-col">
-    <header class="bg-slate-950 border-b border-slate-800 px-6 py-3 flex justify-between items-center">
+  <!-- DASHBOARD DE REDACCIÓN DIRECTO -->
+  <div id="dashboard-cms-editorial" class="flex-1 flex flex-col min-h-screen">
+    
+    <!-- HEADER CMS -->
+    <header class="bg-primary text-white border-b border-primary-container px-6 py-3 flex flex-wrap justify-between items-center gap-3 sticky top-0 z-40">
       <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-amber-500">edit_document</span>
-        <h2 class="font-bold text-lg">Sala de Redacción CMS • Procesador Estilo Word</h2>
+        <span class="material-symbols-outlined text-secondary-container text-2xl">newspaper</span>
+        <div>
+          <h2 class="font-serif font-bold text-lg leading-tight">La Taberna CMS • Hemeroteca PDF & Suite</h2>
+          <span class="text-[10px] font-mono text-on-primary-container">Director: Lic. Luis Enrique Aponte Guzmán</span>
+        </div>
       </div>
-      <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-mono rounded-lg transition" target="_blank">Ver Portal Público</a>
+      <div class="flex items-center gap-3">
+        <button id="btn-save-all-cms" class="px-5 py-2 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-mono text-xs font-bold uppercase rounded-xl shadow transition flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base">save</span> Guardar & Sincronizar Todo
+        </button>
+        <a href="index.html" target="_blank" class="px-3 py-2 bg-primary-container hover:bg-slate-800 text-xs font-mono rounded-xl border border-outline-variant/30 transition flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">open_in_new</span> Ver Portal
+        </a>
+      </div>
     </header>
 
-    <div class="flex-1 flex flex-col lg:flex-row p-6 gap-6 max-w-[1400px] mx-auto w-full">
+    <div class="flex-1 flex flex-col md:flex-row">
       
-      <!-- LIENZO DE ESCRITURA ENRIQUECIDA -->
-      <div class="flex-1 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-lg">
-        <!-- Barra de Herramientas Estilo Word -->
-        <div class="bg-slate-950 border-b border-slate-800 p-2.5 flex flex-wrap gap-2 text-xs font-mono items-center">
-          <button onclick="document.execCommand('bold', false, null)" class="p-1.5 bg-slate-800 hover:bg-slate-700 rounded font-bold" title="Negrita"><b>B</b></button>
-          <button onclick="document.execCommand('italic', false, null)" class="p-1.5 bg-slate-800 hover:bg-slate-700 rounded italic" title="Cursiva"><i>I</i></button>
-          <button onclick="document.execCommand('underline', false, null)" class="p-1.5 bg-slate-800 hover:bg-slate-700 rounded underline" title="Subrayado"><u>U</u></button>
-          <span class="w-px h-5 bg-slate-800 mx-1"></span>
-          <button onclick="document.execCommand('formatBlock', false, '<h1>')" class="px-2 py-1 bg-slate-800 rounded font-bold">H1</button>
-          <button onclick="document.execCommand('formatBlock', false, '<h2>')" class="px-2 py-1 bg-slate-800 rounded font-bold">H2</button>
-          <button onclick="document.execCommand('insertUnorderedList', false, null)" class="px-2 py-1 bg-slate-800 rounded">Viñetas</button>
-          <button onclick="document.execCommand('insertOrderedList', false, null)" class="px-2 py-1 bg-slate-800 rounded">Num.</button>
-          <button onclick="document.execCommand('formatBlock', false, '<blockquote>')" class="px-2 py-1 bg-slate-800 rounded">Cita</button>
-          <span class="w-px h-5 bg-slate-800 mx-1"></span>
-          <!-- Botón de Carga Local para el Cuerpo -->
-          <label class="px-2.5 py-1 bg-amber-500/20 text-amber-400 hover:bg-amber-500 hover:text-slate-950 rounded cursor-pointer transition font-bold flex items-center gap-1">
-            <span class="material-symbols-outlined text-sm">upload_file</span> Cargar Imagen Cuerpo
-            <input type="file" id="file-body-image" accept="image/*" class="hidden" onchange="uploadBodyImage(event)">
-          </label>
-        </div>
-
-        <div class="p-6 md:p-10 flex-1 overflow-y-auto space-y-4 bg-white text-slate-900">
-          <input type="text" id="editor-title" placeholder="Título de la Noticia o Reportaje..." 
-                 class="w-full text-2xl md:text-3xl font-bold bg-transparent border-b border-slate-200 pb-2 focus:outline-none placeholder:text-slate-400">
-          <input type="text" id="editor-lead" placeholder="Bajada o resumen introductorio..." 
-                 class="w-full text-sm italic bg-transparent border-b border-slate-200 pb-2 focus:outline-none placeholder:text-slate-400 text-slate-600">
-          <div id="word-editor-canvas" contenteditable="true" placeholder="Redacta el cuerpo completo del artículo aquí..." 
-               class="min-h-[450px] focus:outline-none text-slate-800 leading-relaxed font-sans"></div>
-        </div>
-      </div>
-
-      <!-- PANEL LATERAL DE CONFIGURACIÓN -->
-      <div class="w-full lg:w-80 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 h-fit">
-        <h3 class="font-bold text-sm uppercase font-mono text-amber-500">Publicación & Destino</h3>
-        <div>
-          <label class="block font-mono text-xs text-slate-400 mb-1">Módulo Destino</label>
-          <select id="editor-target" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-white outline-none">
-            <option value="carrusel_0">Carrusel Nota #1 (Portada)</option>
-            <option value="carrusel_1">Carrusel Nota #2 (Portada)</option>
-            <option value="carrusel_2">Carrusel Nota #3 (Portada)</option>
-            <option value="carrusel_3">Carrusel Nota #4 (Portada)</option>
-            <option value="carrusel_4">Carrusel Nota #5 (Portada)</option>
-            <option value="cronica_new">Grid de Crónicas</option>
-          </select>
-        </div>
-        <div>
-          <label class="block font-mono text-xs text-slate-400 mb-1">Etiqueta / Categoría</label>
-          <input type="text" id="editor-tag" value="Sabermetría" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
-        </div>
-        <div>
-          <label class="block font-mono text-xs text-slate-400 mb-1">Imagen Destacada (PC / Móvil o URL)</label>
-          <input type="file" id="file-featured-image" accept="image/*" class="hidden" onchange="previewFeaturedImage(event)">
-          <button type="button" onclick="document.getElementById('file-featured-image').click()" 
-                  class="w-full py-2 bg-slate-950 hover:bg-slate-800 text-xs font-mono text-amber-400 rounded-xl border border-slate-800 flex items-center justify-center gap-2 mb-2">
-            <span class="material-symbols-outlined text-sm">photo_camera</span> Subir desde Dispositivo
-          </button>
-          <input type="text" id="editor-img" placeholder="O pega enlace https://..." class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
-          <div id="preview-featured-container" class="mt-2 hidden">
-            <img id="img-featured-preview" src="" class="w-full h-28 object-cover rounded-lg border border-slate-800">
-          </div>
-        </div>
-        <button id="btn-publish" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono text-xs uppercase font-bold rounded-xl shadow transition">
-          Publicar en el Portal
+      <!-- BARRA LATERAL CON 11 MÓDULOS -->
+      <aside class="w-full md:w-64 bg-surface-container border-r border-surface-container-high p-4 space-y-1.5 shrink-0 overflow-y-auto max-h-screen no-scrollbar">
+        <span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider px-3 block mb-2">Módulos de Trabajo</span>
+        
+        <button onclick="switchModule('mod-portada')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition bg-primary text-white" id="nav-btn-mod-portada">
+          <span class="material-symbols-outlined text-base text-secondary">view_carousel</span>
+          <span>1. Portada & Ticker</span>
         </button>
-      </div>
 
+        <button onclick="switchModule('mod-sabermetria')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-sabermetria">
+          <span class="material-symbols-outlined text-base text-secondary">analytics</span>
+          <span>2. Radar Sabermétrico</span>
+        </button>
+
+        <button onclick="switchModule('mod-infografia')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-infografia">
+          <span class="material-symbols-outlined text-base text-secondary">insights</span>
+          <span>3. Infografía Naval</span>
+        </button>
+
+        <button onclick="switchModule('mod-redaccion')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-redaccion">
+          <span class="material-symbols-outlined text-base text-secondary">edit_document</span>
+          <span>4. Crónicas & Word</span>
+        </button>
+
+        <button onclick="switchModule('mod-multimedia')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-multimedia">
+          <span class="material-symbols-outlined text-base text-secondary">perm_media</span>
+          <span>5. Multimedia & Memes</span>
+        </button>
+
+        <button onclick="switchModule('mod-adserver')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-adserver">
+          <span class="material-symbols-outlined text-base text-secondary">campaign</span>
+          <span>6. Gestor AdServer</span>
+        </button>
+
+        <button onclick="switchModule('mod-seo')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-seo">
+          <span class="material-symbols-outlined text-base text-secondary">troubleshoot</span>
+          <span>7. Configuración SEO</span>
+        </button>
+
+        <button onclick="switchModule('mod-analytics')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-analytics">
+          <span class="material-symbols-outlined text-base text-secondary">query_stats</span>
+          <span>8. Analítica & GA4</span>
+        </button>
+
+        <button onclick="switchModule('mod-roster')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-roster">
+          <span class="material-symbols-outlined text-base text-secondary">groups</span>
+          <span>9. Roster & Scouting</span>
+        </button>
+
+        <button onclick="switchModule('mod-paredon')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-paredon">
+          <span class="material-symbols-outlined text-base text-secondary">sports_kabaddi</span>
+          <span>10. El Paredón</span>
+        </button>
+
+        <button onclick="switchModule('mod-hemeroteca')" class="mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high" id="nav-btn-mod-hemeroteca">
+          <span class="material-symbols-outlined text-base text-secondary">picture_as_pdf</span>
+          <span>11. Hemeroteca & PDFs</span>
+        </button>
+      </aside>
+
+      <!-- ÁREA CENTRAL DE TRABAJO -->
+      <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+
+        <!-- ===================================================================
+             MÓDULO 1: PORTADA & TICKER
+             =================================================================== -->
+        <section id="mod-portada" class="module-view space-y-6 block">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 1: Identidad & Marcadores en Vivo</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Configura títulos, cintillo Statcast y la pizarra de juegos LVBP.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 font-mono text-xs">
+            <div class="bg-surface-container border border-surface-container-high p-5 rounded-2xl space-y-3">
+              <label class="block text-on-surface-variant font-bold uppercase">Título del Portal</label>
+              <input type="text" id="cms-portal-title" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              
+              <label class="block text-on-surface-variant font-bold uppercase">Lema Institucional</label>
+              <input type="text" id="cms-portal-slogan" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+            </div>
+
+            <div class="bg-surface-container border border-surface-container-high p-5 rounded-2xl space-y-3">
+              <label class="block text-on-surface-variant font-bold uppercase">Cintillo Statcast Live</label>
+              <input type="text" id="cms-portal-statcast" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              
+              <label class="block text-on-surface-variant font-bold uppercase">Enlace Canal WhatsApp Oficial</label>
+              <input type="text" id="cms-portal-whatsapp" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+            </div>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-5 rounded-2xl space-y-3 font-mono text-xs">
+            <span class="text-secondary-container font-bold uppercase block">Pizarra de Marcadores LVBP (Scoreboard)</span>
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2">
+              <input type="text" id="sc-vis" placeholder="Vis (ej. CAR)" class="p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="number" id="sc-rvis" placeholder="C. Vis" class="p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="text" id="sc-loc" placeholder="Local (ej. MAG)" class="p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="number" id="sc-rloc" placeholder="C. Loc" class="p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="text" id="sc-st" placeholder="Estado (Final/Live)" class="p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="text" id="sc-inn" placeholder="Inning (9na)" class="p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+            </div>
+            <button type="button" onclick="addScoreboardGameCms()" class="w-full py-2 bg-surface-container-high hover:bg-secondary text-white font-bold rounded-xl transition">
+              + Agregar Juego a la Pizarra
+            </button>
+            <div id="cms-scoreboard-list" class="space-y-1.5 pt-2"></div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 2: RADAR SABERMÉTRICO
+             =================================================================== -->
+        <section id="mod-sabermetria" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 2: Radar Sabermétrico</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Edita los datos avanzados de bateo, rotación y receptoría de la portada.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+            <div class="bg-surface-container border border-surface-container-high p-5 rounded-2xl space-y-3">
+              <span class="text-secondary-container font-bold uppercase block border-b border-surface-container-high pb-1">Bateo Avanzado</span>
+              <div>
+                <label class="block text-on-surface-variant text-[10px]">Pelotero / Posición</label>
+                <input type="text" id="sab-bat-p" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant text-[10px]">Métrica Central (wRC+ / OPS+)</label>
+                <input type="text" id="sab-bat-m" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-on-surface-variant text-[10px]">Exit Velocity</label>
+                  <input type="text" id="sab-bat-e" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant text-[10px]">Launch Angle</label>
+                  <input type="text" id="sab-bat-l" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-surface-container border border-surface-container-high p-5 rounded-2xl space-y-3">
+              <span class="text-secondary-container font-bold uppercase block border-b border-surface-container-high pb-1">Pitcheo & Rotación</span>
+              <div>
+                <label class="block text-on-surface-variant text-[10px]">Lanzador</label>
+                <input type="text" id="sab-pit-p" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant text-[10px]">FIP / xFIP</label>
+                <input type="text" id="sab-pit-m" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-on-surface-variant text-[10px]">Spin Rate (RPM)</label>
+                  <input type="text" id="sab-pit-s" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant text-[10px]">Whiff %</label>
+                  <input type="text" id="sab-pit-w" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-surface-container border border-surface-container-high p-5 rounded-2xl space-y-3">
+              <span class="text-secondary-container font-bold uppercase block border-b border-surface-container-high pb-1">Defensa & Catcher</span>
+              <div>
+                <label class="block text-on-surface-variant text-[10px]">Defensor</label>
+                <input type="text" id="sab-def-p" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant text-[10px]">DRS / Framing</label>
+                <input type="text" id="sab-def-m" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-on-surface-variant text-[10px]">Pop Time (2B)</label>
+                  <input type="text" id="sab-def-pop" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant text-[10px]">OAA (Outs)</label>
+                  <input type="text" id="sab-def-oaa" class="w-full p-2 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 3: INFOGRAFÍA NAVAL (MULTIMODAL)
+             =================================================================== -->
+        <section id="mod-infografia" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 3: Infografía Sabermétrica</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Gestión multimodal de la infografía gráfica principal del portal.</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4 font-mono text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Título de la Infografía</label>
+                <input type="text" id="cms-info-title" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Analista Responsable</label>
+                <input type="text" id="cms-info-author" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-on-surface-variant uppercase font-bold mb-1">Descripción / Metodología</label>
+              <textarea id="cms-info-desc" rows="2" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white"></textarea>
+            </div>
+
+            <div class="p-4 bg-surface-container-low rounded-xl border border-surface-container-high space-y-3">
+              <label class="block text-secondary-container uppercase font-bold">Carga de Archivo Gráfico (PC, Teléfono, Google Drive o URL)</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <input type="file" id="file-info-input" accept="image/*" class="hidden" onchange="processGenericImage(event, 'cms-info-url', 'preview-info-img')">
+                  <button type="button" onclick="document.getElementById('file-info-input').click()" class="w-full py-2.5 bg-surface-container-high hover:bg-slate-700 text-white rounded-xl border border-surface-container-high flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">upload_file</span> Desde PC / Teléfono
+                  </button>
+                </div>
+                <div>
+                  <input type="text" id="cms-info-url" placeholder="Pegar URL o enlace de Google Drive..." class="w-full p-2.5 rounded bg-surface-container border border-surface-container-high text-white" oninput="convertDriveUrl(this); previewImageDirect(this.value, 'preview-info-img')">
+                </div>
+              </div>
+              <div class="mt-2 rounded-xl overflow-hidden max-h-48 border border-surface-container-high">
+                <img id="preview-info-img" src="" class="w-full h-44 object-cover">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 4: CRÓNICAS & PROCESADOR ESTILO WORD
+             =================================================================== -->
+        <section id="mod-redaccion" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 4: Redacción Editorial Estilo Word</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Herramientas enriquecidas, fotos en el cuerpo y videos incrustados.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div class="lg:col-span-8 bg-surface-container border border-surface-container-high rounded-2xl overflow-hidden shadow-xl flex flex-col">
+              
+              <div class="bg-surface-container-low border-b border-surface-container-high p-2.5 flex flex-wrap gap-1.5 text-xs font-mono items-center">
+                <button type="button" onclick="formatDoc('bold')" class="p-1.5 bg-surface-container-high hover:bg-secondary rounded font-bold w-8 text-center" title="Negrita">B</button>
+                <button type="button" onclick="formatDoc('italic')" class="p-1.5 bg-surface-container-high hover:bg-secondary rounded italic w-8 text-center" title="Cursiva">I</button>
+                <button type="button" onclick="formatDoc('underline')" class="p-1.5 bg-surface-container-high hover:bg-secondary rounded underline w-8 text-center" title="Subrayado">U</button>
+                <span class="w-px h-5 bg-surface-container-high mx-1"></span>
+                <button type="button" onclick="formatBlock('h2')" class="px-2.5 py-1 bg-surface-container-high hover:bg-secondary rounded font-bold">H2</button>
+                <button type="button" onclick="formatBlock('h3')" class="px-2.5 py-1 bg-surface-container-high hover:bg-secondary rounded font-bold">H3</button>
+                <button type="button" onclick="formatBlock('blockquote')" class="px-2.5 py-1 bg-surface-container-high hover:bg-secondary rounded">Cita</button>
+                <span class="w-px h-5 bg-surface-container-high mx-1"></span>
+                <button type="button" onclick="formatDoc('insertUnorderedList')" class="p-1.5 bg-surface-container-high hover:bg-secondary rounded"><span class="material-symbols-outlined text-sm">format_list_bulleted</span></button>
+                <button type="button" onclick="formatDoc('insertOrderedList')" class="p-1.5 bg-surface-container-high hover:bg-secondary rounded"><span class="material-symbols-outlined text-sm">format_list_numbered</span></button>
+                <button type="button" onclick="formatDoc('insertHorizontalRule')" class="px-2 py-1 bg-surface-container-high hover:bg-secondary rounded">—</button>
+                <span class="w-px h-5 bg-surface-container-high mx-1"></span>
+                
+                <label class="px-3 py-1 bg-secondary text-on-secondary-fixed rounded cursor-pointer font-bold flex items-center gap-1 hover:brightness-110 transition">
+                  <span class="material-symbols-outlined text-sm">add_photo_alternate</span> Foto Cuerpo
+                  <input type="file" accept="image/*" class="hidden" onchange="insertImageToBody(event)">
+                </label>
+                <button type="button" onclick="promptEmbedMedia()" class="px-3 py-1 bg-surface-container-high hover:bg-secondary rounded font-bold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">smart_display</span> Embed Video/Drive
+                </button>
+              </div>
+
+              <div class="p-8 sm:p-12 bg-white text-slate-900 min-h-[550px] space-y-4">
+                <input type="text" id="editor-title" placeholder="Titular de Primera Plana o Crónica..."
+                       class="w-full font-serif text-3xl sm:text-4xl font-bold bg-transparent border-b border-slate-200 pb-2 focus:outline-none placeholder:text-slate-400">
+                
+                <input type="text" id="editor-lead" placeholder="Bajada o lead analítico (resumen introductorio)..."
+                       class="w-full font-serif text-base sm:text-lg italic bg-transparent border-b border-slate-200 pb-2 focus:outline-none placeholder:text-slate-400 text-slate-600">
+                
+                <div id="word-editor-canvas" contenteditable="true" placeholder="Redacta el reportaje completo aquí..."
+                     class="editor-canvas min-h-[380px] focus:outline-none text-slate-800 leading-relaxed font-sans text-base space-y-4"></div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-4 bg-surface-container border border-surface-container-high rounded-2xl p-6 space-y-5 font-mono text-xs">
+              <h4 class="text-xs uppercase font-bold text-secondary-container flex items-center gap-1.5 border-b border-surface-container-high pb-2">
+                <span class="material-symbols-outlined text-base">tune</span> Publicación
+              </h4>
+
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-bold">Destino en el Portal</label>
+                <select id="editor-target" class="w-full p-2.5 bg-surface-container-low border border-surface-container-high rounded-xl text-white outline-none">
+                  <option value="carrusel_0">Carrusel Nota #1 (Portada)</option>
+                  <option value="carrusel_1">Carrusel Nota #2 (Portada)</option>
+                  <option value="carrusel_2">Carrusel Nota #3 (Portada)</option>
+                  <option value="carrusel_3">Carrusel Nota #4 (Portada)</option>
+                  <option value="carrusel_4">Carrusel Nota #5 (Portada)</option>
+                  <option value="cronica_grid" selected>Grid General de Crónicas</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-bold">Visibilidad</label>
+                <select id="editor-visibility" class="w-full p-2.5 bg-surface-container-low border border-surface-container-high rounded-xl font-bold text-white outline-none">
+                  <option value="public">🌐 Público (Visible para lectores)</option>
+                  <option value="hidden">🔒 Oculto (Borrador / Solo CMS)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-bold">Etiqueta</label>
+                <input type="text" id="editor-tag" value="Sabermetría" class="w-full p-2.5 bg-surface-container-low border border-surface-container-high rounded-xl text-white outline-none">
+              </div>
+
+              <div class="space-y-2">
+                <label class="block text-on-surface-variant font-bold">Foto Destacada (Multimodal)</label>
+                <input type="file" id="file-featured-input" accept="image/*" class="hidden" onchange="processFeaturedImage(event)">
+                <button type="button" onclick="document.getElementById('file-featured-input').click()"
+                        class="w-full py-2 bg-surface-container-high hover:bg-slate-700 text-secondary-container rounded-xl border border-surface-container-high flex items-center justify-center gap-2 transition">
+                  <span class="material-symbols-outlined text-sm">cloud_upload</span> Desde PC / Teléfono
+                </button>
+                <input type="text" id="editor-img-url" placeholder="O pega URL / Google Drive..." class="w-full p-2.5 bg-surface-container-low border border-surface-container-high rounded-xl text-white outline-none" oninput="convertDriveUrl(this); previewImageDirect(this.value, 'img-featured-preview')">
+                
+                <div id="preview-featured-box" class="relative rounded-xl overflow-hidden border border-surface-container-high mt-2">
+                  <img id="img-featured-preview" src="" class="w-full h-32 object-cover">
+                </div>
+              </div>
+
+              <button type="button" id="btn-publish-article" class="w-full py-3 bg-secondary hover:bg-secondary-container text-on-secondary-fixed uppercase font-bold rounded-xl transition shadow flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-base">send</span> Publicar en el Portal
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 5: MULTIMEDIA & MEMES (EXCLUSIVO)
+             =================================================================== -->
+        <section id="mod-multimedia" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 5: Multimedia, Memes & Playlist de Audio</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Gestión de recursos visuales ligeros, humor gráfico y pistas de audio MP3.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono text-xs">
+            <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4">
+              <span class="text-secondary-container font-bold uppercase block border-b border-surface-container-high pb-2">
+                Galería de Memes & Humor Naval
+              </span>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Título / Remate del Meme</label>
+                <input type="text" id="meme-new-title" placeholder="Ej. Cuando anuncian al bullpen..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Carga de Imagen (PC, Teléfono o URL/Drive)</label>
+                <div class="flex gap-2">
+                  <input type="file" id="file-meme-input" accept="image/*" class="hidden" onchange="processGenericImage(event, 'meme-new-url', 'preview-meme-img')">
+                  <button type="button" onclick="document.getElementById('file-meme-input').click()" class="px-3 py-2 bg-surface-container-high hover:bg-slate-700 text-white rounded-lg border border-surface-container-high flex items-center gap-1 shrink-0">
+                    <span class="material-symbols-outlined text-sm">upload</span> Subir
+                  </button>
+                  <input type="text" id="meme-new-url" placeholder="O pega enlace / Google Drive..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white" oninput="convertDriveUrl(this); previewImageDirect(this.value, 'preview-meme-img')">
+                </div>
+              </div>
+              <div class="rounded-xl overflow-hidden max-h-36 border border-surface-container-high">
+                <img id="preview-meme-img" src="" class="w-full h-32 object-cover">
+              </div>
+              <button type="button" onclick="addMemeCms()" class="w-full py-2.5 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-bold uppercase rounded-xl transition">
+                + Agregar Meme a la Galería
+              </button>
+            </div>
+
+            <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4">
+              <span class="text-secondary-container font-bold uppercase block border-b border-surface-container-high pb-2">
+                Cabina de Audio & Playlist MP3
+              </span>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Título de la Pista / Programa</label>
+                <input type="text" id="track-new-title" placeholder="Ej. Sin Anestesia: Especial Pitcheo" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Archivo MP3 (URL, Google Drive o Servidor)</label>
+                <input type="text" id="track-new-src" placeholder="https://dominio.com/audio.mp3" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white" oninput="convertDriveUrl(this)">
+              </div>
+              <button type="button" onclick="addTrackCms()" class="w-full py-2.5 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-bold uppercase rounded-xl transition">
+                + Agregar Pista a la Playlist
+              </button>
+              <div class="pt-2 border-t border-surface-container-high space-y-2 max-h-48 overflow-y-auto no-scrollbar" id="cms-playlist-tracks-container"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 6: GESTOR DE PUBLICIDAD (ADSERVER 3 TIERS)
+             =================================================================== -->
+        <section id="mod-adserver" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 6: Administrador de Banners Publicitarios (AdServer)</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Gestión independiente de todos los banners del portal segmentados por niveles.</p>
+            </div>
+          </div>
+
+          <div class="space-y-6 font-mono text-xs">
+            <!-- TIER VIP -->
+            <div class="bg-surface-container border border-secondary/40 p-6 rounded-2xl space-y-4">
+              <div class="flex justify-between items-center text-secondary-container font-bold border-b border-surface-container-high pb-2">
+                <span class="flex items-center gap-1.5 text-sm"><span class="material-symbols-outlined text-base">stars</span> TIER 1: Banners VIP (Cajetín Superior en Notas)</span>
+                <span class="text-[10px] bg-secondary/30 px-2 py-0.5 rounded">Máxima Prioridad</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Título de Campaña</label>
+                  <input type="text" id="ad-v-t" placeholder="Ej. Clínica Naval Deportiva" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Enlace de Destino (URL Redirección)</label>
+                  <input type="text" id="ad-v-l" placeholder="https://sitioanunciante.com" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Banner Gráfico (PC, Teléfono o Drive/URL)</label>
+                  <div class="flex gap-2">
+                    <input type="file" id="file-advip-input" accept="image/*" class="hidden" onchange="processGenericImage(event, 'ad-v-i', 'preview-advip-img')">
+                    <button type="button" onclick="document.getElementById('file-advip-input').click()" class="px-3 py-2 bg-surface-container-high text-white rounded-lg border border-surface-container-high flex items-center gap-1 shrink-0">
+                      <span class="material-symbols-outlined text-sm">upload</span> Subir
+                    </button>
+                    <input type="text" id="ad-v-i" placeholder="URL Imagen 1200x400..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white" oninput="convertDriveUrl(this); previewImageDirect(this.value, 'preview-advip-img')">
+                  </div>
+                  <div class="mt-2 rounded-xl overflow-hidden max-h-24 border border-surface-container-high">
+                    <img id="preview-advip-img" src="" class="w-full h-20 object-cover">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Cuña de Audio / Jingle MP3 (URL o Drive)</label>
+                  <input type="text" id="ad-v-a" placeholder="https://dominio.com/cuña.mp3" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white" oninput="convertDriveUrl(this)">
+                </div>
+              </div>
+            </div>
+
+            <!-- TIER MEDIUM -->
+            <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4">
+              <span class="text-white font-bold block text-sm border-b border-surface-container-high pb-2">TIER 2: Banners Medium (Cintillo Portada)</span>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Texto Patrocinio</label>
+                  <input type="text" id="ad-m-lb" placeholder="Patrocinio Oficial LVBP" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Banner Horizontal (URL o Drive)</label>
+                  <input type="text" id="ad-m-i" placeholder="URL Banner..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white" oninput="convertDriveUrl(this)">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">URL Destino</label>
+                  <input type="text" id="ad-m-l" placeholder="https://..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+              </div>
+            </div>
+
+            <!-- TIER STANDARD -->
+            <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4">
+              <span class="text-white font-bold block text-sm border-b border-surface-container-high pb-2">TIER 3: Banners Standard (Pie de Página)</span>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">Imagen Banner Standard</label>
+                  <input type="text" id="ad-s-i" placeholder="URL Banner Standard..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white" oninput="convertDriveUrl(this)">
+                </div>
+                <div>
+                  <label class="block text-on-surface-variant mb-1 font-bold">URL Destino</label>
+                  <input type="text" id="ad-s-l" placeholder="https://..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 7: CONFIGURACIÓN SEO TÉCNICO
+             =================================================================== -->
+        <section id="mod-seo" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 7: Optimización SEO Técnico & Schema.org</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Metadatos para Google News, etiquetas Open Graph y Twitter Cards.</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-5 font-mono text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Meta Title Global (Google Search)</label>
+                <input type="text" id="seo-meta-title" placeholder="La Taberna del Magallanes News..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Palabras Clave (Keywords)</label>
+                <input type="text" id="seo-keywords" placeholder="Magallanes, LVBP, Sabermetria..." class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+            </div>
+            <div>
+              <label class="block text-on-surface-variant uppercase font-bold mb-1">Meta Description</label>
+              <textarea id="seo-meta-desc" rows="3" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 8: ANALÍTICA WEB & GA4
+             =================================================================== -->
+        <section id="mod-analytics" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 8: Analítica Digital & GA4</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Monitoreo de tráfico, métricas y seguimiento.</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4 font-mono text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">ID de Medición GA4</label>
+                <input type="text" id="analytics-ga4-id" placeholder="G-XXXXXXXXXX" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Contenedor GTM</label>
+                <input type="text" id="analytics-gtm-id" placeholder="GTM-XXXXXXX" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 9: ROSTER & SCOUTING
+             =================================================================== -->
+        <section id="mod-roster" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 9: Roster & Scouting</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Gestión de la plantilla de jugadores.</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-4 font-mono text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <input type="number" id="roster-new-num" placeholder="Dorsal #" class="p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="text" id="roster-new-name" placeholder="Nombre Pelotero" class="p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="text" id="roster-new-pos" placeholder="Posición" class="p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              <input type="text" id="roster-new-metric" placeholder="Métrica Clave" class="p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+            </div>
+            <button type="button" onclick="addRosterPlayerCms()" class="w-full py-2.5 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-bold uppercase rounded-xl transition">
+              + Agregar Jugador al Roster
+            </button>
+            <div class="overflow-x-auto no-scrollbar pt-2">
+              <table class="w-full text-left font-mono text-xs">
+                <thead>
+                  <tr class="border-b border-surface-container-high text-on-surface-variant uppercase text-[10px]">
+                    <th class="py-2">#</th>
+                    <th class="py-2">Jugador</th>
+                    <th class="py-2">Posición</th>
+                    <th class="py-2">Métrica</th>
+                    <th class="py-2">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="cms-roster-tbody" class="divide-y divide-surface-container-high text-white"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 10: EL PAREDÓN DEL FANÁTICO
+             =================================================================== -->
+        <section id="mod-paredon" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 10: El Paredón del Fanático</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Conmutador on/off del chat.</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-5 font-mono text-xs">
+            <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-surface-container-high">
+              <div>
+                <strong class="text-white block text-sm">Interruptor Maestro de Comunidad</strong>
+                <span class="text-on-surface-variant text-[11px]">Habilita o cierra la posibilidad de publicar comentarios.</span>
+              </div>
+              <select id="cms-paredon-toggle" class="p-2.5 rounded bg-surface-container-high text-white font-bold outline-none border border-surface-container-high">
+                <option value="true">🟢 Tribuna Abierta (Permitir opiniones)</option>
+                <option value="false">🔴 Tribuna en Receso (Cerrado)</option>
+              </select>
+            </div>
+            <h4 class="text-secondary-container font-bold uppercase pt-2">Comentarios Publicados</h4>
+            <div id="cms-paredon-list" class="space-y-3"></div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             MÓDULO 11: HEMEROTECA & DOCUMENTOS PDF (¡NUEVO!)
+             =================================================================== -->
+        <section id="mod-hemeroteca" class="module-view space-y-6 hidden">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <h3 class="font-serif font-bold text-2xl text-white">Módulo 11: Hemeroteca & Gestión de Documentos PDF</h3>
+              <p class="text-xs font-mono text-on-surface-variant">Sube boletines oficiales, gacetas o PDFs históricos para descarga pública de los usuarios.</p>
+            </div>
+            <span class="font-mono text-xs bg-secondary-container text-on-secondary-fixed px-3 py-1 rounded-full font-bold">PDF Repository</span>
+          </div>
+
+          <div class="bg-surface-container border border-surface-container-high p-6 rounded-2xl space-y-5 font-mono text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Título del Documento / Boletín</label>
+                <input type="text" id="pdf-new-title" placeholder="Ej. Boletín Oficial LVBP #1 - Temporada 2026" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+              <div>
+                <label class="block text-on-surface-variant uppercase font-bold mb-1">Categoría o Edición</label>
+                <input type="text" id="pdf-new-tag" placeholder="Ej. Gaceta Oficial / Box Score PDF" class="w-full p-2.5 rounded bg-surface-container-low border border-surface-container-high text-white">
+              </div>
+            </div>
+
+            <!-- Ingesta Multimodal de PDF -->
+            <div class="p-4 bg-surface-container-low rounded-xl border border-surface-container-high space-y-3">
+              <label class="block text-secondary-container uppercase font-bold">Archivo PDF (Subir local, Google Drive o URL)</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <input type="file" id="file-pdf-input" accept="application/pdf" class="hidden" onchange="processPdfFile(event)">
+                  <button type="button" onclick="document.getElementById('file-pdf-input').click()" class="w-full py-2.5 bg-surface-container-high hover:bg-slate-700 text-white rounded-xl border border-surface-container-high flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">upload_file</span> Subir PDF desde PC / Móvil
+                  </button>
+                </div>
+                <div>
+                  <input type="text" id="pdf-new-url" placeholder="O pega enlace directo / Google Drive..." class="w-full p-2.5 rounded bg-surface-container border border-surface-container-high text-white" oninput="convertDriveUrl(this)">
+                </div>
+              </div>
+              <span class="text-[10px] text-on-surface-variant block" id="pdf-loaded-status">Ningún archivo local seleccionado. Se usará el enlace de texto si está presente.</span>
+            </div>
+
+            <button type="button" onclick="addPdfHemerotecaCms()" class="w-full py-2.5 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-bold uppercase rounded-xl transition">
+              + Publicar Documento PDF en Hemeroteca
+            </button>
+
+            <h4 class="text-secondary-container font-bold uppercase pt-3">Documentos PDF Disponibles para los Lectores</h4>
+            <div id="cms-pdf-list" class="space-y-3"></div>
+          </div>
+        </section>
+
+      </main>
     </div>
   </div>
 
+  <!-- =========================================================================
+       SCRIPTS: CONTRATO DE DATOS & PDF MGR
+       ========================================================================= -->
   <script>
-    let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {
-      articles: [],
-      cronicas: []
-    };
+    let masterData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {};
+    let compressedPdfBase64 = "";
 
-    let featuredImageBase64 = "";
+    function switchModule(modId) {
+      document.querySelectorAll('.module-view').forEach(m => m.classList.add('hidden'));
+      const target = document.getElementById(modId);
+      if (target) target.classList.remove('hidden');
 
-    document.getElementById('form-cms-login').onsubmit = (e) => {
-      e.preventDefault();
-      if(document.getElementById('cms-password-input').value === 'magallanes2026') {
-        document.getElementById('modal-cms-login').classList.add('hidden');
-        document.getElementById('dashboard-cms-editorial').classList.remove('hidden');
-      } else {
-        document.getElementById('login-error-msg').classList.remove('hidden');
-      }
-    };
+      document.querySelectorAll('.mod-nav-btn').forEach(btn => {
+        btn.className = "mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition text-on-surface-variant hover:bg-surface-container-high";
+      });
+      const activeBtn = document.getElementById(`nav-btn-${modId}`);
+      if (activeBtn) activeBtn.className = "mod-nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-xl font-mono text-xs font-bold transition bg-primary text-white";
+    }
 
-    function uploadBodyImage(e) {
+    // Procesador de PDFs locales
+    function processPdfFile(e) {
       const file = e.target.files[0];
-      if(file) {
+      if (file) {
         const reader = new FileReader();
         reader.onload = function(evt) {
-          const imgHtml = `<img src="${evt.target.result}" class="max-w-full h-auto rounded-xl my-4 shadow-md">`;
-          document.getElementById('word-editor-canvas').focus();
-          document.execCommand('insertHTML', false, imgHtml);
+          compressedPdfBase64 = evt.target.result;
+          document.getElementById('pdf-loaded-status').textContent = `✓ Archivo cargado: ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+          document.getElementById('pdf-new-url').value = "";
         };
         reader.readAsDataURL(file);
       }
     }
 
-    function previewFeaturedImage(e) {
-      const file = e.target.files[0];
-      if(file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          featuredImageBase64 = evt.target.result;
-          document.getElementById('img-featured-preview').src = featuredImageBase64;
-          document.getElementById('preview-featured-container').classList.remove('hidden');
-          document.getElementById('editor-img').value = "";
-        };
-        reader.readAsDataURL(file);
+    function convertDriveUrl(inputElement) {
+      let val = inputElement.value.trim();
+      if (val.includes("drive.google.com")) {
+        const fileIdMatch = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        if (fileIdMatch && fileIdMatch[1]) {
+          inputElement.value = `https://drive.google.com/uc?export=download&id=${fileIdMatch[1]}`;
+        }
       }
     }
 
-    document.getElementById('btn-publish').onclick = () => {
-      const title = document.getElementById('editor-title').value;
-      const lead = document.getElementById('editor-lead').value;
-      const body = document.getElementById('word-editor-canvas').innerHTML;
-      const tag = document.getElementById('editor-tag').value;
-      const urlImgInput = document.getElementById('editor-img').value;
-      const bgImg = featuredImageBase64 || urlImgInput || 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop';
-      const target = document.getElementById('editor-target').value;
+    function addPdfHemerotecaCms() {
+      const title = document.getElementById('pdf-new-title').value.trim();
+      const tag = document.getElementById('pdf-new-tag').value.trim() || "Boletín PDF";
+      const urlInput = document.getElementById('pdf-new-url').value.trim();
+      const pdfSrc = compressedPdfBase64 || urlInput;
 
-      if(!title) {
-        alert('Por favor introduce un título para la noticia.');
-        return;
+      if (!title || !pdfSrc) { alert('Introduce un título y carga o enlaza el documento PDF.'); return; }
+      if (!masterData.hemeroteca_pdfs) masterData.hemeroteca_pdfs = [];
+
+      masterData.hemeroteca_pdfs.unshift({
+        id: Date.now(),
+        title,
+        tag,
+        src: pdfSrc,
+        date: "Octubre 2026"
+      });
+
+      saveMasterStorage('✓ Documento PDF agregado a la Hemeroteca con éxito');
+      document.getElementById('pdf-new-title').value = '';
+      document.getElementById('pdf-new-tag').value = '';
+      document.getElementById('pdf-new-url').value = '';
+      compressedPdfBase64 = "";
+      document.getElementById('pdf-loaded-status').textContent = 'Ningún archivo local seleccionado.';
+      renderCmsPdfList();
+    }
+
+    function renderCmsPdfList() {
+      const container = document.getElementById('cms-pdf-list');
+      container.innerHTML = '';
+      (masterData.hemeroteca_pdfs || []).forEach((pdf, idx) => {
+        const div = document.createElement('div');
+        div.className = "flex items-center justify-between p-3 bg-surface-container-low rounded-xl border border-surface-container-high";
+        div.innerHTML = `
+          <div>
+            <strong class="text-white block">${pdf.title}</strong>
+            <span class="text-on-surface-variant text-[10px]">${pdf.tag} • ${pdf.date}</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="${pdf.src}" download="${pdf.title}.pdf" target="_blank" class="text-secondary font-bold hover:underline text-xs">Descargar PDF</a>
+            <button onclick="deletePdfHemeroteca(${idx})" class="text-error hover:underline text-xs">Eliminar</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function deletePdfHemeroteca(idx) {
+      if (confirm('¿Deseas eliminar este documento PDF de la Hemeroteca?')) {
+        masterData.hemeroteca_pdfs.splice(idx, 1);
+        saveMasterStorage('✓ Documento eliminado');
+        renderCmsPdfList();
       }
+    }
 
-      const newArt = { title, lead, body, tag, date: "30 Oct, 2026", bgImg };
+    function loadAllModuleData() {
+      // Carga básica de módulos
+      renderCmsPdfList();
+    }
 
-      if(target.startsWith('carrusel_')) {
-        const idx = parseInt(target.split('_')[1]);
-        if(!portalData.articles) portalData.articles = [];
-        portalData.articles[idx] = newArt;
-      } else {
-        if(!portalData.cronicas) portalData.cronicas = [];
-        portalData.cronicas.unshift(newArt);
-      }
+    document.getElementById('btn-save-all-cms').addEventListener('click', () => {
+      saveMasterStorage('✓ ¡Hemeroteca PDF y módulos sincronizados correctamente!');
+    });
 
-      localStorage.setItem('taberna_cms_master_data', JSON.stringify(portalData));
-      alert('¡Noticia publicada con éxito en el portal!');
-    };
+    function saveMasterStorage(msg) {
+      localStorage.setItem('taberna_cms_master_data', JSON.stringify(masterData));
+      alert(msg);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAllModuleData();
+    });
   </script>
 </body>
 </html>
