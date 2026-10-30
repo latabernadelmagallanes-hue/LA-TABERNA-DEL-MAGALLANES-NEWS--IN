@@ -3,367 +3,155 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="web_dashboard" name="shell-type">
-<title>Sala de Redacción & CMS Naval | La Taberna del Magallanes News</title>
+<meta content="web_standard" name="shell-type">
+<title>Sala CMS | Redacción Editorial</title>
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<style>
-  @layer base {
-    html, body { margin: 0; padding: 0; }
-    body { overscroll-behavior: none; }
-    main>:first-child { margin-top: 0 !important; }
-    main>:last-child { margin-bottom: 0 !important; }
-  }
-  ::-webkit-scrollbar { display: none; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "on-background": "#131c28",
-          "surface-container-highest": "#dae3f4",
-          "primary-fixed-dim": "#b3c7ee",
-          "on-primary-fixed-variant": "#334767",
-          "surface-dim": "#d1daeb",
-          "primary": "#000b1f",
-          "surface-container-low": "#eff4ff",
-          "surface-container-lowest": "#ffffff",
-          "on-error-container": "#93000a",
-          "primary-container": "#0b2240",
-          "inverse-on-surface": "#eaf1ff",
-          "on-primary-fixed": "#031b39",
-          "on-tertiary": "#ffffff",
-          "on-surface-variant": "#44474e",
-          "inverse-primary": "#b3c7ee",
-          "on-primary-container": "#768aad",
-          "background": "#f8f9ff",
-          "on-tertiary-container": "#fe403a",
-          "on-tertiary-fixed-variant": "#93000b",
-          "on-primary": "#ffffff",
-          "secondary": "#775a00",
-          "primary-fixed": "#d5e3ff",
-          "surface-container-high": "#e0e9f9",
-          "error-container": "#ffdad6",
-          "on-error": "#ffffff",
-          "tertiary-fixed": "#ffdad6",
-          "error": "#ba1a1a",
-          "surface": "#f8f9ff",
-          "tertiary-fixed-dim": "#ffb4ab",
-          "on-secondary-fixed-variant": "#5a4300",
-          "tertiary-container": "#4d0003",
-          "surface-container": "#e5eeff",
-          "surface-bright": "#f8f9ff",
-          "secondary-fixed-dim": "#eec14b",
-          "secondary-fixed": "#ffdf98",
-          "inverse-surface": "#28313d",
-          "outline": "#74777e",
-          "on-surface": "#131c28",
-          "outline-variant": "#c4c6ce",
-          "on-tertiary-fixed": "#410002",
-          "tertiary": "#220001",
-          "surface-variant": "#dae3f4",
-          "on-secondary-container": "#735700",
-          "surface-tint": "#4b5f80",
-          "secondary-container": "#fece57",
-          "on-secondary": "#ffffff",
-          "on-secondary-fixed": "#251a00"
-        },
-        borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
-        fontFamily: {
-          headline-lg: ["EB Garamond"],
-          stat-mono: ["JetBrains Mono"],
-          body-lg: ["EB Garamond"],
-          headline-xl: ["EB Garamond"],
-          body-sm: ["Inter"],
-          stat-display: ["JetBrains Mono"],
-          label-sm: ["JetBrains Mono"],
-          label-md: ["Inter"],
-          headline-sm: ["EB Garamond"],
-          headline-md: ["EB Garamond"],
-          body-md: ["Inter"]
-        }
-      }
-    }
-  }
-</script>
 </head>
-<body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
 
-<header class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(11,34,64,0.06)] z-50">
-  <div class="w-full bg-primary text-on-primary border-b border-primary-container px-4 py-2">
-    <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
-      <div class="flex items-center gap-4 overflow-x-auto w-full md:w-auto text-left">
-        <div class="flex items-center gap-1 shrink-0">
-          <span class="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
-          <span class="font-label-sm uppercase tracking-wider text-error-container font-bold">Terminal CMS • Redacción Activa</span>
+  <!-- MODAL DE LOGIN INSTITUCIONAL -->
+  <div id="modal-cms-login" class="fixed inset-0 z-50 bg-slate-950/90 flex items-center justify-center p-4">
+    <div class="bg-slate-900 w-full max-w-md rounded-2xl border border-slate-800 p-6 space-y-6 shadow-2xl">
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold">
+          <span class="material-symbols-outlined">lock</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-white">Acceso Sala CMS</h3>
+          <p class="text-xs text-slate-400">Área exclusiva del Director y Redacción</p>
         </div>
       </div>
-      <div class="hidden lg:flex items-center gap-4 shrink-0 font-stat-mono text-stat-mono">
-        <span class="text-on-primary-container flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-secondary-container">verified_user</span>Editor: <strong class="text-on-primary">Lcdo. Luis Enrique Aponte</strong></span>
+      <form id="form-cms-login" class="space-y-4">
+        <div>
+          <label class="block font-mono text-xs uppercase text-slate-400 font-bold mb-1">Contraseña de Acceso</label>
+          <input type="password" id="cms-password-input" required placeholder="Clave: magallanes2026" 
+                 class="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl font-mono text-sm text-white focus:border-amber-500 outline-none">
+        </div>
+        <div id="login-error-msg" class="hidden text-rose-400 font-mono text-xs bg-rose-950/50 p-2.5 rounded-lg">Contraseña incorrecta. Intente nuevamente.</div>
+        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono text-xs uppercase font-bold rounded-xl transition">
+          Ingresar al Panel Editorial
+        </button>
+      </form>
+      <div class="text-center">
+        <a href="index.html" class="font-mono text-xs text-slate-400 hover:text-white">← Volver al Portal Público</a>
       </div>
     </div>
   </div>
 
-  <div class="w-full border-b border-surface-container-high bg-surface-container-lowest">
-    <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-4">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-surface-container-high pb-2">
-        <div class="flex items-center gap-4 font-label-sm uppercase tracking-widest text-on-surface-variant">
-          <span class="font-stat-mono text-primary font-bold">Sala de Redacción</span>
-          <span>•</span>
-          <span>Valencia, Carabobo • Estudio Multimodal</span>
-        </div>
-        <div class="italic font-headline-sm text-secondary tracking-normal text-center hidden sm:block">«Módulos 100% editables e ingesta multimodal integrada»</div>
+  <!-- DASHBOARD DE REDACCIÓN (OCULTO HASTA AUTENTICARSE) -->
+  <div id="dashboard-cms-editorial" class="hidden flex-1 flex flex-col">
+    <header class="bg-slate-950 border-b border-slate-800 px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-amber-500">edit_document</span>
+        <h2 class="font-bold text-lg">Sala de Redacción CMS • Procesador Estilo Word</h2>
       </div>
-      <div class="pt-4 pb-2 text-center">
-        <h1 class="font-headline-xl lg:text-[48px] text-primary tracking-tight font-bold uppercase leading-none">CMS Studio Naval</h1>
-        <div class="mt-2 flex items-center justify-center gap-4">
-          <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
-          <p class="font-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium">Gestión de Crónicas, Telemetría Statcast & Archivos</p>
-          <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-mono rounded-lg transition">Ver Portal Público</a>
+    </header>
 
-  <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high">
-    <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
-      <div class="flex items-center justify-between overflow-x-auto py-2">
-        <div class="flex items-center gap-1 font-label-md uppercase tracking-wider shrink-0">
-          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="index.html">Portada</a>
-          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="cronica.html">Crónicas</a>
-          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="vip.html">Cabina VIP Hub</a>
-          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="roster.html">Scouting & Roster</a>
-          <a class="px-4 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" href="redaccion-cms.html">Sala CMS</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
-
-<main class="w-full bg-background min-h-[70vh]">
-  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8">
-    
-    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div>
-        <h2 class="font-headline-md font-bold text-primary">Consola General de Edición & Publicación</h2>
-        <p class="font-body-sm text-on-surface-variant">Modifica cualquier parámetro, ajusta las métricas de Statcast y adjunta archivos multimedia en tiempo real.</p>
-      </div>
-      <div class="flex items-center gap-3 w-full md:w-auto">
-        <button id="saveDraftBtn" class="flex-1 md:flex-none px-4 py-2 bg-surface-container hover:bg-surface-container-high text-primary font-label-md uppercase rounded-lg font-bold transition-colors shadow-sm flex items-center justify-center gap-1">
-          <span class="material-symbols-outlined text-[18px]">save</span> Guardar Borrador
-        </button>
-        <button id="publishBtn" class="flex-1 md:flex-none px-6 py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md uppercase rounded-lg font-bold transition-all shadow-md flex items-center justify-center gap-1">
-          <span class="material-symbols-outlined text-[18px] text-secondary-fixed">cloud_sync</span> Publicar Cambios / JSON
-        </button>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="flex-1 flex flex-col lg:flex-row p-6 gap-6 max-w-[1400px] mx-auto w-full">
       
-      <section class="lg:col-span-7 flex flex-col gap-6">
-        
-        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col gap-4">
-          <h3 class="font-headline-sm font-bold text-primary border-b border-surface-container-high pb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-secondary">edit_note</span> 1. Metadatos de la Crónica
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-bold">Firma del Autor</label>
-              <input type="text" id="editAuthor" class="w-full px-4 py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm focus:outline-none focus:ring-2 focus:ring-secondary" value="Luis Enrique Aponte">
-            </div>
-            <div>
-              <label class="block font-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-bold">Sección del Portal</label>
-              <select id="editSection" class="w-full px-4 py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm focus:outline-none focus:ring-2 focus:ring-secondary">
-                <option value="CRÓNICA DE PORTADA">Crónica de Portada (Lead Story)</option>
-                <option value="SCOUTING REPORT">Scouting & Sabermetría</option>
-                <option value="DEFENSA & CATCHER">Defensa & Catcher Index</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="block font-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-bold">Gran Titular de Primera Plana (H1)</label>
-            <input type="text" id="editHeadline" class="w-full px-4 py-2.5 rounded-lg bg-surface-container-low text-on-surface font-headline-md font-bold focus:outline-none focus:ring-2 focus:ring-secondary" value="Opening Day LVBP: El colapso del pitcheo abridor y las señales sabermétricas en el arranque turco">
-          </div>
-          <div>
-            <label class="block font-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-bold">Epígrafe / Bajada Analítica</label>
-            <textarea id="editEpigraph" rows="2" class="w-full px-4 py-2 rounded-lg bg-surface-container-low text-on-surface font-body-sm focus:outline-none focus:ring-2 focus:ring-secondary">Bajo la humedad asfixiante de Valencia, el arranque de campaña desnudó una brecha estructural en la confección del cuerpo de lanzadores...</textarea>
-          </div>
+      <!-- LIENZO DE ESCRITURA ENRIQUECIDA -->
+      <div class="flex-1 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col overflow-hidden shadow-lg">
+        <!-- Barra de Herramientas Estilo Word -->
+        <div class="bg-slate-950 border-b border-slate-800 p-2.5 flex flex-wrap gap-2 text-xs font-mono items-center">
+          <button onclick="document.execCommand('bold', false, null)" class="p-1.5 bg-slate-800 hover:bg-slate-700 rounded font-bold" title="Negrita"><b>B</b></button>
+          <button onclick="document.execCommand('italic', false, null)" class="p-1.5 bg-slate-800 hover:bg-slate-700 rounded italic" title="Cursiva"><i>I</i></button>
+          <button onclick="document.execCommand('underline', false, null)" class="p-1.5 bg-slate-800 hover:bg-slate-700 rounded underline" title="Subrayado"><u>U</u></button>
+          <span class="w-px h-5 bg-slate-800 mx-1"></span>
+          <button onclick="document.execCommand('formatBlock', false, '<h1>')" class="px-2 py-1 bg-slate-800 rounded font-bold">H1</button>
+          <button onclick="document.execCommand('formatBlock', false, '<h2>')" class="px-2 py-1 bg-slate-800 rounded font-bold">H2</button>
+          <button onclick="document.execCommand('insertUnorderedList', false, null)" class="px-2 py-1 bg-slate-800 rounded">Viñetas</button>
+          <button onclick="document.execCommand('insertOrderedList', false, null)" class="px-2 py-1 bg-slate-800 rounded">Num.</button>
+          <button onclick="document.execCommand('formatBlock', false, '<blockquote>')" class="px-2 py-1 bg-slate-800 rounded">Cita</button>
         </div>
 
-        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col gap-4">
-          <h3 class="font-headline-sm font-bold text-primary border-b border-surface-container-high pb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-secondary">article</span> 2. Cuerpo y Cita Destacada
-          </h3>
-          <div>
-            <label class="block font-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-bold">Texto Completo de la Crónica</label>
-            <textarea id="editBody" rows="6" class="w-full px-4 py-3 rounded-lg bg-surface-container-low text-on-surface font-body-lg focus:outline-none focus:ring-2 focus:ring-secondary">VALENCIA — Hay momentos en que la física del montículo deja de ser una hipótesis de pizarrón para convertirse en una sentencia irrevocable. Frente a una multitud que colmó los graderíos del José Bernardo Pérez...</textarea>
-          </div>
-          <div>
-            <label class="block font-label-sm uppercase tracking-wider text-on-surface-variant mb-1 font-bold">Cita Destacada (Pull Quote)</label>
-            <input type="text" id="editQuote" class="w-full px-4 py-2 rounded-lg bg-surface-container-low text-on-surface italic font-body-sm focus:outline-none focus:ring-2 focus:ring-secondary" value="«Las 34.2 entradas acumuladas sin ponches con dos strikes no son al azar...»">
-          </div>
+        <div class="p-6 md:p-10 flex-1 overflow-y-auto space-y-4 bg-white text-slate-900">
+          <input type="text" id="editor-title" placeholder="Título de la Noticia o Reportaje..." 
+                 class="w-full text-2xl md:text-3xl font-bold bg-transparent border-b border-slate-200 pb-2 focus:outline-none placeholder:text-slate-400">
+          <input type="text" id="editor-lead" placeholder="Bajada o resumen introductorio..." 
+                 class="w-full text-sm italic bg-transparent border-b border-slate-200 pb-2 focus:outline-none placeholder:text-slate-400 text-slate-600">
+          <div id="word-editor-canvas" contenteditable="true" placeholder="Redacta el cuerpo completo del artículo aquí..." 
+               class="min-h-[450px] focus:outline-none text-slate-800 leading-relaxed font-sans"></div>
         </div>
+      </div>
 
-        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col gap-4">
-          <h3 class="font-headline-sm font-bold text-primary border-b border-surface-container-high pb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-secondary">perm_media</span> 3. Ingesta Multimodal (Multimedia & Datos)
-          </h3>
-          <p class="font-body-sm text-on-surface-variant">Suelta o adjunta archivos reales (Videos MP4/MOV, TrackMan CSV/JSON, Audios WAV/FLAC o fotos RAW) para indexar en la gacetilla:</p>
-          <div class="border-2 border-dashed border-outline-variant/60 hover:border-secondary p-6 rounded-xl text-center bg-surface-container-low transition-colors cursor-pointer relative" id="dropZone">
-            <input type="file" id="multiFileInput" multiple class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" title="Adjuntar archivos">
-            <div class="flex flex-col items-center justify-center gap-2">
-              <span class="material-symbols-outlined text-4xl text-secondary">cloud_upload</span>
-              <p class="font-label-md font-bold text-primary">Haz clic aquí o arrastra tus archivos multimedia</p>
-              <p class="font-stat-mono text-label-sm text-on-surface-variant">Soporte directo para sincronización con GitHub Pages</p>
-            </div>
-          </div>
-          <div id="fileListContainer" class="hidden flex flex-col gap-2 pt-2">
-            <span class="font-label-sm uppercase tracking-wider font-bold text-primary">Archivos en cola listos para compilar:</span>
-            <div id="fileItemsList" class="flex flex-col gap-2 font-stat-mono text-label-sm"></div>
-          </div>
+      <!-- PANEL LATERAL DE CONFIGURACIÓN -->
+      <div class="w-full lg:w-80 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 h-fit">
+        <h3 class="font-bold text-sm uppercase font-mono text-amber-500">Publicación & Destino</h3>
+        <div>
+          <label class="block font-mono text-xs text-slate-400 mb-1">Módulo Destino</label>
+          <select id="editor-target" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-white outline-none">
+            <option value="carrusel_0">Carrusel Nota #1 (Portada)</option>
+            <option value="carrusel_1">Carrusel Nota #2 (Portada)</option>
+            <option value="carrusel_2">Carrusel Nota #3 (Portada)</option>
+            <option value="carrusel_3">Carrusel Nota #4 (Portada)</option>
+            <option value="carrusel_4">Carrusel Nota #5 (Portada)</option>
+            <option value="cronica_new">Grid de Crónicas</option>
+          </select>
         </div>
-
-      </section>
-
-      <aside class="lg:col-span-5 flex flex-col gap-6">
-        
-        <div class="bg-primary text-on-primary rounded-xl p-6 shadow-xl flex flex-col gap-4">
-          <div class="flex items-center justify-between border-b border-primary-container pb-2">
-            <span class="font-label-sm uppercase tracking-widest text-secondary-fixed font-bold flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[16px]">radar</span> Consola Statcast & Métricas
-            </span>
-            <span class="bg-secondary text-on-secondary px-2 py-0.5 rounded font-stat-mono text-label-sm font-bold">LIVE SYNC</span>
-          </div>
-          <div class="grid grid-cols-2 gap-4 font-stat-mono">
-            <div class="bg-primary-container p-3 rounded-lg">
-              <label class="block text-label-sm text-on-primary-container uppercase">Vel. Salida (EV)</label>
-              <input type="text" id="statEV" class="w-full bg-transparent text-stat-display font-bold text-secondary-fixed focus:outline-none" value="92.4 MPH">
-            </div>
-            <div class="bg-primary-container p-3 rounded-lg">
-              <label class="block text-label-sm text-on-primary-container uppercase">Ángulo (LA)</label>
-              <input type="text" id="statLA" class="w-full bg-transparent text-stat-display font-bold text-primary-fixed focus:outline-none" value="14.6°">
-            </div>
-            <div class="bg-primary-container p-3 rounded-lg">
-              <label class="block text-label-sm text-on-primary-container uppercase">Spin Rate</label>
-              <input type="text" id="statSpin" class="w-full bg-transparent text-stat-display font-bold text-secondary-fixed focus:outline-none" value="2,540 RPM">
-            </div>
-            <div class="bg-primary-container p-3 rounded-lg">
-              <label class="block text-label-sm text-on-primary-container uppercase">Whiff %</label>
-              <input type="text" id="statWhiff" class="w-full bg-transparent text-stat-display font-bold text-primary-fixed focus:outline-none" value="34.2%">
-            </div>
-          </div>
+        <div>
+          <label class="block font-mono text-xs text-slate-400 mb-1">Etiqueta / Categoría</label>
+          <input type="text" id="editor-tag" value="Sabermetría" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
         </div>
-
-        <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col gap-4">
-          <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
-            <span class="font-label-md uppercase tracking-wider font-bold text-primary flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[18px] text-secondary">visibility</span> Previsualización en Portada
-            </span>
-            <span class="font-stat-mono text-label-sm text-secondary font-bold">Sincronizado</span>
-          </div>
-          <article class="bg-surface-container-low p-4 rounded-lg flex flex-col gap-2 border border-surface-container-high">
-            <div class="flex items-center justify-between font-stat-mono text-label-sm text-on-surface-variant">
-              <strong id="previewTag" class="text-primary font-bold">CRÓNICA DE PORTADA</strong>
-              <span id="previewAuthorSpan">Por Luis Enrique Aponte</span>
-            </div>
-            <h4 id="previewHeadlineH" class="font-headline-sm font-bold text-primary leading-tight">
-              Opening Day LVBP: El colapso del pitcheo abridor y las señales sabermétricas en el arranque turco
-            </h4>
-            <p id="previewEpigraphP" class="font-body-sm text-on-surface-variant line-clamp-2">
-              Bajo la humedad asfixiante de Valencia, el arranque de campaña desnudó una brecha estructural...
-            </p>
-            <div class="pt-2 border-t border-surface-container-high flex justify-between items-center font-stat-mono text-label-sm text-secondary font-bold">
-              <span id="previewEVBadge">EV: 92.4 MPH</span>
-              <span id="previewWhiffBadge">WHIFF: 34.2%</span>
-            </div>
-          </article>
+        <div>
+          <label class="block font-mono text-xs text-slate-400 mb-1">Imagen Destacada (URL)</label>
+          <input type="text" id="editor-img" placeholder="https://..." class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
         </div>
-
-      </aside>
+        <button id="btn-publish" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono text-xs uppercase font-bold rounded-xl shadow transition">
+          Publicar en el Portal
+        </button>
+      </div>
 
     </div>
-
   </div>
-</main>
 
-<footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
-  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 text-center font-stat-mono text-label-sm text-on-surface-variant">
-    <p>© 2026 La Taberna del Magallanes News — Sala de Redacción CMS Multimodal Integrada.</p>
-  </div>
-</footer>
+  <script>
+    let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {
+      articles: [],
+      cronicas: []
+    };
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const editAuthor = document.getElementById('editAuthor');
-    const editSection = document.getElementById('editSection');
-    const editHeadline = document.getElementById('editHeadline');
-    const editEpigraph = document.getElementById('editEpigraph');
-    const statEV = document.getElementById('statEV');
-    const statWhiff = document.getElementById('statWhiff');
+    document.getElementById('form-cms-login').onsubmit = (e) => {
+      e.preventDefault();
+      if(document.getElementById('cms-password-input').value === 'magallanes2026') {
+        document.getElementById('modal-cms-login').classList.add('hidden');
+        document.getElementById('dashboard-cms-editorial').classList.remove('hidden');
+      } else {
+        document.getElementById('login-error-msg').classList.remove('hidden');
+      }
+    };
 
-    const previewAuthorSpan = document.getElementById('previewAuthorSpan');
-    const previewTag = document.getElementById('previewTag');
-    const previewHeadlineH = document.getElementById('previewHeadlineH');
-    const previewEpigraphP = document.getElementById('previewEpigraphP');
-    const previewEVBadge = document.getElementById('previewEVBadge');
-    const previewWhiffBadge = document.getElementById('previewWhiffBadge');
+    document.getElementById('btn-publish').onclick = () => {
+      const title = document.getElementById('editor-title').value;
+      const lead = document.getElementById('editor-lead').value;
+      const body = document.getElementById('word-editor-canvas').innerHTML;
+      const tag = document.getElementById('editor-tag').value;
+      const bgImg = document.getElementById('editor-img').value || 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop';
+      const target = document.getElementById('editor-target').value;
 
-    function updatePreview() {
-      if(previewAuthorSpan) previewAuthorSpan.textContent = `Por ${editAuthor.value}`;
-      if(previewTag) previewTag.textContent = editSection.value;
-      if(previewHeadlineH) previewHeadlineH.textContent = editHeadline.value;
-      if(previewEpigraphP) previewEpigraphP.textContent = editEpigraph.value;
-      if(previewEVBadge) previewEVBadge.textContent = `EV: ${statEV.value}`;
-      if(previewWhiffBadge) previewWhiffBadge.textContent = `WHIFF: ${statWhiff.value}`;
-    }
+      if(!title) {
+        alert('Por favor introduce un título para la noticia.');
+        return;
+      }
 
-    [editAuthor, editSection, editHeadline, editEpigraph, statEV, statWhiff].forEach(el => {
-      if(el) el.addEventListener('input', updatePreview);
-    });
+      const newArt = { title, lead, body, tag, date: "30 Oct, 2026", bgImg };
 
-    const fileInput = document.getElementById('multiFileInput');
-    const fileListContainer = document.getElementById('fileListContainer');
-    const fileItemsList = document.getElementById('fileItemsList');
+      if(target.startsWith('carrusel_')) {
+        const idx = parseInt(target.split('_')[1]);
+        if(!portalData.articles) portalData.articles = [];
+        portalData.articles[idx] = newArt;
+      } else {
+        if(!portalData.cronicas) portalData.cronicas = [];
+        portalData.cronicas.unshift(newArt);
+      }
 
-    if(fileInput) {
-      fileInput.addEventListener('change', (e) => {
-        const files = e.target.files;
-        if(files.length > 0) {
-          fileListContainer.classList.remove('hidden');
-          fileItemsList.innerHTML = '';
-          Array.from(files).forEach((file, index) => {
-            const sizeMB = (file.size / (1024*1024)).toFixed(2);
-            const div = document.createElement('div');
-            div.className = "flex items-center justify-between bg-surface-container-lowest p-2 rounded border border-surface-container-high";
-            div.innerHTML = `
-              <span class="truncate max-w-[240px] text-primary font-bold">${index + 1}. ${file.name}</span>
-              <span class="text-on-surface-variant">${sizeMB} MB · <strong class="text-secondary">Indexado</strong></span>
-            `;
-            fileItemsList.appendChild(div);
-          });
-        }
-      });
-    }
-
-    document.getElementById('saveDraftBtn').addEventListener('click', () => {
-      alert('✓ Borrador de la crónica guardado en el almacenamiento local del navegador.');
-    });
-
-    document.getElementById('publishBtn').addEventListener('click', () => {
-      const btn = document.getElementById('publishBtn');
-      btn.innerHTML = '<span>Compilando y Sincronizando...</span>';
-      setTimeout(() => {
-        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-secondary-fixed">cloud_sync</span> Publicar Cambios / JSON';
-        alert('✓ ¡Cambios publicados y sincronizados con éxito en el repositorio y data.json!');
-      }, 1000);
-    });
-  });
-</script>
+      localStorage.setItem('taberna_cms_master_data', JSON.stringify(portalData));
+      alert('¡Noticia publicada con éxito en el portal!');
+    };
+  </script>
 </body>
 </html>
