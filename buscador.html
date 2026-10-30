@@ -128,4 +128,152 @@
         <div class="mt-2 flex items-center justify-center gap-4">
           <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
           <p class="font-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium">Motor de Búsqueda, Hemeroteca & Archivo SABR</p>
-          <div class="h-[1px] w-16 sm:w-28 bg-outline-variant
+          <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN CONSISTENTE -->
+  <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high">
+    <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+      <div class="flex items-center justify-between overflow-x-auto py-2">
+        <div class="flex items-center gap-1 font-label-md uppercase tracking-wider shrink-0">
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="index.html">Portada</a>
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="cronica.html">Crónicas</a>
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="vip.html">Cabina VIP Hub</a>
+          <a class="px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" href="roster.html">Scouting & Roster</a>
+          <a class="px-4 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" href="buscador.html">Hemeroteca & Buscador</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="w-full bg-background min-h-[614px]">
+  <div class="flex flex-col w-full">
+    
+    <!-- CINTILLO ARCHIVO -->
+    <section class="w-full bg-surface-container-lowest px-4 lg:px-8 py-2 shadow-sm">
+      <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-on-surface-variant font-label-sm">
+        <div class="flex items-center gap-2 tracking-wider uppercase font-stat-mono">
+          <span class="flex items-center gap-1 text-primary font-bold">
+            <span class="material-symbols-outlined text-[15px] text-secondary">inventory_2</span> Hemeroteca Naval & Depósito SABR
+          </span>
+        </div>
+        <div class="flex items-center gap-1 text-primary font-medium">
+          <span>Creado por el Licenciado <strong class="text-on-surface">Luis Aponte</strong>[cite: 3]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTOR DE BÚSQUEDA -->
+    <section class="w-full bg-surface-container-lowest px-4 lg:px-8 py-6 shadow-sm">
+      <div class="max-w-[1320px] mx-auto space-y-4">
+        <div class="bg-surface-container-lowest rounded-lg shadow-md p-2 border border-surface-container-high">
+          <div class="flex items-center px-4 gap-2">
+            <span class="material-symbols-outlined text-primary text-[28px] shrink-0">search</span>
+            <input class="w-full bg-transparent font-body-lg text-on-surface placeholder:text-outline focus:outline-none py-2" id="search-query-input" type="text" placeholder="Escribe para buscar en la hemeroteca...">
+            <button class="px-6 py-2 bg-primary text-on-primary font-label-md uppercase tracking-widest rounded hover:bg-primary-container transition-all shrink-0 shadow-sm" type="button" id="btn-execute-search">
+              <span>Buscar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS PRINCIPALES -->
+    <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LISTADO DE ARTÍCULOS / RESULTADOS -->
+        <div class="lg:col-span-8 space-y-6" id="search-results-container">
+          <article class="bg-surface-container-lowest rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-surface-container-high">
+            <span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-label-sm uppercase font-bold">SABR & Longform</span>
+            <h3 class="font-headline-md text-primary font-bold mt-2 text-xl">Anatomía de un vuelacercas decisivo en el 9no inning: mapa térmico</h3>
+            <p class="font-body-md text-on-surface-variant mt-2">El despegue a 108.4 MPH frente al cerrador melenudo no respondió al azar; el análisis milimétrico desvela la lectura previa del conteo[cite: 3].</p>
+            <div class="mt-4 pt-4 border-t border-surface-container-high flex justify-between items-center text-on-surface-variant font-label-sm">
+              <span>Por Lic. Luis Aponte[cite: 3]</span>
+              <a href="cronica.html" class="text-secondary font-bold uppercase hover:underline">Leer Crónica →</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- PANEL LATERAL -->
+        <aside class="lg:col-span-4 space-y-6">
+          <div class="bg-surface-container-lowest rounded-xl p-6 shadow-md border border-surface-container-high">
+            <h4 class="font-headline-sm uppercase tracking-tight text-primary font-bold mb-2">Exportación de Datos</h4>
+            <p class="font-body-sm text-on-surface-variant mb-4">Descarga conjuntos tabulados y matrices sabermétricas[cite: 3].</p>
+            <a href="#" class="block w-full py-2 bg-surface-container-low text-center font-label-sm uppercase font-semibold rounded hover:bg-surface-container text-primary">Descargar Matriz CSV[cite: 3]</a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-10 text-center font-stat-mono text-label-sm text-on-surface-variant">
+    <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Creado por el Lic. Luis Aponte[cite: 3].</p>
+  </div>
+</footer>
+
+<script>
+  // Cargar artículos del CMS para alimentar la hemeroteca y buscador
+  const portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data'));
+  if(portalData) {
+    const allArticles = [...(portalData.articles || []), ...(portalData.cronicas || [])];
+    if(allArticles.length > 0) {
+      const container = document.getElementById('search-results-container');
+      
+      // Función para renderizar resultados
+      function renderResults(items) {
+        container.innerHTML = '';
+        items.forEach(art => {
+          const card = document.createElement('article');
+          card.className = "bg-surface-container-lowest rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-surface-container-high";
+          card.innerHTML = `
+            <span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-label-sm uppercase font-bold">${art.tag || 'Archivo CMS'}</span>
+            <h3 class="font-headline-md text-primary font-bold mt-2 text-xl">${art.title}</h3>
+            <p class="font-body-md text-on-surface-variant mt-2">${art.lead || ''}</p>
+            <div class="mt-4 pt-4 border-t border-surface-container-high flex justify-between items-center text-on-surface-variant font-label-sm">
+              <span>Por Lic. Luis Aponte</span>
+              <a href="cronica.html" class="text-secondary font-bold uppercase hover:underline">Leer Reporte →</a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      // Renderizar iniciales
+      renderResults(allArticles);
+
+      // Filtrado por buscador
+      const searchInput = document.getElementById('search-query-input');
+      const searchBtn = document.getElementById('btn-execute-search');
+
+      function performSearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        if(!query) {
+          renderResults(allArticles);
+          return;
+        }
+        const filtered = allArticles.filter(a => 
+          a.title.toLowerCase().includes(query) || 
+          (a.lead && a.lead.toLowerCase().includes(query)) ||
+          (a.tag && a.tag.toLowerCase().includes(query))
+        );
+        renderResults(filtered);
+      }
+
+      searchBtn.onclick = performSearch;
+      searchInput.onkeyup = (e) => {
+        if(e.key === 'Enter') performSearch();
+      };
+    }
+  }
+</script>
+</body>
+</html>
