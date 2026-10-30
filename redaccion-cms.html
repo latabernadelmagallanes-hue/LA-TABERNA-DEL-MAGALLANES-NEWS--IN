@@ -3,10 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="web_standard" name="shell-type">
 <title>Sala CMS | Redacción Editorial</title>
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +46,7 @@
         <span class="material-symbols-outlined text-amber-500">edit_document</span>
         <h2 class="font-bold text-lg">Sala de Redacción CMS • Procesador Estilo Word</h2>
       </div>
-      <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-mono rounded-lg transition">Ver Portal Público</a>
+      <a href="index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-mono rounded-lg transition" target="_blank">Ver Portal Público</a>
     </header>
 
     <div class="flex-1 flex flex-col lg:flex-row p-6 gap-6 max-w-[1400px] mx-auto w-full">
@@ -67,6 +64,12 @@
           <button onclick="document.execCommand('insertUnorderedList', false, null)" class="px-2 py-1 bg-slate-800 rounded">Viñetas</button>
           <button onclick="document.execCommand('insertOrderedList', false, null)" class="px-2 py-1 bg-slate-800 rounded">Num.</button>
           <button onclick="document.execCommand('formatBlock', false, '<blockquote>')" class="px-2 py-1 bg-slate-800 rounded">Cita</button>
+          <span class="w-px h-5 bg-slate-800 mx-1"></span>
+          <!-- Botón de Carga Local para el Cuerpo -->
+          <label class="px-2.5 py-1 bg-amber-500/20 text-amber-400 hover:bg-amber-500 hover:text-slate-950 rounded cursor-pointer transition font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">upload_file</span> Cargar Imagen Cuerpo
+            <input type="file" id="file-body-image" accept="image/*" class="hidden" onchange="uploadBodyImage(event)">
+          </label>
         </div>
 
         <div class="p-6 md:p-10 flex-1 overflow-y-auto space-y-4 bg-white text-slate-900">
@@ -98,8 +101,16 @@
           <input type="text" id="editor-tag" value="Sabermetría" class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
         </div>
         <div>
-          <label class="block font-mono text-xs text-slate-400 mb-1">Imagen Destacada (URL)</label>
-          <input type="text" id="editor-img" placeholder="https://..." class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+          <label class="block font-mono text-xs text-slate-400 mb-1">Imagen Destacada (PC / Móvil o URL)</label>
+          <input type="file" id="file-featured-image" accept="image/*" class="hidden" onchange="previewFeaturedImage(event)">
+          <button type="button" onclick="document.getElementById('file-featured-image').click()" 
+                  class="w-full py-2 bg-slate-950 hover:bg-slate-800 text-xs font-mono text-amber-400 rounded-xl border border-slate-800 flex items-center justify-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-sm">photo_camera</span> Subir desde Dispositivo
+          </button>
+          <input type="text" id="editor-img" placeholder="O pega enlace https://..." class="w-full p-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white outline-none">
+          <div id="preview-featured-container" class="mt-2 hidden">
+            <img id="img-featured-preview" src="" class="w-full h-28 object-cover rounded-lg border border-slate-800">
+          </div>
         </div>
         <button id="btn-publish" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono text-xs uppercase font-bold rounded-xl shadow transition">
           Publicar en el Portal
@@ -115,6 +126,8 @@
       cronicas: []
     };
 
+    let featuredImageBase64 = "";
+
     document.getElementById('form-cms-login').onsubmit = (e) => {
       e.preventDefault();
       if(document.getElementById('cms-password-input').value === 'magallanes2026') {
@@ -125,12 +138,40 @@
       }
     };
 
+    function uploadBodyImage(e) {
+      const file = e.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const imgHtml = `<img src="${evt.target.result}" class="max-w-full h-auto rounded-xl my-4 shadow-md">`;
+          document.getElementById('word-editor-canvas').focus();
+          document.execCommand('insertHTML', false, imgHtml);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function previewFeaturedImage(e) {
+      const file = e.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          featuredImageBase64 = evt.target.result;
+          document.getElementById('img-featured-preview').src = featuredImageBase64;
+          document.getElementById('preview-featured-container').classList.remove('hidden');
+          document.getElementById('editor-img').value = "";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
     document.getElementById('btn-publish').onclick = () => {
       const title = document.getElementById('editor-title').value;
       const lead = document.getElementById('editor-lead').value;
       const body = document.getElementById('word-editor-canvas').innerHTML;
       const tag = document.getElementById('editor-tag').value;
-      const bgImg = document.getElementById('editor-img').value || 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop';
+      const urlImgInput = document.getElementById('editor-img').value;
+      const bgImg = featuredImageBase64 || urlImgInput || 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop';
       const target = document.getElementById('editor-target').value;
 
       if(!title) {
