@@ -134,6 +134,7 @@
     </div>
   </div>
 
+  <!-- NAVEGACIÓN CONSISTENTE -->
   <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high">
     <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
       <div class="flex items-center justify-between overflow-x-auto py-2">
@@ -150,21 +151,22 @@
 </header>
 
 <main class="w-full bg-background min-h-[60vh]">
-  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 w-full">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 w-full space-y-8" id="cronicas-container-dynamic">
     
-    <article class="bg-surface-container-lowest rounded-xl p-8 shadow-sm max-w-4xl mx-auto space-y-6">
-      <header class="text-center space-y-3 border-b pb-6">
+    <!-- ARTÍCULO PRINCIPAL DE CRÓNICA ESTÁTICO (RESPALDO) -->
+    <article class="bg-surface-container-lowest rounded-xl p-8 shadow-sm max-w-4xl mx-auto space-y-6 border border-surface-container-high">
+      <header class="text-center space-y-3 border-b pb-6 border-surface-container-high">
         <span class="bg-primary text-secondary-fixed px-3 py-1 rounded font-mono text-xs uppercase font-bold">Crónica Longform • Statcast Lab</span>
-        <h1 class="font-headline-xl text-primary font-bold">La metamorfosis del sinker de Erick Leal frente a Leones del Caracas</h1>
+        <h1 class="font-headline-xl text-primary font-bold text-3xl md:text-4xl">La metamorfosis del sinker de Erick Leal frente a Leones del Caracas</h1>
         <p class="font-body-md text-on-surface-variant italic">Por Lic. Luis Enrique Aponte — Cátedra de Sabermetría Naval</p>
       </header>
 
-      <div class="font-body-lg text-on-surface space-y-4 leading-relaxed font-serif">
+      <div class="font-body-lg text-on-surface space-y-4 leading-relaxed font-serif text-lg">
         <p>VALENCIA — Hay momentos en que la física del montículo deja de ser una hipótesis de pizarrón para convertirse en una sentencia irrevocable. Frente a una multitud que colmó los graderíos del José Bernardo Pérez, el abridor turco apeló al ajuste biomecánico en el quinto tramo para silenciar la toletería melenuda.</p>
         <p>Los registros de TrackMan confirmaron un incremento en el Spin Rate hasta las 2,140 RPM, logrando un quiebre vertical de 24.2 pulgadas que dejó sin margen de maniobra a los bateadores zurdos en situaciones de alta presión (Leverage Index > 2.0).</p>
       </div>
 
-      <div class="pt-6 border-t flex justify-between items-center font-stat-mono text-xs text-on-surface-variant">
+      <div class="pt-6 border-t border-surface-container-high flex justify-between items-center font-stat-mono text-xs text-on-surface-variant">
         <span>Archivo Editorial: #MAG-CRONICA-741</span>
         <a href="index.html" class="text-primary font-bold hover:underline">← Volver a Portada</a>
       </div>
@@ -178,5 +180,33 @@
     <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Creado por el Lic. Luis Aponte.</p>
   </div>
 </footer>
+
+<script>
+  // Sincronizar dinámicamente las crónicas publicadas desde redaccion-cms.html
+  const portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data'));
+  if(portalData && portalData.cronicas && portalData.cronicas.length > 0) {
+    const container = document.getElementById('cronicas-container-dynamic');
+    portalData.cronicas.forEach(cronica => {
+      const art = document.createElement('article');
+      art.className = "bg-surface-container-lowest rounded-xl p-8 shadow-sm max-w-4xl mx-auto space-y-6 border border-surface-container-high";
+      art.innerHTML = `
+        <header class="text-center space-y-3 border-b pb-6 border-surface-container-high">
+          <span class="bg-primary text-secondary-fixed px-3 py-1 rounded font-mono text-xs uppercase font-bold">${cronica.tag || 'Crónica Editorial'}</span>
+          <h1 class="font-headline-xl text-primary font-bold text-3xl md:text-4xl">${cronica.title}</h1>
+          <p class="font-body-md text-on-surface-variant italic">${cronica.lead || ''}</p>
+        </header>
+        ${cronica.bgImg ? `<img src="${cronica.bgImg}" class="w-full h-80 object-cover rounded-xl shadow">` : ''}
+        <div class="font-body-lg text-on-surface space-y-4 leading-relaxed font-serif text-lg">
+          ${cronica.body}
+        </div>
+        <div class="pt-6 border-t border-surface-container-high flex justify-between items-center font-stat-mono text-xs text-on-surface-variant">
+          <span>Publicado: ${cronica.date || '30 Oct, 2026'}</span>
+          <a href="index.html" class="text-primary font-bold hover:underline">← Volver a Portada</a>
+        </div>
+      `;
+      container.prepend(art);
+    });
+  }
+</script>
 </body>
 </html>
