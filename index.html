@@ -1,884 +1,233 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>La Taberna del Magallanes News | Sala Editorial & CMS Professional</title>
-  
-  <!-- METADATOS SEO Y SOCIAL SHARING -->
-  <meta name="description" content="Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP. Multimedio con cobertura 365 días, infografías de datos y sala de redacción CMS.">
-  <meta property="og:title" content="La Taberna del Magallanes News | Periodismo & Sabermetría LVBP">
-  <meta property="og:description" content="Análisis sabermétrico, crónicas en profundidad, infografías y sala de redacción editorial.">
-  <meta property="og:type" content="website">
-
-  <!-- FUENTES TIPOGRÁFICAS E ÍCONOS -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary": "#000b1f",
-            "primary-container": "#0b2240",
-            "on-primary": "#ffffff",
-            "on-primary-container": "#9ab0d6",
-            "secondary": "#775a00",
-            "secondary-container": "#fece57",
-            "on-secondary-fixed": "#251a00",
-            "background": "#f8f9ff",
-            "surface": "#f8f9ff",
-            "surface-container-lowest": "#ffffff",
-            "surface-container-low": "#eff4ff",
-            "surface-container": "#e5ecf9",
-            "surface-container-high": "#dae3f4",
-            "surface-container-highest": "#cfdaf0",
-            "on-surface": "#131c28",
-            "on-surface-variant": "#44474e",
-            "error": "#ba1a1a",
-            "error-container": "#ffdad6",
-            "whatsapp": "#25D366"
-          },
-          fontFamily: {
-            serif: ['"EB Garamond"', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          }
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<title>La Taberna del Magallanes News | Multimedio, Sabermetría & CMS Editorial</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main>:first-child { margin-top: 0 !important; }
+    main>:last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-background": "#131c28",
+          "surface-container-highest": "#dae3f4",
+          "primary": "#000b1f",
+          "surface-container-low": "#eff4ff",
+          "surface-container-lowest": "#ffffff",
+          "primary-container": "#0b2240",
+          "on-surface-variant": "#44474e",
+          "on-primary-container": "#768aad",
+          "background": "#f8f9ff",
+          "on-primary": "#ffffff",
+          "secondary": "#775a00",
+          "surface-container-high": "#e0e9f9",
+          "error-container": "#ffdad6",
+          "error": "#ba1a1a",
+          "surface": "#f8f9ff",
+          "secondary-container": "#fece57",
+          "on-secondary-fixed": "#251a00",
+          "whatsapp": "#25D366"
+        },
+        fontFamily: {
+          headline-lg: ["EB Garamond"],
+          stat-mono: ["JetBrains Mono"],
+          body-lg: ["EB Garamond"],
+          headline-xl: ["EB Garamond"],
+          body-sm: ["Inter"],
+          label-sm: ["JetBrains Mono"],
+          label-md: ["Inter"],
+          headline-sm: ["EB Garamond"],
+          headline-md: ["EB Garamond"],
+          body-md: ["Inter"]
         }
       }
     }
-  </script>
-  <style>
-    @layer base {
-      html { overflow-x: hidden; width: 100%; }
-      body { overflow-x: hidden; width: 100%; word-break: break-word; overflow-wrap: break-word; }
-    }
-    .container-safe {
-      width: 100%;
-      max-width: 1240px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    /* Estilos para el Editor WYSIWYG Estilo Word */
-    #word-editor-canvas:empty:before {
-      content: attr(placeholder);
-      color: #9ca3af;
-      pointer-events: none;
-      display: block;
-    }
-    #word-editor-canvas blockquote {
-      border-left: 4px solid #fece57;
-      padding-left: 1rem;
-      font-style: italic;
-      color: #44474e;
-      margin: 0.75rem 0;
-    }
-    #word-editor-canvas h1 { font-family: 'EB Garamond', serif; font-size: 2rem; font-weight: bold; margin-top: 1rem; margin-bottom: 0.5rem; color: #000b1f; }
-    #word-editor-canvas h2 { font-family: 'EB Garamond', serif; font-size: 1.5rem; font-weight: bold; margin-top: 0.85rem; margin-bottom: 0.4rem; color: #0b2240; }
-    #word-editor-canvas h3 { font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 600; margin-top: 0.75rem; margin-bottom: 0.3rem; color: #775a00; }
-    #word-editor-canvas ul { list-style-type: disc; padding-left: 1.5rem; margin: 0.5rem 0; }
-    #word-editor-canvas ol { list-style-type: decimal; padding-left: 1.5rem; margin: 0.5rem 0; }
-    #word-editor-canvas img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 1rem 0; shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-    #word-editor-canvas iframe { width: 100%; aspect-ratio: 16/9; border-radius: 0.75rem; margin: 1rem 0; }
-  </style>
+  }
+</script>
 </head>
-<body class="bg-background font-sans text-on-surface antialiased selection:bg-secondary-container selection:text-primary">
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-primary">
 
-  <!-- ==================== VISTA PRINCIPAL DEL PORTAL WEB ==================== -->
+  <!-- VISTA PORTADA PRINCIPAL -->
   <div id="view-portal-main">
-    
-    <!-- 1. BARRA SUPERIOR INSTITUCIONAL Y ACCESOS -->
-    <header class="w-full bg-surface-container-lowest shadow-sm sticky top-0 z-40 border-b border-surface-container-high">
-      <div class="w-full bg-primary text-on-primary px-4 py-2">
-        <div class="container-safe flex flex-wrap items-center justify-between gap-3">
-          
-          <div class="flex items-center gap-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-error animate-pulse"></span>
-            <span class="font-mono text-xs uppercase tracking-wider text-error-container font-bold">Statcast Naval Live</span>
-            <span class="hidden md:inline text-white/30">|</span>
-            <span class="hidden md:inline font-mono text-xs text-on-primary-container" id="top-statcast-text">Erick Leal: Sinker 94.8 MPH • Whiff 38.5%</span>
+    <header class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(11,34,64,0.06)] z-50 sticky top-0">
+      <div class="w-full bg-primary text-on-primary border-b border-primary-container px-4 py-2">
+        <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+          <div class="flex items-center gap-1">
+            <span class="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
+            <span class="font-label-sm uppercase tracking-wider text-error-container font-bold" id="top-statcast-text">Statcast LVBP Live: Erick Leal Sinker 94.8 MPH</span>
           </div>
-
-          <div class="flex items-center gap-2.5">
-            <a href="https://whatsapp.com/channel/0029VaTabernaMagallanesOficial" target="_blank" rel="noopener noreferrer" id="top-whatsapp-link"
-               class="inline-flex items-center gap-1.5 px-3 py-1 bg-whatsapp hover:bg-[#1ebd5a] text-white font-mono text-xs uppercase font-bold rounded-full shadow-sm transition-transform active:scale-95">
-              <span class="material-symbols-outlined text-sm">notifications_active</span>
-              <span>Canal WhatsApp</span>
+          <div class="flex items-center gap-3">
+            <a href="https://whatsapp.com/channel/0029VaTabernaMagallanesOficial" target="_blank" class="inline-flex items-center gap-1 px-3 py-1 bg-whatsapp text-white font-label-sm uppercase rounded-full text-xs font-bold">
+              <span class="material-symbols-outlined text-[14px]">notifications_active</span> Canal WhatsApp
             </a>
-
-            <!-- BOTÓN ACCESO A SALA DE REDACCIÓN / CMS -->
-            <button id="btn-open-cms-modal" class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary-container hover:bg-secondary text-on-secondary-fixed hover:text-white font-mono text-xs uppercase font-bold rounded-full shadow-sm transition-colors border border-secondary/30">
-              <span class="material-symbols-outlined text-sm">edit_document</span>
-              <span>Sala CMS Redacción</span>
-            </button>
+            <a class="font-label-sm uppercase tracking-wider text-on-primary-container hover:text-white transition-colors flex items-center gap-1" href="redaccion-cms.html">
+              <span class="material-symbols-outlined text-[16px]">edit_note</span>Sala de Redacción
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- LOGO Y CABECERA DEL PORTAL -->
-      <div class="w-full border-b border-surface-container-high bg-surface-container-lowest py-3.5">
-        <div class="container-safe flex flex-col md:flex-row items-center justify-between gap-4">
-          
-          <div class="flex items-center gap-3.5 text-center md:text-left">
-            <div id="portal-logo-container" class="w-14 h-14 rounded-2xl bg-primary text-secondary-container flex items-center justify-center shadow-md border-2 border-secondary overflow-hidden shrink-0">
-              <span class="material-symbols-outlined text-3xl" id="portal-logo-icon">sports_baseball</span>
-              <img id="portal-logo-img" src="" alt="Logo Oficial" class="w-full h-full object-cover hidden">
-            </div>
-            <div>
-              <h1 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-primary tracking-tight font-bold uppercase leading-tight" id="portal-title">
-                La Taberna del Magallanes News
-              </h1>
-              <p class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] text-on-surface-variant mt-0.5" id="portal-slogan">
-                Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-1 bg-surface-container-low text-primary border border-surface-container-high rounded-lg font-mono text-xs font-bold flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Director: Lic. Luis Enrique Aponte
-            </span>
+      <div class="w-full border-b border-surface-container-high bg-surface-container-lowest">
+        <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-4 text-center">
+          <h1 class="font-headline-xl lg:text-[52px] text-primary tracking-tight font-bold uppercase leading-none" id="portal-title">La Taberna del Magallanes News</h1>
+          <div class="mt-2 flex items-center justify-center gap-4">
+            <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
+            <p class="font-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium" id="portal-slogan">Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP</p>
+            <div class="h-[1px] w-16 sm:w-28 bg-outline-variant"></div>
           </div>
         </div>
       </div>
 
-      <!-- NAVEGACIÓN PRINCIPAL -->
-      <nav class="w-full bg-surface-container-lowest">
-        <div class="container-safe flex items-center gap-1 overflow-x-auto py-2 font-mono text-xs uppercase whitespace-nowrap">
-          <a class="px-3.5 py-1.5 bg-primary-container text-on-primary-container font-bold rounded-lg shrink-0 transition-colors" href="#seccion-carrusel">Carrusel Noticias</a>
-          <a class="px-3.5 py-1.5 text-on-surface-variant hover:bg-surface-container rounded-lg shrink-0 transition-colors" href="#seccion-infografia">Infografía Sabermétrica</a>
-          <a class="px-3.5 py-1.5 text-on-surface-variant hover:bg-surface-container rounded-lg shrink-0 transition-colors" href="#seccion-cronicas">Crónicas Desplegadas</a>
-          <button id="nav-btn-cms-dashboard" class="ml-auto px-3.5 py-1.5 bg-secondary/10 hover:bg-secondary text-secondary hover:text-white font-bold rounded-lg shrink-0 transition-colors flex items-center gap-1">
-            <span class="material-symbols-outlined text-sm">space_dashboard</span> Abrir Dashboard CMS
-          </button>
+      <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high">
+        <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+          <div class="flex items-center justify-between overflow-x-auto py-2 font-label-md uppercase tracking-wider">
+            <div class="flex items-center gap-1">
+              <a class="px-4 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" href="index.html">Portada</a>
+              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-all" href="cronica.html">Crónicas</a>
+              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-all" href="roster.html">Scouting & Roster</a>
+              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-all" href="buscador.html">Hemeroteca & Buscador</a>
+            </div>
+            <span class="font-stat-mono text-xs text-primary font-bold">Director: Lic. Luis Enrique Aponte</span>
+          </div>
         </div>
       </nav>
     </header>
 
-    <!-- 2. CONTENIDO DE PORTADA -->
-    <main class="w-full py-8 space-y-12">
-      <div class="container-safe space-y-12">
-
-        <!-- MÓDULO 1: CARRUSEL PRINCIPAL DE 5 NOTICIAS -->
-        <section class="w-full bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container-high overflow-hidden relative" id="seccion-carrusel">
-          <div class="p-4 bg-surface-container-low border-b border-surface-container-high flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-secondary text-xl">view_carousel</span>
-              <span class="font-serif font-bold text-primary text-base">Primera Plana • Carrusel Multimedia</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="font-mono text-xs text-on-surface-variant" id="carousel-indicator">Nota 1 de 5</span>
-              <div class="flex items-center gap-1">
-                <button id="btn-prev-slide" class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center transition-colors">
-                  <span class="material-symbols-outlined text-base">chevron_left</span>
-                </button>
-                <button id="btn-next-slide" class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center transition-colors">
-                  <span class="material-symbols-outlined text-base">chevron_right</span>
-                </button>
-              </div>
-            </div>
+    <main class="w-full bg-background min-h-[70vh] py-8">
+      <div class="max-w-[1320px] mx-auto px-4 lg:px-8 space-y-12">
+        
+        <!-- CARRUSEL DINÁMICO DE 5 NOTICIAS -->
+        <section class="bg-surface-container-lowest rounded-2xl border border-surface-container-high overflow-hidden shadow-sm">
+          <div class="p-4 bg-surface-container-low flex justify-between items-center border-b border-surface-container-high font-stat-mono text-xs">
+            <span class="font-bold text-primary">Primera Plana • Carrusel Multimedia</span>
+            <span class="text-on-surface-variant" id="carousel-indicator">Nota 1 de 5</span>
           </div>
-
-          <div class="relative w-full h-[420px] md:h-[480px] bg-primary overflow-hidden" id="carousel-viewport">
-            <div id="carousel-slide-content" class="absolute inset-0 flex flex-col justify-end p-6 md:p-12 bg-gradient-to-t from-primary via-primary/60 to-transparent text-on-primary transition-all duration-500">
-              <img id="carousel-bg-img" src="" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay">
-              
-              <div class="relative z-10 space-y-3 max-w-3xl">
-                <div class="flex items-center gap-2">
-                  <span id="carousel-tag" class="px-2.5 py-0.5 bg-secondary-container text-on-secondary-fixed font-mono text-[11px] font-bold uppercase rounded-md">
-                    Sabermetría
-                  </span>
-                  <span id="carousel-date" class="font-mono text-xs text-on-primary-container">
-                    30 Oct, 2026
-                  </span>
-                </div>
-                <h2 id="carousel-title" class="font-serif text-2xl md:text-4xl font-bold leading-tight text-white">
-                  Cargando noticias de primera plana...
-                </h2>
-                <p id="carousel-lead" class="font-sans text-sm md:text-base text-on-primary-container line-clamp-2">
-                  Por favor espere mientras el sistema sincroniza la información editorial.
-                </p>
-                <div class="pt-2">
-                  <button id="btn-read-more-carousel" class="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-mono text-xs font-bold uppercase rounded-xl shadow-md transition-transform active:scale-95">
-                    <span>Leer Noticia Completa</span>
-                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                  </button>
-                </div>
+          <div class="relative h-[420px] bg-primary flex flex-col justify-end p-8 text-on-primary overflow-hidden" id="carousel-viewport">
+            <img id="carousel-bg-img" src="" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay">
+            <div class="relative z-10 space-y-3 max-w-2xl">
+              <span id="carousel-tag" class="px-2.5 py-0.5 bg-secondary-container text-on-secondary-fixed font-label-sm uppercase font-bold rounded">Sabermetría</span>
+              <h2 id="carousel-title" class="font-headline-xl text-3xl font-bold text-white">Cargando noticias...</h2>
+              <p id="carousel-lead" class="font-body-md text-on-primary-container text-sm line-clamp-2">Sincronizando información editorial...</p>
+              <div class="pt-2">
+                <button id="btn-read-more-carousel" class="px-5 py-2.5 bg-secondary text-on-secondary-fixed font-label-sm uppercase font-bold rounded-xl shadow transition hover:brightness-110">
+                  Leer Noticia Completa →
+                </button>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- MÓDULO 2: INFOGRAFÍA SABERMÉTRICA EDITABLE -->
-        <section class="w-full bg-surface-container-lowest rounded-2xl p-6 border border-surface-container-high shadow-sm space-y-6" id="seccion-infografia">
-          <div class="flex items-center justify-between border-b border-surface-container-high pb-4">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-secondary text-2xl">analytics</span>
-              <h3 class="font-serif font-bold text-xl text-primary" id="info-module-title">Infografía & Panel Sabermétrico LVBP</h3>
-            </div>
-            <span class="font-mono text-xs bg-surface-container px-2.5 py-1 rounded-md text-on-surface-variant" id="info-module-subtitle">Análisis Estadístico</span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 space-y-4">
-              <p class="font-sans text-sm text-on-surface-variant leading-relaxed" id="info-module-text">
-                Métricas avanzadas de contacto, velocidad de salida y mapas de picheo en la presente temporada invernal.
-              </p>
-              <div class="rounded-xl overflow-hidden border border-surface-container-high bg-surface-container-low p-2">
-                <img id="info-module-img" src="https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover rounded-lg">
-              </div>
-            </div>
-            <div class="bg-surface-container-low rounded-xl p-5 border border-surface-container-high space-y-4 flex flex-col justify-between">
-              <div>
-                <h4 class="font-serif font-bold text-primary text-lg mb-3">Líderes Sabermétricos</h4>
-                <div class="space-y-3 font-mono text-xs" id="info-stats-list">
-                  <div class="flex justify-between border-b border-surface-container-high pb-1.5">
-                    <span class="text-on-surface-variant">Exit Velocity Prom:</span>
-                    <span class="font-bold text-primary">91.4 MPH</span>
-                  </div>
-                  <div class="flex justify-between border-b border-surface-container-high pb-1.5">
-                    <span class="text-on-surface-variant">Hard Hit %:</span>
-                    <span class="font-bold text-primary">42.8%</span>
-                  </div>
-                  <div class="flex justify-between border-b border-surface-container-high pb-1.5">
-                    <span class="text-on-surface-variant">Whiff Rate Picheo:</span>
-                    <span class="font-bold text-primary">31.2%</span>
-                  </div>
-                </div>
-              </div>
-              <div class="p-3 bg-secondary-container/30 border border-secondary/30 rounded-lg text-center">
-                <p class="font-mono text-[11px] text-secondary font-bold">Datos sincronizados con Statcast</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- MÓDULO 3: GRID DE CRÓNICAS Y REPORTAJES -->
-        <section class="w-full space-y-6" id="seccion-cronicas">
-          <div class="flex items-center gap-2 border-b border-surface-container-high pb-3">
-            <span class="material-symbols-outlined text-secondary text-2xl">menu_book</span>
-            <h3 class="font-serif font-bold text-xl text-primary">Crónicas Desplegadas & Archivo Naval</h3>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-cronicas-container">
-            <!-- Renderizado dinámicamente -->
-          </div>
+        <!-- GRID DE CRÓNICAS Y ARCHIVO -->
+        <section class="space-y-6">
+          <h3 class="font-headline-md font-bold text-primary border-b border-surface-container-high pb-2">Crónicas & Archivo Naval</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="grid-cronicas-container"></div>
         </section>
 
       </div>
     </main>
   </div>
 
-
-  <!-- ==================== VISTA LECTURA A PÁGINA COMPLETA ==================== -->
+  <!-- VISTA LECTURA A PÁGINA COMPLETA ("LEER MÁS") -->
   <div id="view-article-full" class="hidden min-h-screen bg-background py-8">
-    <div class="container-safe max-w-4xl space-y-8">
-      
-      <!-- Botón Volver a la Portada -->
-      <div class="flex items-center justify-between border-b border-surface-container-high pb-4">
-        <button id="btn-back-to-portal" class="inline-flex items-center gap-2 px-4 py-2 bg-surface-container hover:bg-surface-container-high text-primary font-mono text-xs uppercase font-bold rounded-xl transition-colors">
-          <span class="material-symbols-outlined text-sm">arrow_back</span>
-          <span>Volver a la Portada</span>
-        </button>
-        <span class="font-mono text-xs text-on-surface-variant" id="full-article-date">30 Oct, 2026</span>
-      </div>
-
-      <!-- Encabezado del Artículo -->
-      <article class="space-y-6 bg-surface-container-lowest p-6 md:p-10 rounded-2xl border border-surface-container-high shadow-sm">
-        <div class="space-y-3">
-          <span id="full-article-tag" class="px-3 py-1 bg-secondary-container text-on-secondary-fixed font-mono text-xs font-bold uppercase rounded-md inline-block">
-            Categoría
-          </span>
-          <h1 id="full-article-title" class="font-serif text-3xl md:text-5xl font-bold text-primary leading-tight">
-            Título Completo de la Noticia
-          </h1>
-          <p id="full-article-lead" class="font-sans text-lg text-on-surface-variant italic border-l-4 border-secondary pl-4 py-1">
-            Bajada o resumen del artículo redactado desde el CMS.
-          </p>
-        </div>
-
-        <div class="w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-md">
-          <img id="full-article-img" src="" class="w-full h-full object-cover">
-        </div>
-
-        <!-- Cuerpo del Artículo (Lienzo Redactado en WYSIWYG) -->
-        <div id="full-article-body" class="prose max-w-none font-sans text-base text-on-surface leading-relaxed space-y-4 pt-4 border-t border-surface-container-high">
-          <!-- Se inyecta el contenido HTML enriquecido redactado -->
-        </div>
-      </article>
-
-    </div>
-  </div>
-
-
-  <!-- ==================== MODAL DE ACCESO AL CMS (LOGIN) ==================== -->
-  <div id="modal-cms-login" class="fixed inset-0 z-50 bg-primary/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-2xl border border-surface-container-high p-6 space-y-6">
-      <div class="flex items-center justify-between border-b border-surface-container-high pb-4">
-        <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-bold">
-            <span class="material-symbols-outlined">lock</span>
-          </div>
-          <div>
-            <h3 class="font-serif font-bold text-lg text-primary">Acceso Sala CMS</h3>
-            <p class="font-mono text-xs text-on-surface-variant">Autenticación para Redacción y Dirección</p>
-          </div>
-        </div>
-        <button id="btn-close-login" class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface">
-          <span class="material-symbols-outlined text-sm">close</span>
-        </button>
-      </div>
-
-      <form id="form-cms-login" class="space-y-4">
-        <div>
-          <label class="block font-mono text-xs uppercase text-on-surface-variant font-bold mb-1.5">Contraseña del Sistema</label>
-          <input type="password" id="cms-password-input" required placeholder="Introduce la clave del CMS" 
-                 class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-sm focus:outline-none focus:border-secondary">
-          <p class="text-[11px] font-mono text-on-surface-variant mt-1">Clave por defecto: <code class="bg-surface-container px-1 rounded text-primary font-bold">magallanes2026</code></p>
-        </div>
-        <div id="login-error-msg" class="hidden text-error font-mono text-xs bg-error-container p-2.5 rounded-lg">
-          Contraseña incorrecta. Verifique sus credenciales.
-        </div>
-        <button type="submit" class="w-full py-3 bg-primary hover:bg-primary-container text-on-primary font-mono text-xs uppercase font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-sm">login</span>
-          <span>Ingresar a la Sala Editorial</span>
-        </button>
-      </form>
-    </div>
-  </div>
-
-
-  <!-- ==================== CMS REDACCIÓN Y DASHBOARD EDITORIAL (PANTALLA COMPLETA) ==================== -->
-  <div id="dashboard-cms-editorial" class="fixed inset-0 z-50 bg-background hidden flex flex-col overflow-hidden">
-    
-    <!-- Encabezado Superior del Dashboard CMS -->
-    <header class="bg-primary text-on-primary px-6 py-3 flex items-center justify-between border-b border-primary-container shrink-0">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-bold">
-          <span class="material-symbols-outlined">edit_square</span>
-        </div>
-        <div>
-          <h2 class="font-serif font-bold text-lg leading-none">Dashboard Editorial & Sala CMS</h2>
-          <p class="font-mono text-[10px] text-on-primary-container mt-0.5">La Taberna del Magallanes News • Procesador Enriquecido Multimodal</p>
-        </div>
-      </div>
-
-      <!-- Pestañas de Navegación de Módulos dentro del CMS -->
-      <div class="flex items-center gap-2 font-mono text-xs bg-primary-container p-1 rounded-xl">
-        <button id="cms-tab-editor" class="px-4 py-1.5 bg-secondary text-on-secondary-fixed font-bold rounded-lg transition-colors flex items-center gap-1.5">
-          <span class="material-symbols-outlined text-sm">article</span>
-          <span>Redactor de Noticias</span>
-        </button>
-        <button id="cms-tab-modules" class="px-4 py-1.5 text-on-primary-container hover:text-white font-bold rounded-lg transition-colors flex items-center gap-1.5">
-          <span class="material-symbols-outlined text-sm">widgets</span>
-          <span>Módulos del Portal</span>
-        </button>
-      </div>
-
-      <button id="btn-exit-cms-dashboard" class="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-bold rounded-xl flex items-center gap-1 transition-colors">
-        <span class="material-symbols-outlined text-sm">logout</span>
-        <span>Salir del CMS</span>
+    <div class="max-w-4xl mx-auto px-4 space-y-8">
+      <button id="btn-back-to-portal" class="px-4 py-2 bg-surface-container hover:bg-surface-container-high text-primary font-label-sm uppercase font-bold rounded-xl transition">
+        ← Volver a la Portada
       </button>
-    </header>
-
-    <!-- CUERPO PRINCIPAL DEL CMS (DIVIDIDO EN PESTAÑAS) -->
-    <div class="flex-1 overflow-hidden relative">
-
-      <!-- PESTAÑA 1: REDACTOR DE NOTICIAS ESTILO WORD / GOOGLE DOCS -->
-      <div id="cms-content-editor-tab" class="h-full flex flex-col lg:flex-row overflow-hidden">
-        
-        <!-- COLUMNA CENTRAL (LIENZO DE REDACCIÓN COMPLETO) -->
-        <div class="flex-1 flex flex-col h-full bg-surface-container-low border-r border-surface-container-high overflow-hidden">
-          
-          <!-- BARRA DE HERRAMIENTAS WYSIWYG ESTILO WORD -->
-          <div class="bg-surface-container-lowest border-b border-surface-container-high p-2 flex flex-wrap items-center gap-1 shrink-0 font-mono text-xs">
-            
-            <!-- Formato de Texto -->
-            <button onclick="execCmd('bold')" title="Negrita (Ctrl+B)" class="p-1.5 rounded hover:bg-surface-container text-on-surface">
-              <span class="material-symbols-outlined text-lg">format_bold</span>
-            </button>
-            <button onclick="execCmd('italic')" title="Cursiva (Ctrl+I)" class="p-1.5 rounded hover:bg-surface-container text-on-surface">
-              <span class="material-symbols-outlined text-lg">format_italic</span>
-            </button>
-            <button onclick="execCmd('underline')" title="Subrayado" class="p-1.5 rounded hover:bg-surface-container text-on-surface">
-              <span class="material-symbols-outlined text-lg">format_underlined</span>
-            </button>
-
-            <span class="w-px h-5 bg-surface-container-high mx-1"></span>
-
-            <!-- Encabezados -->
-            <button onclick="execCmd('formatBlock', '<h1>')" title="Encabezado H1" class="px-2 py-1 rounded hover:bg-surface-container font-bold">H1</button>
-            <button onclick="execCmd('formatBlock', '<h2>')" title="Encabezado H2" class="px-2 py-1 rounded hover:bg-surface-container font-bold">H2</button>
-            <button onclick="execCmd('formatBlock', '<h3>')" title="Encabezado H3" class="px-2 py-1 rounded hover:bg-surface-container font-bold">H3</button>
-            <button onclick="execCmd('formatBlock', '<p>')" title="Párrafo Normal" class="px-2 py-1 rounded hover:bg-surface-container">Texto</button>
-
-            <span class="w-px h-5 bg-surface-container-high mx-1"></span>
-
-            <!-- Listas y Citas -->
-            <button onclick="execCmd('insertUnorderedList')" title="Viñetas" class="p-1.5 rounded hover:bg-surface-container">
-              <span class="material-symbols-outlined text-lg">format_list_bulleted</span>
-            </button>
-            <button onclick="execCmd('insertOrderedList')" title="Lista Numerada" class="p-1.5 rounded hover:bg-surface-container">
-              <span class="material-symbols-outlined text-lg">format_list_numbered</span>
-            </button>
-            <button onclick="execCmd('formatBlock', '<blockquote>')" title="Cita Textual" class="p-1.5 rounded hover:bg-surface-container">
-              <span class="material-symbols-outlined text-lg">format_quote</span>
-            </button>
-
-            <span class="w-px h-5 bg-surface-container-high mx-1"></span>
-
-            <!-- Inserción Multimodal (Imágenes / Enlaces) -->
-            <button id="btn-insert-image-url" title="Insertar Imagen por URL" class="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded flex items-center gap-1">
-              <span class="material-symbols-outlined text-base text-secondary">image</span>
-              <span>Imagen</span>
-            </button>
-            <button id="btn-insert-video-embed" title="Incrustar Video YouTube" class="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded flex items-center gap-1">
-              <span class="material-symbols-outlined text-base text-error">subscriptions</span>
-              <span>Video</span>
-            </button>
-
-            <div class="ml-auto flex items-center gap-1">
-              <button onclick="execCmd('undo')" title="Deshacer" class="p-1.5 rounded hover:bg-surface-container">
-                <span class="material-symbols-outlined text-lg">undo</span>
-              </button>
-              <button onclick="execCmd('redo')" title="Rehacer" class="p-1.5 rounded hover:bg-surface-container">
-                <span class="material-symbols-outlined text-lg">redo</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- AREA DE REDACCIÓN (HOJA / CANVA ESTILO WORD) -->
-          <div class="flex-1 overflow-y-auto p-4 md:p-8 flex justify-center">
-            <div class="w-full max-w-3xl bg-white rounded-xl shadow-md border border-surface-container-high p-8 md:p-12 min-h-[600px] space-y-4">
-              
-              <!-- Título y Bajada en la Hoja -->
-              <input type="text" id="editor-article-title" placeholder="Título de la Noticia o Reportaje..." 
-                     class="w-full font-serif text-2xl md:text-4xl font-bold text-primary border-b border-surface-container-high pb-2 focus:outline-none placeholder:text-gray-300">
-              
-              <input type="text" id="editor-article-lead" placeholder="Escribe la bajada o resumen introductorio..." 
-                     class="w-full font-sans text-base text-on-surface-variant italic border-b border-surface-container-high pb-2 focus:outline-none placeholder:text-gray-300">
-
-              <!-- Lienzo de Texto Enriquecido Editable -->
-              <div id="word-editor-canvas" contenteditable="true" placeholder="Empieza a redactar el cuerpo de la noticia aquí..." 
-                   class="w-full min-h-[400px] focus:outline-none font-sans text-base text-on-surface leading-relaxed">
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-        <!-- COLUMNA LATERAL (CONFIGURACIÓN Y PUBLICACIÓN) -->
-        <div class="w-full lg:w-96 bg-surface-container-lowest p-6 border-l border-surface-container-high overflow-y-auto space-y-6 shrink-0">
-          
-          <div>
-            <h3 class="font-serif font-bold text-lg text-primary mb-1">Publicación & Destino</h3>
-            <p class="font-mono text-xs text-on-surface-variant">Ajusta dónde y cómo se mostrará esta nota.</p>
-          </div>
-
-          <div class="space-y-4 font-sans text-xs">
-            <div>
-              <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Módulo de Destino</label>
-              <select id="editor-target-module" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs focus:outline-none focus:border-secondary">
-                <option value="carrusel_0">Carrusel Nota #1 (Portada)</option>
-                <option value="carrusel_1">Carrusel Nota #2 (Portada)</option>
-                <option value="carrusel_2">Carrusel Nota #3 (Portada)</option>
-                <option value="carrusel_3">Carrusel Nota #4 (Portada)</option>
-                <option value="carrusel_4">Carrusel Nota #5 (Portada)</option>
-                <option value="cronica_new">Agregar a Grid de Crónicas</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Categoría / Etiqueta</label>
-              <input type="text" id="editor-article-tag" value="Sabermetría" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-            </div>
-
-            <div>
-              <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Fecha de Publicación</label>
-              <input type="text" id="editor-article-date" value="30 Oct, 2026" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-            </div>
-
-            <div>
-              <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Imagen Destacada (URL)</label>
-              <input type="text" id="editor-article-img" placeholder="https://..." class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-            </div>
-          </div>
-
-          <hr class="border-surface-container-high">
-
-          <!-- Botón de Publicación Inmediata -->
-          <div class="space-y-3">
-            <button id="btn-publish-article" class="w-full py-3.5 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-mono text-xs uppercase font-bold rounded-xl shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2">
-              <span class="material-symbols-outlined text-sm">publish</span>
-              <span>Publicar Noticia en el Portal</span>
-            </button>
-
-            <button id="btn-clear-editor" class="w-full py-2 bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-mono text-xs uppercase font-bold rounded-xl transition-colors">
-              Limpiar Lienzo
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- PESTAÑA 2: GESTIÓN DE TODOS LOS MÓDULOS DEL PORTAL -->
-      <div id="cms-content-modules-tab" class="h-full overflow-y-auto p-6 md:p-10 space-y-8 hidden">
-        <div class="max-w-4xl mx-auto space-y-8">
-          
-          <div class="border-b border-surface-container-high pb-4">
-            <h3 class="font-serif font-bold text-2xl text-primary">Edición Integral de Módulos</h3>
-            <p class="font-mono text-xs text-on-surface-variant">Configura títulos, logotipos, enlaces y la infografía sabermétrica.</p>
-          </div>
-
-          <!-- Módulo Configuración General -->
-          <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm space-y-4">
-            <h4 class="font-serif font-bold text-lg text-primary flex items-center gap-2">
-              <span class="material-symbols-outlined text-secondary">settings</span>
-              <span>Cabecera y Datos Institucionales</span>
-            </h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans text-xs">
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Título del Portal</label>
-                <input type="text" id="config-portal-title" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-serif font-bold text-sm">
-              </div>
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Slogan Principal</label>
-                <input type="text" id="config-portal-slogan" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-              </div>
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Texto Statcast Live</label>
-                <input type="text" id="config-statcast-text" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-              </div>
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Enlace Canal WhatsApp</label>
-                <input type="text" id="config-whatsapp-link" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-              </div>
-            </div>
-          </div>
-
-          <!-- Módulo Infografía Sabermétrica -->
-          <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm space-y-4">
-            <h4 class="font-serif font-bold text-lg text-primary flex items-center gap-2">
-              <span class="material-symbols-outlined text-secondary">analytics</span>
-              <span>Modulo Infografía Sabermétrica</span>
-            </h4>
-            <div class="space-y-3 font-sans text-xs">
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Título del Módulo</label>
-                <input type="text" id="config-info-title" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-serif font-bold text-sm">
-              </div>
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Texto / Explicación Sabermétrica</label>
-                <textarea id="config-info-text" rows="3" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl text-xs"></textarea>
-              </div>
-              <div>
-                <label class="block font-mono uppercase text-on-surface-variant font-bold mb-1">Imagen de la Infografía (URL)</label>
-                <input type="text" id="config-info-img" class="w-full px-3 py-2 bg-surface-container-low border border-surface-container-high rounded-xl font-mono text-xs">
-              </div>
-            </div>
-          </div>
-
-          <!-- Botón Guardar Módulos General -->
-          <button id="btn-save-general-modules" class="w-full py-3.5 bg-primary hover:bg-primary-container text-on-primary font-mono text-xs uppercase font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-sm">save</span>
-            <span>Guardar Configuración de Módulos</span>
-          </button>
-
-        </div>
-      </div>
-
+      <article class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl border border-surface-container-high shadow-sm space-y-6">
+        <span id="full-article-tag" class="px-3 py-1 bg-secondary-container text-on-secondary-fixed font-label-sm uppercase font-bold rounded">Categoría</span>
+        <h1 id="full-article-title" class="font-headline-xl text-4xl font-bold text-primary">Título</h1>
+        <p id="full-article-lead" class="font-body-lg text-lg italic text-on-surface-variant border-l-4 border-secondary pl-4">Bajada</p>
+        <img id="full-article-img" src="" class="w-full h-96 object-cover rounded-xl shadow">
+        <div id="full-article-body" class="prose font-body-md text-base leading-relaxed space-y-4 pt-4 border-t border-surface-container-high"></div>
+      </article>
     </div>
-
   </div>
 
+  <footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
+    <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-10 text-center font-stat-mono text-label-sm text-on-surface-variant">
+      <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Creado por el Lic. Luis Aponte.</p>
+    </div>
+  </footer>
 
-  <!-- ==================== SCRIPT DE FUNCIONALIDAD COMPLETA ==================== -->
   <script>
-    // --- ESTADO INICIAL DEL MULTIMEDIO ---
-    const defaultArticles = [
-      {
-        id: "art-1",
-        tag: "Sabermetría",
-        date: "30 Oct, 2026",
-        title: "El impacto de la velocidad de salida en la ofensiva de los Navegantes",
-        lead: "Evaluación detallada con métricas Statcast de los turnos clave en la LVBP.",
-        bgImg: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1200&auto=format&fit=crop",
-        body: `<p>La velocidad de salida (Exit Velocity) se ha consolidado como uno de los factores determinantes para medir la contundencia de un bateador. En la presente campaña, los Navegantes han mostrado un incremento del 14% en batazos de más de 95 MPH.</p><h2>Análisis de Contacto</h2><p>Cuando el ángulo de salida se combina entre 15 y 25 grados, el promedio de bateo esperado (xBA) supera los .500 puntos.</p>`
-      },
-      {
-        id: "art-2",
-        tag: "Crónica Naval",
-        date: "29 Oct, 2026",
-        title: "Dominio absoluto desde el montículo: Análisis del cuerpo de relevistas",
-        lead: "Estrategias de pitcheo y rotación aplicadas en el último encuentro disputado en Valencia.",
-        bgImg: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200&auto=format&fit=crop",
-        body: `<p>El bullpen eléctrico ha mantenido a raya a las alineaciones rivales en los episodios finales. La efectividad colectiva en las últimas tres entradas descendió a 2.15.</p>`
-      },
-      {
-        id: "art-3",
-        tag: "Archivo Histórico",
-        date: "28 Oct, 2026",
-        title: "Memorias de campeonato: La gesta gloriosa de la temporada pasada",
-        lead: "Un repaso estadístico a las actuaciones históricas que marcaron pauta en el béisbol invernal.",
-        bgImg: "https://images.unsplash.com/photo-1519766304817-4f37bda74a29?q=80&w=1200&auto=format&fit=crop",
-        body: `<p>Revivir los momentos épicos que construyeron el legado filibustero a lo largo de las décadas.</p>`
-      },
-      {
-        id: "art-4",
-        tag: "Sabermetría Avanzada",
-        date: "27 Oct, 2026",
-        title: "Ángulo de salida y eficiencia de contacto en bateadores consagrados",
-        lead: "Cómo los nuevos paradigmas de análisis impactan la selección de lanzamientos.",
-        bgImg: "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop",
-        body: `<p>El estudio biomecánico del swing permite ajustar la trayectoria del bate para maximizar los batazos de extra base.</p>`
-      },
-      {
-        id: "art-5",
-        tag: "Sala de Redacción",
-        date: "26 Oct, 2026",
-        title: "Actualización semanal del roster y proyecciones para los próximos duelos",
-        lead: "Reporte médico, incorporaciones recientes y análisis táctico del cuerpo técnico.",
-        bgImg: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop",
-        body: `<p>Nuevas adiciones en la rotación abridora fortalecen el staff de pitcheo para la gira como visitantes.</p>`
-      }
-    ];
-
     let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {
       title: "La Taberna del Magallanes News",
       slogan: "Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP",
-      statcast: "Erick Leal: Sinker 94.8 MPH • Whiff 38.5%",
-      whatsapp: "https://whatsapp.com/channel/0029VaTabernaMagallanesOficial",
-      infoTitle: "Infografía & Panel Sabermétrico LVBP",
-      infoText: "Métricas avanzadas de contacto, velocidad de salida y mapas de picheo en la presente temporada invernal.",
-      infoImg: "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop",
-      articles: defaultArticles,
+      articles: [
+        { tag: "Sabermetría", title: "El impacto de la velocidad de salida", lead: "Evaluación detallada con métricas Statcast.", bgImg: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1200&auto=format&fit=crop", body: "<p>Contenido completo del artículo analítico...</p>" }
+      ],
       cronicas: []
     };
 
     let currentSlide = 0;
 
-    // --- RENDERIZADO DEL PORTAL ---
     function renderPortal() {
       document.getElementById('portal-title').textContent = portalData.title;
       document.getElementById('portal-slogan').textContent = portalData.slogan;
-      document.getElementById('top-statcast-text').textContent = portalData.statcast;
-      document.getElementById('top-whatsapp-link').href = portalData.whatsapp;
-      
-      document.getElementById('info-module-title').textContent = portalData.infoTitle;
-      document.getElementById('info-module-text').textContent = portalData.infoText;
-      document.getElementById('info-module-img').src = portalData.infoImg;
-
       renderSlide(currentSlide);
-      renderCronicasGrid();
+      renderGrid();
     }
 
-    function renderSlide(index) {
-      const art = portalData.articles[index];
+    function renderSlide(idx) {
+      const art = portalData.articles[idx];
       if(!art) return;
       document.getElementById('carousel-tag').textContent = art.tag;
-      document.getElementById('carousel-date').textContent = art.date;
       document.getElementById('carousel-title').textContent = art.title;
       document.getElementById('carousel-lead').textContent = art.lead;
       document.getElementById('carousel-bg-img').src = art.bgImg;
-      document.getElementById('carousel-indicator').textContent = `Nota ${index + 1} de ${portalData.articles.length}`;
-      
+      document.getElementById('carousel-indicator').textContent = `Nota ${idx + 1} de ${portalData.articles.length}`;
       document.getElementById('btn-read-more-carousel').onclick = () => openFullArticle(art);
     }
 
-    function renderCronicasGrid() {
+    function renderGrid() {
       const container = document.getElementById('grid-cronicas-container');
       container.innerHTML = '';
-      
-      const allArticles = [...portalData.articles, ...portalData.cronicas];
-      allArticles.forEach((art) => {
+      [...portalData.articles, ...portalData.cronicas].forEach(art => {
         const card = document.createElement('div');
-        card.className = "bg-surface-container-lowest rounded-2xl border border-surface-container-high overflow-hidden shadow-sm flex flex-col justify-between p-5 space-y-4 hover:border-secondary transition-colors";
+        card.className = "bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high space-y-3 flex flex-col justify-between shadow-sm";
         card.innerHTML = `
-          <div class="space-y-3">
-            <div class="w-full h-44 rounded-xl overflow-hidden">
-              <img src="${art.bgImg}" class="w-full h-full object-cover">
-            </div>
-            <span class="px-2.5 py-0.5 bg-surface-container font-mono text-[10px] uppercase font-bold text-primary rounded-md inline-block">${art.tag}</span>
-            <h4 class="font-serif font-bold text-lg text-primary leading-snug">${art.title}</h4>
-            <p class="font-sans text-xs text-on-surface-variant line-clamp-2">${art.lead}</p>
-          </div>
-          <button class="w-full py-2 bg-surface-container-low hover:bg-secondary hover:text-white font-mono text-xs uppercase font-bold rounded-xl transition-colors flex items-center justify-center gap-1">
-            <span>Leer más</span>
-            <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </button>
+          <img src="${art.bgImg}" class="w-full h-40 object-cover rounded-lg">
+          <span class="font-label-sm uppercase font-bold text-primary bg-surface-container px-2 py-0.5 rounded w-fit">${art.tag}</span>
+          <h4 class="font-headline-sm font-bold text-lg text-primary">${art.title}</h4>
+          <button class="w-full py-2 bg-surface-container-low text-secondary font-label-sm uppercase font-bold rounded-lg hover:bg-secondary hover:text-on-secondary transition">Leer más</button>
         `;
         card.querySelector('button').onclick = () => openFullArticle(art);
         container.appendChild(card);
       });
     }
 
-    // --- LECTURA COMPLETA DE NOTICIAS ---
     function openFullArticle(art) {
       document.getElementById('full-article-tag').textContent = art.tag;
-      document.getElementById('full-article-date').textContent = art.date;
       document.getElementById('full-article-title').textContent = art.title;
       document.getElementById('full-article-lead').textContent = art.lead;
       document.getElementById('full-article-img').src = art.bgImg;
       document.getElementById('full-article-body').innerHTML = art.body || '<p>Contenido en desarrollo...</p>';
-
       document.getElementById('view-portal-main').classList.add('hidden');
       document.getElementById('view-article-full').classList.remove('hidden');
       window.scrollTo(0,0);
     }
 
-    document.getElementById('btn-back-to-portal').addEventListener('click', () => {
+    document.getElementById('btn-back-to-portal').onclick = () => {
       document.getElementById('view-article-full').classList.add('hidden');
       document.getElementById('view-portal-main').classList.remove('hidden');
-      window.scrollTo(0,0);
-    });
-
-    // --- AUTENTICACIÓN Y CMS MODAL ---
-    const modalLogin = document.getElementById('modal-cms-login');
-    const dashboardCMS = document.getElementById('dashboard-cms-editorial');
-
-    document.getElementById('btn-open-cms-modal').onclick = () => modalLogin.classList.remove('hidden');
-    document.getElementById('nav-btn-cms-dashboard').onclick = () => modalLogin.classList.remove('hidden');
-    document.getElementById('btn-close-login').onclick = () => modalLogin.classList.add('hidden');
-
-    document.getElementById('form-cms-login').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const pass = document.getElementById('cms-password-input').value;
-      if(pass === 'magallanes2026') {
-        document.getElementById('login-error-msg').classList.add('hidden');
-        modalLogin.classList.add('hidden');
-        dashboardCMS.classList.remove('hidden');
-        loadModulesDataIntoCMS();
-      } else {
-        document.getElementById('login-error-msg').classList.remove('hidden');
-      }
-    });
-
-    document.getElementById('btn-exit-cms-dashboard').onclick = () => {
-      dashboardCMS.classList.add('hidden');
     };
 
-    // --- COMANDOS DEL EDITOR DE TEXTO ESTILO WORD ---
-    function execCmd(command, value = null) {
-      document.execCommand(command, false, value);
-    }
-
-    document.getElementById('btn-insert-image-url').onclick = () => {
-      const url = prompt('Introduce la URL de la imagen:');
-      if(url) execCmd('insertImage', url);
-    };
-
-    document.getElementById('btn-insert-video-embed').onclick = () => {
-      const embedCode = prompt('Introduce el enlace o código embed de YouTube:');
-      if(embedCode) {
-        let finalUrl = embedCode;
-        if(embedCode.includes('watch?v=')) {
-          finalUrl = embedCode.replace('watch?v=', 'embed/');
-        }
-        const iframe = `<iframe src="${finalUrl}" frameborder="0" allowfullscreen></iframe>`;
-        document.getElementById('word-editor-canvas').focus();
-        execCmd('insertHTML', iframe);
-      }
-    };
-
-    // --- PUBLICAR NOTICIA DESDE EL CMS ---
-    document.getElementById('btn-publish-article').onclick = () => {
-      const title = document.getElementById('editor-article-title').value;
-      const lead = document.getElementById('editor-article-lead').value;
-      const body = document.getElementById('word-editor-canvas').innerHTML;
-      const tag = document.getElementById('editor-article-tag').value;
-      const date = document.getElementById('editor-article-date').value;
-      const bgImg = document.getElementById('editor-article-img').value || 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop';
-      const target = document.getElementById('editor-target-module').value;
-
-      if(!title) {
-        alert('Por favor introduce un título para la noticia.');
-        return;
-      }
-
-      const newArticle = { id: 'art-' + Date.now(), title, lead, body, tag, date, bgImg };
-
-      if(target.startsWith('carrusel_')) {
-        const idx = parseInt(target.split('_')[1]);
-        portalData.articles[idx] = newArticle;
-      } else {
-        portalData.cronicas.unshift(newArticle);
-      }
-
-      localStorage.setItem('taberna_cms_master_data', JSON.stringify(portalData));
-      renderPortal();
-      alert('¡Noticia publicada con éxito en el portal!');
-    };
-
-    document.getElementById('btn-clear-editor').onclick = () => {
-      document.getElementById('editor-article-title').value = '';
-      document.getElementById('editor-article-lead').value = '';
-      document.getElementById('word-editor-canvas').innerHTML = '';
-    };
-
-    // --- GESTIÓN DE MÓDULOS DEL PORTAL EN CMS ---
-    const tabEditor = document.getElementById('cms-tab-editor');
-    const tabModules = document.getElementById('cms-tab-modules');
-    const contentEditorTab = document.getElementById('cms-content-editor-tab');
-    const contentModulesTab = document.getElementById('cms-content-modules-tab');
-
-    tabEditor.onclick = () => {
-      tabEditor.className = "px-4 py-1.5 bg-secondary text-on-secondary-fixed font-bold rounded-lg transition-colors flex items-center gap-1.5";
-      tabModules.className = "px-4 py-1.5 text-on-primary-container hover:text-white font-bold rounded-lg transition-colors flex items-center gap-1.5";
-      contentEditorTab.classList.remove('hidden');
-      contentModulesTab.classList.add('hidden');
-    };
-
-    tabModules.onclick = () => {
-      tabModules.className = "px-4 py-1.5 bg-secondary text-on-secondary-fixed font-bold rounded-lg transition-colors flex items-center gap-1.5";
-      tabEditor.className = "px-4 py-1.5 text-on-primary-container hover:text-white font-bold rounded-lg transition-colors flex items-center gap-1.5";
-      contentModulesTab.classList.remove('hidden');
-      contentEditorTab.classList.add('hidden');
-    };
-
-    function loadModulesDataIntoCMS() {
-      document.getElementById('config-portal-title').value = portalData.title;
-      document.getElementById('config-portal-slogan').value = portalData.slogan;
-      document.getElementById('config-statcast-text').value = portalData.statcast;
-      document.getElementById('config-whatsapp-link').value = portalData.whatsapp;
-      document.getElementById('config-info-title').value = portalData.infoTitle;
-      document.getElementById('config-info-text').value = portalData.infoText;
-      document.getElementById('config-info-img').value = portalData.infoImg;
-    }
-
-    document.getElementById('btn-save-general-modules').onclick = () => {
-      portalData.title = document.getElementById('config-portal-title').value;
-      portalData.slogan = document.getElementById('config-portal-slogan').value;
-      portalData.statcast = document.getElementById('config-statcast-text').value;
-      portalData.whatsapp = document.getElementById('config-whatsapp-link').value;
-      portalData.infoTitle = document.getElementById('config-info-title').value;
-      portalData.infoText = document.getElementById('config-info-text').value;
-      portalData.infoImg = document.getElementById('config-info-img').value;
-
-      localStorage.setItem('taberna_cms_master_data', JSON.stringify(portalData));
-      renderPortal();
-      alert('¡Configuración de módulos actualizada correctamente!');
-    };
-
-    // --- CONTROLES DE CARRUSEL ---
-    document.getElementById('btn-next-slide').onclick = () => {
-      currentSlide = (currentSlide + 1) % portalData.articles.length;
-      renderSlide(currentSlide);
-    };
-    document.getElementById('btn-prev-slide').onclick = () => {
-      currentSlide = (currentSlide - 1 + portalData.articles.length) % portalData.articles.length;
-      renderSlide(currentSlide);
-    };
-
-    // Inicializar portal
     renderPortal();
   </script>
 </body>
