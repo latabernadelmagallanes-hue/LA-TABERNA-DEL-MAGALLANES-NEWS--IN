@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>La Taberna del Magallanes News | Multimedio & Sabermetría</title>
+<title id="html-seo-title">La Taberna del Magallanes News | Multimedio & Sabermetría</title>
+
+<!-- METADATOS SEO DINÁMICOS DESDE EL CMS -->
+<meta name="description" id="html-seo-desc" content="Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP.">
+<meta name="keywords" id="html-seo-keywords" content="Magallanes, LVBP, Sabermetria, Statcast">
+<link rel="canonical" id="html-seo-canonical" href="https://latabernadelmagallanes.com/">
+
+<!-- FUENTES Y ESTILOS -->
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,213 +41,660 @@
           "whatsapp": "#25D366"
         },
         fontFamily: {
-          headline-xl: ["EB Garamond"],
-          headline-md: ["EB Garamond"],
-          body-lg: ["EB Garamond"],
-          body-md: ["Inter"],
-          stat-mono: ["JetBrains Mono"],
-          label-sm: ["JetBrains Mono"],
-          label-md: ["Inter"]
+          headline-xl: ["EB Garamond", "serif"],
+          headline-md: ["EB Garamond", "serif"],
+          body-lg: ["EB Garamond", "serif"],
+          body-md: ["Inter", "sans-serif"],
+          stat-mono: ["JetBrains Mono", "monospace"],
+          label-sm: ["JetBrains Mono", "monospace"],
+          label-md: ["Inter", "sans-serif"]
         }
       }
     }
   }
 </script>
+<style>
+  @layer base {
+    *, *::before, *::after { box-sizing: border-box; }
+    html { overflow-x: hidden; width: 100%; scroll-behavior: smooth; }
+    body { overflow-x: hidden; width: 100%; word-break: break-word; overflow-wrap: break-word; margin: 0; padding: 0; min-height: 100vh; }
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 </head>
 <body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-container selection:text-primary">
 
-  <!-- VISTA PRINCIPAL (PORTADA) -->
-  <div id="view-portal-main">
-    <header class="w-full bg-surface-container-lowest shadow-sm z-50 sticky top-0">
-      <div class="w-full bg-primary text-on-primary px-4 py-2">
-        <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+  <!-- MÓDULO 1: TICKER & HEADER -->
+  <div class="w-full bg-[#000612] text-white border-b border-white/10 py-1.5 px-4 overflow-x-auto no-scrollbar">
+    <div class="max-w-[1320px] mx-auto flex items-center gap-4 text-xs font-stat-mono whitespace-nowrap" id="scoreboard-ticker"></div>
+  </div>
+
+  <header class="w-full bg-surface-container-lowest shadow-sm z-50 sticky top-0">
+    <div class="w-full bg-primary text-on-primary px-4 py-2 border-b border-primary-container">
+      <div class="max-w-[1320px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-error animate-pulse"></span>
+          <span class="font-label-sm uppercase tracking-wider text-error-container font-bold" id="top-statcast-text">Statcast LVBP Live</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a id="top-whatsapp-link" href="#" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 bg-whatsapp text-white font-label-sm uppercase rounded-full text-xs font-bold shadow-sm hover:brightness-105 transition">
+            <span class="material-symbols-outlined text-[15px]">notifications_active</span> Canal WhatsApp Oficial
+          </a>
+          <a class="font-label-sm uppercase tracking-wider text-on-primary-container hover:text-white transition flex items-center gap-1" href="redaccion-cms.html?token=director_magallanes_2026">
+            <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>Sala CMS
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full border-b border-surface-container-high bg-surface-container-lowest">
+      <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-4 text-center">
+        <h1 class="font-headline-xl text-3xl sm:text-4xl lg:text-[50px] text-primary tracking-tight font-bold uppercase leading-none" id="portal-title">La Taberna del Magallanes News</h1>
+        <div class="mt-2 flex items-center justify-center gap-4">
+          <div class="h-[1px] w-12 sm:w-24 bg-slate-300"></div>
+          <p class="font-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium text-xs sm:text-sm" id="portal-slogan">Tribuna de Sabermetría & Crónica Naval</p>
+          <div class="h-[1px] w-12 sm:w-24 bg-slate-300"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVEGACIÓN Y MENÚ DESPLEGABLE MÁS SECCIONES -->
+    <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high relative">
+      <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
+        <div class="flex items-center justify-between py-2 font-label-md uppercase tracking-wider whitespace-nowrap">
           <div class="flex items-center gap-1">
-            <span class="inline-block w-2 h-2 rounded-full bg-error animate-pulse"></span>
-            <span class="font-label-sm uppercase tracking-wider text-error-container font-bold" id="top-statcast-text">Statcast LVBP Live</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <a id="top-whatsapp-link" href="#" target="_blank" class="inline-flex items-center gap-1 px-3 py-1 bg-whatsapp text-white font-label-sm uppercase rounded-full text-xs font-bold">
-              <span class="material-symbols-outlined text-[14px]">notifications_active</span> Canal WhatsApp
-            </a>
-            <a class="font-label-sm uppercase tracking-wider text-on-primary-container hover:text-white transition flex items-center gap-1" href="redaccion-cms.html?token=director_magallanes_2026">
-              <span class="material-symbols-outlined text-[16px]">edit_note</span>Sala de Redacción
-            </a>
-          </div>
-        </div>
-      </div>
+            <a class="px-3.5 py-1.5 bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" href="index.html">Portada</a>
+            <a class="px-3.5 py-1.5 text-on-surface-variant hover:bg-surface-container transition rounded-lg" href="#seccion-sabermetria">Sabermetría</a>
+            <a class="px-3.5 py-1.5 text-on-surface-variant hover:bg-surface-container transition rounded-lg" href="#seccion-infografia-avanzada">Infografía</a>
+            <a class="px-3.5 py-1.5 text-on-surface-variant hover:bg-surface-container transition rounded-lg" href="#seccion-multimedia-galeria">Multimedia</a>
+            <a class="px-3.5 py-1.5 text-secondary font-bold hover:bg-surface-container transition rounded-lg" href="#seccion-circulo-vip">Círculo VIP</a>
 
-      <div class="w-full border-b border-surface-container-high bg-surface-container-lowest">
-        <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-4 text-center">
-          <h1 class="font-headline-xl lg:text-[52px] text-primary tracking-tight font-bold uppercase leading-none" id="portal-title">La Taberna del Magallanes News</h1>
-          <div class="mt-2 flex items-center justify-center gap-4">
-            <div class="h-[1px] w-16 sm:w-28 bg-slate-300"></div>
-            <p class="font-label-md uppercase tracking-[0.25em] text-on-surface-variant font-medium" id="portal-slogan">Tribuna de Sabermetría & Crónica Naval</p>
-            <div class="h-[1px] w-16 sm:w-28 bg-slate-300"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- NAVEGACIÓN CONSISTENTE -->
-      <nav class="w-full bg-surface-container-lowest border-b border-surface-container-high">
-        <div class="max-w-[1320px] mx-auto px-4 lg:px-8">
-          <div class="flex items-center justify-between overflow-x-auto py-2 font-label-md uppercase tracking-wider">
-            <div class="flex items-center gap-1">
-              <a class="px-4 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg shadow-sm" href="index.html">Portada</a>
-              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition" href="cronica.html">Crónicas</a>
-              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition" href="vip.html">Cabina VIP Hub</a>
-              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition" href="roster.html">Scouting & Roster</a>
-              <a class="px-4 py-2 text-on-surface-variant hover:bg-surface-container transition" href="buscador.html">Hemeroteca & Buscador</a>
-            </div>
-            <span class="font-stat-mono text-xs text-primary font-bold">Director: Lic. Luis Enrique Aponte</span>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <main class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 space-y-12">
-      
-      <!-- CARRUSEL NOTICIAS (CONECTADO AL CMS) -->
-      <section class="bg-surface-container-lowest rounded-2xl border border-surface-container-high overflow-hidden shadow-sm">
-        <div class="p-4 bg-surface-container-low flex justify-between items-center border-b border-surface-container-high font-stat-mono text-xs">
-          <span class="font-bold text-primary">Primera Plana • Carrusel Multimedia</span>
-          <span class="text-on-surface-variant" id="carousel-indicator">Nota 1 de 5</span>
-        </div>
-        <div class="relative h-[420px] bg-primary flex flex-col justify-end p-8 text-on-primary overflow-hidden" id="carousel-viewport">
-          <img id="carousel-bg-img" src="" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay">
-          <div class="relative z-10 space-y-3 max-w-2xl">
-            <span id="carousel-tag" class="px-2.5 py-0.5 bg-secondary-container text-on-secondary-fixed font-label-sm uppercase font-bold rounded">Sabermetría</span>
-            <h2 id="carousel-title" class="font-headline-xl text-3xl font-bold text-white">Cargando noticias...</h2>
-            <p id="carousel-lead" class="font-body-md text-on-primary-container text-sm line-clamp-2">Sincronizando información...</p>
-            <div class="pt-2">
-              <button id="btn-read-more-carousel" class="px-5 py-2.5 bg-secondary text-on-secondary-fixed font-label-sm uppercase font-bold rounded-xl shadow transition hover:brightness-110">
-                Leer Noticia Completa →
+            <!-- MENÚ DESPLEGABLE MÁS SECCIONES -->
+            <div class="relative inline-block text-left">
+              <button type="button" id="btn-toggle-mas-secciones" class="px-3.5 py-1.5 text-on-surface-variant hover:bg-surface-container transition rounded-lg font-label-md uppercase tracking-wider flex items-center gap-1 focus:outline-none">
+                <span>Más Secciones</span>
+                <span class="material-symbols-outlined text-sm transition-transform duration-200" id="icon-mas-secciones">expand_more</span>
               </button>
+              <div id="dropdown-mas-secciones" class="hidden absolute left-0 mt-2 w-64 rounded-xl bg-surface-container-lowest border border-surface-container-high shadow-2xl z-[100] py-2 font-mono text-xs">
+                <a href="#seccion-roster" class="dropdown-link flex items-center gap-2 px-4 py-2.5 text-primary hover:bg-surface-container-low transition">
+                  <span class="material-symbols-outlined text-secondary text-sm">groups</span> Roster & Scouting
+                </a>
+                <a href="#seccion-memes-multimedia" class="dropdown-link flex items-center gap-2 px-4 py-2.5 text-primary hover:bg-surface-container-low transition">
+                  <span class="material-symbols-outlined text-secondary text-sm">mood</span> Memes & Humor Naval
+                </a>
+                <a href="#reproductor-multimedia" class="dropdown-link flex items-center gap-2 px-4 py-2.5 text-primary hover:bg-surface-container-low transition">
+                  <span class="material-symbols-outlined text-secondary text-sm">queue_music</span> Playlist & Cabina MP3
+                </a>
+                <a href="#seccion-hemeroteca-pdf" class="dropdown-link flex items-center gap-2 px-4 py-2.5 text-primary hover:bg-surface-container-low transition">
+                  <span class="material-symbols-outlined text-secondary text-sm">picture_as_pdf</span> Hemeroteca PDF
+                </a>
+                <a href="#seccion-paredon-fanatico" class="dropdown-link flex items-center gap-2 px-4 py-2.5 text-primary hover:bg-surface-container-low transition">
+                  <span class="material-symbols-outlined text-secondary text-sm">sports_kabaddi</span> El Paredón del Fanático
+                </a>
+              </div>
             </div>
           </div>
+          <span class="font-stat-mono text-xs text-primary font-bold pl-4 hidden md:inline">Director: Lic. Luis Enrique Aponte</span>
         </div>
-      </section>
+      </div>
+    </nav>
+  </header>
 
-      <!-- INFOGRAFÍA SABERMÉTRICA (CONECTADA AL MÓDULO 3 DEL CMS) -->
-      <section class="bg-surface-container-lowest rounded-2xl p-6 border border-surface-container-high shadow-sm space-y-4">
-        <h3 class="font-headline-md font-bold text-xl text-primary" id="info-module-title">Infografía Sabermétrica</h3>
-        <p class="text-sm text-on-surface-variant" id="info-module-text">Cargando análisis...</p>
-        <img id="info-module-img" src="" class="w-full h-80 object-cover rounded-xl border border-surface-container-high">
-      </section>
-
-      <!-- GRID DE CRÓNICAS -->
-      <section class="space-y-6">
-        <h3 class="font-headline-md font-bold text-primary border-b border-surface-container-high pb-2">Crónicas & Archivo Naval</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="grid-cronicas-container"></div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- VISTA "LEER MÁS" A PÁGINA COMPLETA -->
-  <div id="view-article-full" class="hidden min-h-screen bg-background py-8">
-    <div class="max-w-4xl mx-auto px-4 space-y-8">
-      <button id="btn-back-to-portal" class="px-4 py-2 bg-surface-container hover:bg-surface-container-high text-primary font-label-sm uppercase font-bold rounded-xl transition">
-        ← Volver a la Portada
-      </button>
-      <article class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl border border-surface-container-high shadow-sm space-y-6">
-        <span id="full-article-tag" class="px-3 py-1 bg-secondary-container text-on-secondary-fixed font-label-sm uppercase font-bold rounded">Categoría</span>
-        <h1 id="full-article-title" class="font-headline-xl text-4xl font-bold text-primary">Título</h1>
-        <p id="full-article-lead" class="font-body-lg text-lg italic text-on-surface-variant border-l-4 border-secondary pl-4">Bajada</p>
-        <img id="full-article-img" src="" class="w-full h-96 object-cover rounded-xl shadow">
-        <div id="full-article-body" class="prose font-body-md text-base leading-relaxed space-y-4 pt-4 border-t border-surface-container-high"></div>
-      </article>
+  <!-- MÓDULO ADSERVER TIER MEDIUM (PORTADA) -->
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 pt-6">
+    <div class="w-full bg-surface-container-low border border-surface-container-high rounded-xl p-3 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 bg-secondary text-on-secondary font-stat-mono text-[10px] font-bold uppercase rounded">AdServer</span>
+        <span class="font-stat-mono text-xs text-on-surface-variant uppercase font-bold" id="ad-tier-medium-label">Patrocinio Oficial • Rotación LVBP</span>
+      </div>
+      <div id="ad-medium-container" class="w-full md:w-auto flex-1 flex justify-center">
+        <a id="ad-medium-link" href="#" target="_blank" class="block max-h-[90px] overflow-hidden rounded-lg">
+          <img id="ad-medium-img" src="" class="h-[80px] w-full object-cover">
+        </a>
+      </div>
     </div>
   </div>
 
-  <footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
-    <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-10 text-center font-stat-mono text-label-sm text-on-surface-variant">
-      <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Director: Lic. Luis Enrique Aponte.</p>
-    </div>
-  </footer>
+  <main class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 space-y-12">
+    
+    <!-- CARRUSEL NOTICIAS PRINCIPALES -->
+    <section id="carousel-section" class="bg-surface-container-lowest rounded-2xl border border-surface-container-high overflow-hidden shadow-sm relative">
+      <div class="p-4 bg-surface-container-low flex justify-between items-center border-b border-surface-container-high font-stat-mono text-xs">
+        <span class="font-bold text-primary flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm text-secondary">view_carousel</span> Primera Plana • Carrusel Multimodal
+        </span>
+        <span class="text-on-surface-variant font-bold" id="carousel-indicator">Nota 1 de 5</span>
+      </div>
+      <div class="relative min-h-[420px] bg-primary flex flex-col justify-end p-6 md:p-10 text-on-primary overflow-hidden" id="carousel-viewport">
+        <img id="carousel-bg-img" src="" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay transition-opacity duration-700">
+        <div class="relative z-10 space-y-3 max-w-3xl">
+          <span id="carousel-tag" class="px-2.5 py-0.5 bg-secondary-container text-on-secondary-fixed font-label-sm uppercase font-bold rounded">Sabermetría</span>
+          <h2 id="carousel-title" class="font-headline-xl text-2xl md:text-4xl font-bold text-white leading-tight">Cargando noticias...</h2>
+          <p id="carousel-lead" class="font-body-md text-on-primary-container text-sm sm:text-base line-clamp-2">Sincronizando información...</p>
+          <div class="pt-2">
+            <button id="btn-read-more-carousel" class="px-5 py-2.5 bg-secondary text-on-secondary-fixed font-label-sm uppercase font-bold rounded-xl shadow transition hover:brightness-110">
+              Leer Noticia Completa →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- SCRIPT DE SINCRONIZACIÓN AUTOMÁTICA CON EL CMS -->
-  <script>
-    let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {
-      title: "La Taberna del Magallanes News",
-      slogan: "Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP",
-      statcast: "Erick Leal: Sinker 94.8 MPH • Whiff 38.5%",
-      whatsapp: "https://whatsapp.com/channel/0029VaTabernaMagallanesOficial",
-      infografia: {
-        title: "Infografía Sabermétrica LVBP",
-        author: "Lic. Luis Enrique Aponte",
-        desc: "Métricas avanzadas de contacto y mapas de picheo.",
-        img: "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop"
-      },
-      articles: [
-        { tag: "Sabermetría", title: "El impacto de la velocidad de salida", lead: "Evaluación detallada con métricas Statcast.", bgImg: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1200&auto=format&fit=crop", body: "<p>Contenido completo del artículo analítico...</p>" }
-      ]
-    };
+    <!-- MÓDULO 2: RADAR SABERMÉTRICO -->
+    <section id="seccion-sabermetria" class="space-y-6">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h2 class="font-headline-md font-bold text-2xl text-primary flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">analytics</span> Radar Sabermétrico Naval
+        </h2>
+        <span class="px-3 py-1 bg-secondary-container text-on-secondary-fixed font-stat-mono text-xs font-bold rounded-full">Temporada 2026-2027</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm">
+          <h3 class="font-headline-md font-bold text-lg text-primary mb-1" id="sab-bat-player">Luis Arráez (DH/2B)</h3>
+          <p class="font-stat-mono text-xs text-secondary font-bold mb-4" id="sab-bat-metric-main">wRC+: 148 • OPS+: 152</p>
+          <div class="grid grid-cols-2 gap-2 font-stat-mono text-xs">
+            <div class="bg-surface-container-low p-2.5 rounded-lg"><span class="text-on-surface-variant block text-[10px]">EV</span><strong class="text-primary text-sm" id="sab-bat-ev">92.8 MPH</strong></div>
+            <div class="bg-surface-container-low p-2.5 rounded-lg"><span class="text-on-surface-variant block text-[10px]">LA</span><strong class="text-primary text-sm" id="sab-bat-la">14.2°</strong></div>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm">
+          <h3 class="font-headline-md font-bold text-lg text-primary mb-1" id="sab-pit-player">Erick Leal (RHP)</h3>
+          <p class="font-stat-mono text-xs text-secondary font-bold mb-4" id="sab-pit-metric-main">FIP: 2.85 • xFIP: 3.10</p>
+          <div class="grid grid-cols-2 gap-2 font-stat-mono text-xs">
+            <div class="bg-surface-container-low p-2.5 rounded-lg"><span class="text-on-surface-variant block text-[10px]">Spin Rate</span><strong class="text-primary text-sm" id="sab-pit-spin">2,510 RPM</strong></div>
+            <div class="bg-surface-container-low p-2.5 rounded-lg"><span class="text-on-surface-variant block text-[10px]">Whiff %</span><strong class="text-primary text-sm" id="sab-pit-whiff">36.8%</strong></div>
+          </div>
+        </div>
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-surface-container-high shadow-sm">
+          <h3 class="font-headline-md font-bold text-lg text-primary mb-1" id="sab-def-player">Luis Torrens (C)</h3>
+          <p class="font-stat-mono text-xs text-secondary font-bold mb-4" id="sab-def-metric-main">DRS: +8 • Framing: 51.4%</p>
+          <div class="grid grid-cols-2 gap-2 font-stat-mono text-xs">
+            <div class="bg-surface-container-low p-2.5 rounded-lg"><span class="text-on-surface-variant block text-[10px]">Pop Time</span><strong class="text-primary text-sm" id="sab-def-pop">1.89 seg</strong></div>
+            <div class="bg-surface-container-low p-2.5 rounded-lg"><span class="text-on-surface-variant block text-[10px]">OAA</span><strong class="text-primary text-sm" id="sab-def-oaa">+6 OAA</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    let currentSlide = 0;
+    <!-- MÓDULO 3: INFOGRAFÍA NAVAL -->
+    <section id="seccion-infografia-avanzada" class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-surface-container-high shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h3 class="font-headline-md font-bold text-2xl text-primary" id="info-adv-title">Infografía Sabermétrica</h3>
+        <span class="font-stat-mono text-xs text-on-surface-variant">Analista: <strong id="info-adv-author" class="text-primary">Lic. Luis Enrique Aponte</strong></span>
+      </div>
+      <p class="font-body-md text-sm text-on-surface-variant" id="info-adv-desc">Evaluación visual de velocidad de salida y zonas de impacto.</p>
+      <div class="relative w-full rounded-xl overflow-hidden border border-surface-container-high">
+        <img id="info-adv-img" src="" class="w-full h-96 object-cover">
+      </div>
+    </section>
 
-    function renderPortal() {
-      document.getElementById('portal-title').textContent = portalData.title || "La Taberna del Magallanes News";
-      document.getElementById('portal-slogan').textContent = portalData.slogan || "Tribuna de Sabermetría & Crónica Naval";
-      document.getElementById('top-statcast-text').textContent = portalData.statcast || "Statcast LVBP Live";
-      document.getElementById('top-whatsapp-link').href = portalData.whatsapp || "#";
+    <!-- MÓDULO NUEVO: MULTIMEDIA, GALERÍA & FOTORREPORTAJE (UNIDOS) -->
+    <section id="seccion-multimedia-galeria" class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-surface-container-high shadow-sm space-y-6">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h3 class="font-headline-md font-bold text-2xl text-primary flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">photo_library</span> Multimedia, Galería & Fotorreportaje Naval
+        </h3>
+        <span class="font-stat-mono text-xs text-on-surface-variant">Cobertura Gráfica Exclusiva</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="portal-fotorreportaje-grid">
+        <!-- Renderizado dinámico de galería y fotorreportaje -->
+      </div>
+    </section>
 
-      const info = portalData.infografia || {};
-      document.getElementById('info-module-title').textContent = info.title || "Infografía Sabermétrica";
-      document.getElementById('info-module-text').textContent = info.desc || "Análisis en desarrollo...";
-      document.getElementById('info-module-img').src = info.img || "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop";
+    <!-- MÓDULO NUEVO: CÍRCULO VIP (EXCLUSIVO) -->
+    <section id="seccion-circulo-vip" class="bg-primary text-on-primary py-12 px-6 rounded-2xl shadow-xl border border-secondary/40 relative overflow-hidden">
+      <div class="max-w-[700px] mx-auto text-center space-y-6 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary text-on-secondary rounded-full font-stat-mono text-xs font-bold uppercase tracking-wider">
+          <span class="material-symbols-outlined text-sm">stars</span> Cabina Círculo VIP
+        </div>
+        <h2 class="font-headline-xl text-3xl sm:text-4xl font-bold uppercase leading-tight">Acceso Exclusivo al Círculo VIP Naval</h2>
+        <p class="font-body-md text-on-primary-container text-sm sm:text-base">
+          Informes sabermétricos confidenciales, transmisiones de audio sin censura y notas de redacción exclusivas para socios fundadores.
+        </p>
 
-      const validArticles = (portalData.articles || []).filter(art => art && art.status !== 'hidden' && !art.is_hidden);
-      if (validArticles.length > 0) {
-        renderSlide(currentSlide, validArticles);
-      }
-      renderGrid(validArticles);
+        <form id="publicVipForm" class="bg-primary-container p-6 rounded-2xl border border-outline-variant/30 space-y-4 text-left font-sans text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-stat-mono uppercase text-on-primary-container mb-1 font-bold">Nombre y Apellido</label>
+              <input type="text" id="pubVipName" required placeholder="Tu Nombre..." class="w-full px-3.5 py-2.5 rounded-lg bg-primary text-on-primary border border-outline-variant/40 outline-none focus:ring-2 focus:ring-secondary">
+            </div>
+            <div>
+              <label class="block font-stat-mono uppercase text-on-primary-container mb-1 font-bold">Correo Electrónico</label>
+              <input type="email" id="pubVipEmail" required placeholder="tucorreo@dominio.com" class="w-full px-3.5 py-2.5 rounded-lg bg-primary text-on-primary border border-outline-variant/40 outline-none focus:ring-2 focus:ring-secondary">
+            </div>
+          </div>
+          <button type="submit" class="w-full py-3 bg-secondary hover:bg-secondary-container text-on-secondary-fixed font-stat-mono text-xs uppercase font-bold rounded-xl transition shadow flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-sm">lock_open</span> Activar Membresía Círculo VIP
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- MÓDULO 5: MEMES & HUMOR NAVAL -->
+    <section id="seccion-memes-multimedia" class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-surface-container-high shadow-sm space-y-6">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h3 class="font-headline-md font-bold text-2xl text-primary flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">mood</span> La Cueva del Meme Naval
+        </h3>
+      </div>
+      <div class="text-center pt-2">
+        <button id="btn-toggle-memes" class="px-6 py-2.5 bg-surface-container hover:bg-surface-container-high text-primary font-stat-mono text-xs font-bold uppercase rounded-xl transition flex items-center gap-2 mx-auto shadow-sm">
+          <span id="toggle-memes-text">Ver Más Memes & Humor Naval (Expandir)</span>
+          <span class="material-symbols-outlined text-sm" id="toggle-memes-icon">expand_more</span>
+        </button>
+      </div>
+      <div id="memes-gallery-collapse" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pt-4 border-t border-surface-container-high"></div>
+    </section>
+
+    <!-- MÓDULO 5: PLAYLIST & CABINA MP3 -->
+    <section id="reproductor-multimedia" class="bg-primary text-on-primary rounded-2xl p-6 md:p-8 shadow-xl border border-secondary/40 relative overflow-hidden">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-6 relative z-10">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-secondary-container text-on-secondary-fixed flex items-center justify-center shadow-md shrink-0">
+            <span class="material-symbols-outlined text-3xl">queue_music</span>
+          </div>
+          <div>
+            <h3 class="font-headline-md font-bold text-xl md:text-2xl text-white" id="playlist-current-title">Sin Anestesia: Fútbol, Rock & Sabermetría</h3>
+            <p class="font-body-md text-xs text-on-primary-container" id="playlist-current-artist">La Taberna Radio</p>
+          </div>
+        </div>
+        <div class="w-full lg:w-auto flex-1 max-w-xl space-y-3">
+          <div class="bg-primary-container p-3 rounded-xl border border-outline-variant/30 flex items-center gap-3">
+            <audio id="main-audio-player" class="w-full h-8" controls>
+              <source id="main-audio-source" src="" type="audio/mpeg">
+            </audio>
+          </div>
+          <div class="flex items-center gap-2 font-stat-mono text-xs overflow-x-auto no-scrollbar" id="playlist-selector-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 9: ROSTER & SCOUTING -->
+    <section id="seccion-roster" class="bg-surface-container-lowest rounded-2xl p-6 border border-surface-container-high shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h3 class="font-headline-md font-bold text-xl text-primary flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">groups</span> Roster Activo & Scouting Semanal
+        </h3>
+        <span class="font-stat-mono text-xs text-on-surface-variant" id="roster-count-label">Jugadores</span>
+      </div>
+      <div class="overflow-x-auto no-scrollbar">
+        <table class="w-full text-left font-stat-mono text-xs">
+          <thead>
+            <tr class="bg-surface-container-low text-primary uppercase border-b border-surface-container-high">
+              <th class="p-3">#</th><th class="p-3">Jugador</th><th class="p-3">Posición</th><th class="p-3">Métrica Clave</th><th class="p-3">Estatus</th>
+            </tr>
+          </thead>
+          <tbody id="roster-table-body" class="divide-y divide-surface-container-high text-on-surface"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 10: EL PAREDÓN DEL FANÁTICO -->
+    <section id="seccion-paredon-fanatico" class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-surface-container-high shadow-sm space-y-6">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h3 class="font-headline-md font-bold text-2xl text-primary flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">sports_kabaddi</span> El Paredón del Fanático
+        </h3>
+        <span id="paredon-status-badge" class="px-3 py-1 bg-emerald-100 text-emerald-800 font-stat-mono text-xs font-bold rounded-full">Tribuna Abierta</span>
+      </div>
+      <div id="paredon-active-box" class="space-y-4 bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input type="text" id="paredon-author" placeholder="Tu Nombre / Apodo Fanático..." class="p-2.5 rounded-lg bg-surface-container-lowest border border-outline-variant/40 font-body-md text-xs outline-none focus:ring-2 focus:ring-secondary">
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            <button type="button" onclick="insertParedonEmoji('⚾')" class="px-2 py-1 bg-surface-container-lowest rounded text-sm">⚾</button>
+            <button type="button" onclick="insertParedonEmoji('⚓')" class="px-2 py-1 bg-surface-container-lowest rounded text-sm">⚓</button>
+            <button type="button" onclick="insertParedonEmoji('🔥')" class="px-2 py-1 bg-surface-container-lowest rounded text-sm">🔥</button>
+            <button type="button" onclick="insertParedonEmoji('🏆')" class="px-2 py-1 bg-surface-container-lowest rounded text-sm">🏆</button>
+          </div>
+        </div>
+        <textarea id="paredon-text" rows="3" placeholder="Expresa tu opinión..." class="w-full p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 font-body-md text-sm outline-none focus:ring-2 focus:ring-secondary"></textarea>
+        <div class="flex justify-between items-center">
+          <span class="font-stat-mono text-[10px] text-error font-bold" id="paredon-error-msg"></span>
+          <button id="btn-submit-paredon" class="px-6 py-2.5 bg-primary text-on-primary font-stat-mono text-xs uppercase font-bold rounded-xl shadow">Disparar al Paredón</button>
+        </div>
+      </div>
+      <div id="paredon-disabled-msg" class="hidden p-6 bg-surface-container-low rounded-xl text-center font-mono text-xs text-on-surface-variant">🔒 La Tribuna del Fanático se encuentra en receso editorial.</div>
+      <div id="paredon-wall-container" class="space-y-4"></div>
+    </section>
+
+    <!-- MÓDULO 11: HEMEROTECA & DOCUMENTOS PDF -->
+    <section id="seccion-hemeroteca-pdf" class="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-surface-container-high shadow-sm space-y-6">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+        <h3 class="font-headline-md font-bold text-2xl text-primary flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">picture_as_pdf</span> Hemeroteca & Boletines PDF
+        </h3>
+        <span class="font-stat-mono text-xs text-on-surface-variant">Archivo oficial LVBP</span>
+      </div>
+      <div id="portal-pdf-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- GRID DE CRÓNICAS -->
+    <section class="space-y-6">
+      <h3 class="font-headline-md font-bold text-primary border-b border-surface-container-high pb-2">Crónicas & Archivo Naval</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="grid-cronicas-container"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- VISTA COMPLETA DE ARTÍCULO -->
+<div id="view-article-full" class="hidden min-h-screen bg-background py-8">
+  <div class="max-w-4xl mx-auto px-4 space-y-6">
+    <button id="btn-back-to-portal" class="px-4 py-2 bg-surface-container hover:bg-surface-container-high text-primary font-label-sm uppercase font-bold rounded-xl transition shadow-sm">
+      ← Volver a la Portada
+    </button>
+    <article class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl border border-surface-container-high shadow-sm space-y-6">
+      <span id="full-article-tag" class="px-3 py-1 bg-secondary-container text-on-secondary-fixed font-label-sm uppercase font-bold rounded">Categoría</span>
+      <h1 id="full-article-title" class="font-headline-xl text-3xl md:text-5xl font-bold text-primary">Título</h1>
+      <p id="full-article-lead" class="font-body-lg text-lg italic text-on-surface-variant border-l-4 border-secondary pl-4">Bajada</p>
+      <img id="full-article-img" src="" class="w-full h-96 object-cover rounded-xl shadow">
+      <div id="full-article-body" class="font-body-md text-base leading-relaxed space-y-4 pt-4 border-t border-surface-container-high"></div>
+    </article>
+  </div>
+</div>
+
+<footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
+  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-10 text-center font-stat-mono text-label-sm text-on-surface-variant space-y-2">
+    <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Director: Lic. Luis Enrique Aponte.</p>
+  </div>
+</footer>
+
+<!-- SCRIPT DE SINCRONIZACIÓN AUTOMÁTICA -->
+<script>
+  let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {
+    title: "La Taberna del Magallanes News",
+    slogan: "Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP",
+    statcast: "Erick Leal: Sinker 94.8 MPH • Whiff 38.5%",
+    whatsapp: "https://whatsapp.com/channel/0029VaTabernaMagallanesOficial",
+    scoreboard: [],
+    sabermetrics: { batting: {}, pitching: {}, fielding: {} },
+    infografia: {},
+    fotorreportaje: [],
+    memes: [],
+    playlist: [],
+    roster: [],
+    paredon_active: true,
+    paredon_messages: [],
+    hemeroteca_pdfs: [],
+    ads: { vip: [], medium: [], standard: [] },
+    articles: []
+  };
+
+  let currentSlide = 0;
+  let carouselTimer = null;
+
+  function renderPortal() {
+    document.getElementById('portal-title').textContent = portalData.title || "La Taberna del Magallanes News";
+    document.getElementById('portal-slogan').textContent = portalData.slogan || "Tribuna de Sabermetría & Crónica Naval";
+    document.getElementById('top-statcast-text').textContent = portalData.statcast || "Statcast LVBP Live";
+    document.getElementById('top-whatsapp-link').href = portalData.whatsapp || "#";
+
+    renderScoreboard();
+    renderSabermetrics();
+    renderInfografia();
+    renderFotorreportaje();
+    renderMemes();
+    renderPlaylist();
+    renderRoster();
+    renderParedon();
+    renderAdServerMedium();
+    renderHemerotecaPdfs();
+
+    const validArticles = (portalData.articles || []).filter(art => art && art.status !== 'hidden' && !art.is_hidden);
+    if (validArticles.length > 0) {
+      renderSlide(0, validArticles);
+      startCarousel(validArticles);
+    }
+    renderGrid(validArticles);
+  }
+
+  function renderScoreboard() {
+    const container = document.getElementById('scoreboard-ticker');
+    container.innerHTML = '';
+    (portalData.scoreboard || []).forEach(j => {
+      const div = document.createElement('div');
+      div.className = "flex items-center gap-2 bg-white/5 px-3 py-1 rounded border border-white/10";
+      div.innerHTML = `<span class="text-secondary-container font-bold">${j.vis} ${j.r_vis}</span> vs <span class="text-white font-bold">${j.local} ${j.r_local}</span> <span class="text-[10px] text-white/70">(${j.status})</span>`;
+      container.appendChild(div);
+    });
+  }
+
+  function renderSabermetrics() {
+    const sab = portalData.sabermetrics || {};
+    if (sab.batting) {
+      document.getElementById('sab-bat-player').textContent = sab.batting.player || '';
+      document.getElementById('sab-bat-metric-main').textContent = sab.batting.main || '';
+      document.getElementById('sab-bat-ev').textContent = sab.batting.ev || '';
+      document.getElementById('sab-bat-la').textContent = sab.batting.la || '';
+    }
+    if (sab.pitching) {
+      document.getElementById('sab-pit-player').textContent = sab.pitching.player || '';
+      document.getElementById('sab-pit-metric-main').textContent = sab.pitching.main || '';
+      document.getElementById('sab-pit-spin').textContent = sab.pitching.spin || '';
+      document.getElementById('sab-pit-whiff').textContent = sab.pitching.whiff || '';
+    }
+    if (sab.fielding) {
+      document.getElementById('sab-def-player').textContent = sab.fielding.player || '';
+      document.getElementById('sab-def-metric-main').textContent = sab.fielding.main || '';
+      document.getElementById('sab-def-pop').textContent = sab.fielding.pop || '';
+      document.getElementById('sab-def-oaa').textContent = sab.fielding.oaa || '';
+    }
+  }
+
+  function renderInfografia() {
+    const info = portalData.infografia || {};
+    document.getElementById('info-adv-title').textContent = info.title || "Infografía Sabermétrica";
+    document.getElementById('info-adv-author').textContent = info.author || "Lic. Luis Enrique Aponte";
+    document.getElementById('info-adv-desc').textContent = info.desc || "";
+    document.getElementById('info-adv-img').src = info.img || "";
+  }
+
+  function renderFotorreportaje() {
+    const container = document.getElementById('portal-fotorreportaje-grid');
+    container.innerHTML = '';
+    const photos = portalData.fotorreportaje || [
+      { title: "Práctica nocturna en el José Bernardo Pérez", img: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=800&auto=format&fit=crop" },
+      { title: "Enfoque sabermétrico en la cueva", img: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=800&auto=format&fit=crop" },
+      { title: "Calentamiento y rigor físico", img: "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=800&auto=format&fit=crop" }
+    ];
+    photos.forEach(p => {
+      const div = document.createElement('div');
+      div.className = "bg-surface-container-low rounded-xl overflow-hidden border border-surface-container-high shadow-sm flex flex-col justify-between";
+      div.innerHTML = `<img src="${p.img}" class="w-full h-48 object-cover"><div class="p-3 font-stat-mono text-xs font-bold text-primary">${p.title}</div>`;
+      container.appendChild(div);
+    });
+  }
+
+  function renderMemes() {
+    const collapse = document.getElementById('memes-gallery-collapse');
+    collapse.innerHTML = '';
+    (portalData.memes || []).forEach(m => {
+      const div = document.createElement('div');
+      div.className = "bg-surface-container-low rounded-xl border border-surface-container-high overflow-hidden shadow-sm";
+      div.innerHTML = `<img src="${m.img}" class="w-full h-36 object-cover"><div class="p-2.5 font-stat-mono text-[11px] text-primary font-bold truncate">${m.title}</div>`;
+      collapse.appendChild(div);
+    });
+  }
+
+  document.getElementById('btn-toggle-memes').addEventListener('click', () => {
+    const collapse = document.getElementById('memes-gallery-collapse');
+    const txt = document.getElementById('toggle-memes-text');
+    const ico = document.getElementById('toggle-memes-icon');
+    if (collapse.classList.contains('hidden')) {
+      collapse.classList.remove('hidden');
+      txt.textContent = "Ocultar Galería de Memes (Plegar)";
+      ico.textContent = "expand_less";
+    } else {
+      collapse.classList.add('hidden');
+      txt.textContent = "Ver Más Memes & Humor Naval (Expandir)";
+      ico.textContent = "expand_more";
+    }
+  });
+
+  function renderPlaylist() {
+    const list = portalData.playlist || [];
+    const container = document.getElementById('playlist-selector-container');
+    container.innerHTML = '';
+    list.forEach((track) => {
+      const btn = document.createElement('button');
+      btn.className = "px-3 py-1 rounded-lg bg-primary-container text-white text-[11px] shrink-0";
+      btn.textContent = `▶ ${track.title}`;
+      btn.onclick = () => {
+        document.getElementById('playlist-current-title').textContent = track.title;
+        document.getElementById('playlist-current-artist').textContent = track.artist || "La Taberna Radio";
+        const player = document.getElementById('main-audio-player');
+        document.getElementById('main-audio-source').src = track.src;
+        player.load(); player.play();
+      };
+      container.appendChild(btn);
+    });
+    if (list.length > 0) {
+      document.getElementById('main-audio-source').src = list[0].src;
+    }
+  }
+
+  function renderRoster() {
+    const tbody = document.getElementById('roster-table-body');
+    tbody.innerHTML = '';
+    (portalData.roster || []).forEach(p => {
+      tbody.innerHTML += `<tr class="hover:bg-surface-container-low"><td class="p-3 text-secondary font-bold">#${p.num}</td><td class="p-3 font-bold">${p.name}</td><td class="p-3">${p.pos}</td><td class="p-3">${p.metric}</td><td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[10px] font-bold">${p.status}</span></td></tr>`;
+    });
+    document.getElementById('roster-count-label').textContent = `${(portalData.roster || []).length} Jugadores`;
+  }
+
+  function renderParedon() {
+    const active = portalData.paredon_active !== false;
+    const box = document.getElementById('paredon-active-box');
+    const msg = document.getElementById('paredon-disabled-msg');
+    const badge = document.getElementById('paredon-status-badge');
+
+    if (active) {
+      box.classList.remove('hidden'); msg.classList.add('hidden');
+      badge.textContent = "Tribuna Abierta"; badge.className = "px-3 py-1 bg-emerald-100 text-emerald-800 font-stat-mono text-xs font-bold rounded-full";
+    } else {
+      box.classList.add('hidden'); msg.classList.remove('hidden');
+      badge.textContent = "Tribuna en Receso"; badge.className = "px-3 py-1 bg-error-container text-error font-stat-mono text-xs font-bold rounded-full";
     }
 
-    function renderSlide(idx, articles) {
-      const art = articles[idx] || articles[0];
-      if(!art) return;
-      document.getElementById('carousel-tag').textContent = art.tag;
-      document.getElementById('carousel-title').textContent = art.title;
-      document.getElementById('carousel-lead').textContent = art.lead;
-      document.getElementById('carousel-bg-img').src = art.bgImg;
-      document.getElementById('carousel-indicator').textContent = `Nota ${idx + 1} de ${articles.length}`;
-      document.getElementById('btn-read-more-carousel').onclick = () => openFullArticle(art);
-    }
+    const wall = document.getElementById('paredon-wall-container');
+    wall.innerHTML = '';
+    (portalData.paredon_messages || []).forEach(m => {
+      wall.innerHTML += `<div class="bg-surface-container-low p-4 rounded-xl border"><strong class="text-primary text-xs">${m.author}</strong><p class="text-sm mt-1">${m.text}</p></div>`;
+    });
+  }
 
-    function renderGrid(articles) {
-      const container = document.getElementById('grid-cronicas-container');
-      container.innerHTML = '';
-      articles.forEach(art => {
-        const card = document.createElement('div');
-        card.className = "bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high space-y-3 flex flex-col justify-between shadow-sm";
-        card.innerHTML = `
-          <img src="${art.bgImg}" class="w-full h-40 object-cover rounded-lg">
-          <span class="font-label-sm uppercase font-bold text-primary bg-surface-container px-2 py-0.5 rounded w-fit">${art.tag}</span>
-          <h4 class="font-headline-sm font-bold text-lg text-primary">${art.title}</h4>
-          <button class="w-full py-2 bg-surface-container-low text-secondary font-label-sm uppercase font-bold rounded-lg hover:bg-secondary hover:text-on-secondary transition">Leer más</button>
-        `;
-        card.querySelector('button').onclick = () => openFullArticle(art);
-        container.appendChild(card);
+  function insertParedonEmoji(em) {
+    const area = document.getElementById('paredon-text');
+    area.value += em; area.focus();
+  }
+
+  document.getElementById('btn-submit-paredon').addEventListener('click', () => {
+    const author = document.getElementById('paredon-author').value.trim() || "Navegante ⚓";
+    const text = document.getElementById('paredon-text').value.trim();
+    if (!text) return;
+    if (!portalData.paredon_messages) portalData.paredon_messages = [];
+    portalData.paredon_messages.unshift({ author, text, date: "Justo ahora" });
+    localStorage.setItem('taberna_cms_master_data', JSON.stringify(portalData));
+    document.getElementById('paredon-text').value = '';
+    renderParedon();
+  });
+
+  document.getElementById('publicVipForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('pubVipName').value;
+    alert(`✓ ¡Bienvenido al Círculo VIP, ${name}! Tu solicitud de membresía ha sido registrada.`);
+    e.target.reset();
+  });
+
+  function renderAdServerMedium() {
+    const meds = portalData.ads?.medium || [];
+    if (meds.length > 0) {
+      document.getElementById('ad-medium-img').src = meds[0].img || '';
+      document.getElementById('ad-medium-link').href = meds[0].link || '#';
+      document.getElementById('ad-tier-medium-label').textContent = meds[0].label || 'Patrocinio Oficial';
+    }
+  }
+
+  function renderHemerotecaPdfs() {
+    const container = document.getElementById('portal-pdf-list');
+    container.innerHTML = '';
+    (portalData.hemeroteca_pdfs || []).forEach(pdf => {
+      const div = document.createElement('div');
+      div.className = "bg-surface-container-low p-4 rounded-xl border flex items-center justify-between";
+      div.innerHTML = `<div><strong class="text-primary text-sm block">${pdf.title}</strong><span class="text-[10px] text-on-surface-variant font-mono">${pdf.tag}</span></div><a href="${pdf.src}" download="${pdf.title}.pdf" target="_blank" class="px-3 py-1.5 bg-secondary text-on-secondary-fixed text-xs font-bold rounded-lg hover:brightness-110">Descargar PDF 📥</a>`;
+      container.appendChild(div);
+    });
+  }
+
+  function renderSlide(idx, articles) {
+    const art = articles[idx];
+    if (!art) return;
+    currentSlide = idx;
+    document.getElementById('carousel-tag').textContent = art.tag;
+    document.getElementById('carousel-title').textContent = art.title;
+    document.getElementById('carousel-lead').textContent = art.lead;
+    document.getElementById('carousel-bg-img').src = art.bgImg;
+    document.getElementById('carousel-indicator').textContent = `Nota ${idx + 1} de ${articles.length}`;
+    document.getElementById('btn-read-more-carousel').onclick = () => openFullArticle(art);
+  }
+
+  function startCarousel(articles) {
+    if (carouselTimer) clearInterval(carouselTimer);
+    if (articles.length <= 1) return;
+    carouselTimer = setInterval(() => {
+      currentSlide = (currentSlide + 1) % articles.length;
+      renderSlide(currentSlide, articles);
+    }, 4000);
+  }
+
+  function renderGrid(articles) {
+    const container = document.getElementById('grid-cronicas-container');
+    container.innerHTML = '';
+    articles.forEach(art => {
+      const card = document.createElement('div');
+      card.className = "bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high space-y-3 flex flex-col justify-between shadow-sm";
+      card.innerHTML = `
+        <img src="${art.bgImg}" class="w-full h-40 object-cover rounded-lg">
+        <span class="font-label-sm uppercase font-bold text-primary bg-surface-container px-2 py-0.5 rounded w-fit">${art.tag}</span>
+        <h4 class="font-headline-sm font-bold text-lg text-primary">${art.title}</h4>
+        <p class="font-body-md text-xs text-on-surface-variant line-clamp-2">${art.lead}</p>
+        <button class="w-full py-2 bg-surface-container-low text-secondary font-label-sm uppercase font-bold rounded-lg hover:bg-secondary hover:text-on-secondary transition">Leer más</button>
+      `;
+      card.querySelector('button').onclick = () => openFullArticle(art);
+      container.appendChild(card);
+    });
+  }
+
+  function openFullArticle(art) {
+    document.getElementById('full-article-tag').textContent = art.tag;
+    document.getElementById('full-article-title').textContent = art.title;
+    document.getElementById('full-article-lead').textContent = art.lead;
+    document.getElementById('full-article-img').src = art.bgImg;
+    document.getElementById('full-article-body').innerHTML = art.body || '<p>Contenido en desarrollo...</p>';
+    document.getElementById('view-portal-main').classList.add('hidden');
+    document.getElementById('view-article-full').classList.remove('hidden');
+    window.scrollTo(0,0);
+  }
+
+  document.getElementById('btn-back-to-portal').onclick = () => {
+    document.getElementById('view-article-full').classList.add('hidden');
+    document.getElementById('view-portal-main').classList.remove('hidden');
+  };
+
+  // Desplegable de Más Secciones
+  document.addEventListener('DOMContentLoaded', () => {
+    const btnMas = document.getElementById('btn-toggle-mas-secciones');
+    const menuMas = document.getElementById('dropdown-mas-secciones');
+    if (btnMas && menuMas) {
+      btnMas.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuMas.classList.toggle('hidden');
       });
+      document.addEventListener('click', () => menuMas.classList.add('hidden'));
     }
-
-    function openFullArticle(art) {
-      document.getElementById('full-article-tag').textContent = art.tag;
-      document.getElementById('full-article-title').textContent = art.title;
-      document.getElementById('full-article-lead').textContent = art.lead;
-      document.getElementById('full-article-img').src = art.bgImg;
-      document.getElementById('full-article-body').innerHTML = art.body || '<p>Contenido en desarrollo...</p>';
-      document.getElementById('view-portal-main').classList.add('hidden');
-      document.getElementById('view-article-full').classList.remove('hidden');
-      window.scrollTo(0,0);
-    }
-
-    document.getElementById('btn-back-to-portal').onclick = () => {
-      document.getElementById('view-article-full').classList.add('hidden');
-      document.getElementById('view-portal-main').classList.remove('hidden');
-    };
-
     renderPortal();
-  </script>
+  });
+</script>
 </body>
 </html>
