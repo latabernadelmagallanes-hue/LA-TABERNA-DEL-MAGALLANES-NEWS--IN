@@ -62,7 +62,7 @@
             <a id="top-whatsapp-link" href="#" target="_blank" class="inline-flex items-center gap-1 px-3 py-1 bg-whatsapp text-white font-label-sm uppercase rounded-full text-xs font-bold">
               <span class="material-symbols-outlined text-[14px]">notifications_active</span> Canal WhatsApp
             </a>
-            <a class="font-label-sm uppercase tracking-wider text-on-primary-container hover:text-white transition flex items-center gap-1" href="redaccion-cms.html">
+            <a class="font-label-sm uppercase tracking-wider text-on-primary-container hover:text-white transition flex items-center gap-1" href="redaccion-cms.html?token=director_magallanes_2026">
               <span class="material-symbols-outlined text-[16px]">edit_note</span>Sala de Redacción
             </a>
           </div>
@@ -99,7 +99,7 @@
 
     <main class="max-w-[1320px] mx-auto px-4 lg:px-8 py-8 space-y-12">
       
-      <!-- CARRUSEL NOTICIAS -->
+      <!-- CARRUSEL NOTICIAS (CONECTADO AL CMS) -->
       <section class="bg-surface-container-lowest rounded-2xl border border-surface-container-high overflow-hidden shadow-sm">
         <div class="p-4 bg-surface-container-low flex justify-between items-center border-b border-surface-container-high font-stat-mono text-xs">
           <span class="font-bold text-primary">Primera Plana • Carrusel Multimedia</span>
@@ -120,7 +120,7 @@
         </div>
       </section>
 
-      <!-- INFOGRAFÍA SABERMÉTRICA -->
+      <!-- INFOGRAFÍA SABERMÉTRICA (CONECTADA AL MÓDULO 3 DEL CMS) -->
       <section class="bg-surface-container-lowest rounded-2xl p-6 border border-surface-container-high shadow-sm space-y-4">
         <h3 class="font-headline-md font-bold text-xl text-primary" id="info-module-title">Infografía Sabermétrica</h3>
         <p class="text-sm text-on-surface-variant" id="info-module-text">Cargando análisis...</p>
@@ -154,56 +154,63 @@
 
   <footer class="w-full bg-surface-container border-t border-surface-container-highest mt-10">
     <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-10 text-center font-stat-mono text-label-sm text-on-surface-variant">
-      <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Creado por el Lic. Luis Aponte.</p>
+      <p>© 2026 La Taberna del Magallanes News. Todos los derechos reservados. Director: Lic. Luis Enrique Aponte.</p>
     </div>
   </footer>
 
+  <!-- SCRIPT DE SINCRONIZACIÓN AUTOMÁTICA CON EL CMS -->
   <script>
     let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || {
       title: "La Taberna del Magallanes News",
       slogan: "Tribuna de Sabermetría, Crónica Naval & Archivo Histórico LVBP",
       statcast: "Erick Leal: Sinker 94.8 MPH • Whiff 38.5%",
       whatsapp: "https://whatsapp.com/channel/0029VaTabernaMagallanesOficial",
-      infoTitle: "Infografía Sabermétrica LVBP",
-      infoText: "Métricas avanzadas de contacto y mapas de picheo.",
-      infoImg: "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop",
+      infografia: {
+        title: "Infografía Sabermétrica LVBP",
+        author: "Lic. Luis Enrique Aponte",
+        desc: "Métricas avanzadas de contacto y mapas de picheo.",
+        img: "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop"
+      },
       articles: [
         { tag: "Sabermetría", title: "El impacto de la velocidad de salida", lead: "Evaluación detallada con métricas Statcast.", bgImg: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1200&auto=format&fit=crop", body: "<p>Contenido completo del artículo analítico...</p>" }
-      ],
-      cronicas: []
+      ]
     };
 
     let currentSlide = 0;
 
     function renderPortal() {
-      document.getElementById('portal-title').textContent = portalData.title;
-      document.getElementById('portal-slogan').textContent = portalData.slogan;
-      document.getElementById('top-statcast-text').textContent = portalData.statcast;
-      document.getElementById('top-whatsapp-link').href = portalData.whatsapp;
+      document.getElementById('portal-title').textContent = portalData.title || "La Taberna del Magallanes News";
+      document.getElementById('portal-slogan').textContent = portalData.slogan || "Tribuna de Sabermetría & Crónica Naval";
+      document.getElementById('top-statcast-text').textContent = portalData.statcast || "Statcast LVBP Live";
+      document.getElementById('top-whatsapp-link').href = portalData.whatsapp || "#";
 
-      document.getElementById('info-module-title').textContent = portalData.infoTitle;
-      document.getElementById('info-module-text').textContent = portalData.infoText;
-      document.getElementById('info-module-img').src = portalData.infoImg;
+      const info = portalData.infografia || {};
+      document.getElementById('info-module-title').textContent = info.title || "Infografía Sabermétrica";
+      document.getElementById('info-module-text').textContent = info.desc || "Análisis en desarrollo...";
+      document.getElementById('info-module-img').src = info.img || "https://images.unsplash.com/photo-1569517282132-25d22f4573e6?q=80&w=1200&auto=format&fit=crop";
 
-      renderSlide(currentSlide);
-      renderGrid();
+      const validArticles = (portalData.articles || []).filter(art => art && art.status !== 'hidden' && !art.is_hidden);
+      if (validArticles.length > 0) {
+        renderSlide(currentSlide, validArticles);
+      }
+      renderGrid(validArticles);
     }
 
-    function renderSlide(idx) {
-      const art = portalData.articles[idx];
+    function renderSlide(idx, articles) {
+      const art = articles[idx] || articles[0];
       if(!art) return;
       document.getElementById('carousel-tag').textContent = art.tag;
       document.getElementById('carousel-title').textContent = art.title;
       document.getElementById('carousel-lead').textContent = art.lead;
       document.getElementById('carousel-bg-img').src = art.bgImg;
-      document.getElementById('carousel-indicator').textContent = `Nota ${idx + 1} de ${portalData.articles.length}`;
+      document.getElementById('carousel-indicator').textContent = `Nota ${idx + 1} de ${articles.length}`;
       document.getElementById('btn-read-more-carousel').onclick = () => openFullArticle(art);
     }
 
-    function renderGrid() {
+    function renderGrid(articles) {
       const container = document.getElementById('grid-cronicas-container');
       container.innerHTML = '';
-      [...portalData.articles, ...portalData.cronicas].forEach(art => {
+      articles.forEach(art => {
         const card = document.createElement('div');
         card.className = "bg-surface-container-lowest p-5 rounded-xl border border-surface-container-high space-y-3 flex flex-col justify-between shadow-sm";
         card.innerHTML = `
