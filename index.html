@@ -10,19 +10,6 @@
 <meta name="keywords" id="html-seo-keywords" content="Magallanes, LVBP, Sabermetria, Statcast">
 <link rel="canonical" id="html-seo-canonical" href="https://latabernadelmagallanes.com/">
 
-<!-- GOOGLE ANALYTICS 4 (DINÁMICO DESDE EL CMS) -->
-<script id="ga4-dynamic-script" async src=""></script>
-<script>
-  function loadAnalytics(gaId) {
-    if (!gaId) return;
-    document.getElementById('ga4-dynamic-script').src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', gaId);
-  }
-</script>
-
 <!-- FUENTES Y ESTILOS -->
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
@@ -462,9 +449,16 @@
     ]
   };
 
+  // Carga sincronizada con el contrato de datos del CMS
   let portalData = JSON.parse(localStorage.getItem('taberna_cms_master_data')) || defaultMasterData;
-  if (!portalData.articles || portalData.articles.length === 0) {
-    portalData.articles = defaultMasterData.articles;
+  
+  // Unificar artículos y crónicas del CMS para garantizar que aparezcan todas las notas publicadas
+  function getConsolidatedArticles() {
+    const rawArticles = portalData.articles || [];
+    const rawCronicas = portalData.cronicas || [];
+    const combined = [...rawArticles, ...rawCronicas];
+    if (combined.length === 0) return defaultMasterData.articles;
+    return combined;
   }
 
   let currentSlide = 0;
@@ -476,14 +470,12 @@
     document.getElementById('top-statcast-text').textContent = portalData.statcast || "Statcast LVBP Live";
     document.getElementById('top-whatsapp-link').href = portalData.whatsapp || "#";
 
-    // Aplicar SEO dinámico desde el CMS si existe
     if (portalData.seo) {
       if (portalData.seo.title) document.getElementById('html-seo-title').textContent = portalData.seo.title;
       if (portalData.seo.desc) document.getElementById('html-seo-desc').content = portalData.seo.desc;
       if (portalData.seo.keywords) document.getElementById('html-seo-keywords').content = portalData.seo.keywords;
     }
 
-    // Aplicar GA4 si está configurado en el CMS
     if (portalData.analytics && portalData.analytics.ga4Id) {
       loadAnalytics(portalData.analytics.ga4Id);
     }
@@ -499,7 +491,9 @@
     renderAdServerMedium();
     renderHemerotecaPdfs();
 
-    const validArticles = (portalData.articles || []).filter(art => art && art.status !== 'hidden' && !art.is_hidden);
+    const allArticles = getConsolidatedArticles();
+    const validArticles = allArticles.filter(art => art && art.status !== 'hidden' && !art.is_hidden);
+    
     if (validArticles.length > 0) {
       renderSlide(0, validArticles);
       startCarousel(validArticles);
@@ -509,6 +503,7 @@
 
   function renderScoreboard() {
     const container = document.getElementById('scoreboard-ticker');
+    if (!container) return;
     container.innerHTML = '';
     (portalData.scoreboard || []).forEach(j => {
       const div = document.createElement('div');
@@ -754,6 +749,23 @@
       document.getElementById('view-portal-main').classList.remove('hidden');
     };
   }
+
+  // Sincronización automática en tiempo real al cambiar de pestaña o guardar en el CMS
+  window.addEventListener('storage', () => {
+    const freshData = localStorage.getItem('taberna_cms_master_data');
+    if (freshData) {
+      portalData = JSON.parse(freshData);
+      renderPortal();
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    const freshData = localStorage.getItem('taberna_cms_master_data');
+    if (freshData) {
+      portalData = JSON.parse(freshData);
+      renderPortal();
+    }
+  });
 
   document.addEventListener('DOMContentLoaded', () => {
     const btnMas = document.getElementById('btn-toggle-mas-secciones');
